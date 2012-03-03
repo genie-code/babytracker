@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/txtVrstaPracenja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vrsta_pracenja"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <RadioGroup
+        android:id="@+id/rgVrstaPracenja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/rbPracenjeTrudnoce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/pregtracking" />
+
+        <RadioButton
+            android:id="@+id/rbPracenjeRazvoja"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/devtracking" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/txtTerminPoroda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/expdate"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <TextView
+        android:id="@+id/txtDatumRodjenja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/birthdate"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="gone"/>
+
+    <DatePicker
+        android:id="@+id/dpDatumPocetkaPracenja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <CheckBox
+        android:id="@+id/cbNotifikacija"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/notification" android:checked="true"/>
+
+    <Button
+        android:id="@+id/btnSpasi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_changes" android:layout_gravity="center"/>
+
+</LinearLayout>
