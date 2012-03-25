@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PregTracker"></activity>
+        <activity android:name=".BabyTracker"></activity>
     </application>
 
 </manifest>

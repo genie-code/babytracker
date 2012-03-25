@@ -6,26 +6,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class PregTracker extends Activity {
+public class BabyTracker extends Activity {
 	
-	private Button Postavke;
+	private Button Dugme;
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pregtracker);
+        setContentView(R.layout.babytracker);
         
-        Postavke = (Button) findViewById(R.id.btnPostavke);
+        Dugme = (Button) findViewById(R.id.btnSettings);
         
-        Postavke.setOnClickListener(new View.OnClickListener() {
+        Dugme.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(PregTracker.this, SettingsActivity.class);
+				Intent intent = new Intent(BabyTracker.this, SettingsActivity.class);
  				startActivity(intent);				
 			}
 		});
-        
     }
 }
