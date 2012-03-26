@@ -20,10 +20,10 @@ public class BabyTracker extends Activity {
         
         Dugme.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(BabyTracker.this, SettingsActivity.class);
- 				startActivity(intent);				
+ 				startActivityForResult(intent, 0);
+ 				finish();
 			}
 		});
     }

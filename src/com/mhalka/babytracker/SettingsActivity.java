@@ -30,6 +30,7 @@ public class SettingsActivity extends Activity {
 	private CheckBox Notifikacija;
 	private DatePicker DatumPocetkaPracenja;
 	private Button Spasi;
+	private Button Otkazi;
 	
     /** Called when the activity is first created. */
     @Override
@@ -44,29 +45,31 @@ public class SettingsActivity extends Activity {
         DatumPocetkaPracenja = (DatePicker) findViewById(R.id.dpDatumPocetkaPracenja);
         Notifikacija = (CheckBox) findViewById(R.id.cbNotifikacija);
         Spasi = (Button) findViewById(R.id.btnSpasi);
+        Otkazi = (Button) findViewById(R.id.btnOtkazi);
         
         
         // Procitaj preference
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         
         // Provjeri da li se aplikacija pokrece prvi put i otvori formu shodno tome.
-        Boolean prvoPokretanje = settings.getBoolean(FIRSTRUN, true);
+        /* Boolean prvoPokretanje = settings.getBoolean(FIRSTRUN, true);
         
-        if(prvoPokretanje != true) {
-        	if(PracenjeRazvoja.isChecked()) {
-				Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
-				startActivityForResult(intent, 0);
-				finish();
-             } else {
-            	Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
- 				startActivityForResult(intent, 0);
- 				finish();
-             }
-        } else {
+        if(prvoPokretanje) {
         	SharedPreferences.Editor editor = settings.edit();
         	editor.putBoolean(FIRSTRUN, false);
         	editor.commit();
-        }
+        } else {
+        	Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
+        	if(pracenjeTrudnoce) {
+				Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
+				startActivityForResult(intent, 0);
+				finish();
+             } else {
+            	Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
+ 				startActivityForResult(intent, 0);
+ 				finish();
+             }
+        } */
         
         // Provjeri da li postoje ranije unesene preference i populariziraj formu sa
         // postojecim vrijednostima.
@@ -75,6 +78,7 @@ public class SettingsActivity extends Activity {
         if(unesenePreference) {
           Boolean VrstaPracenja = settings.getBoolean(TRUDNOCA, true);
           Boolean NotifikacijaUkljucena = settings.getBoolean(NOTIFIKACIJA, true);
+          Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
           
           if(VrstaPracenja) {
         	  PracenjeTrudnoce.setChecked(true);
@@ -92,7 +96,7 @@ public class SettingsActivity extends Activity {
         	  Notifikacija.setChecked(false);
           }
           
-          if(PracenjeTrudnoce.isChecked()) {
+          if(pracenjeTrudnoce) {
 				DatumRodjenja.setVisibility(View.GONE);
 			    TerminPoroda.setVisibility(View.VISIBLE);
 			} else {
@@ -103,7 +107,6 @@ public class SettingsActivity extends Activity {
         
         PracenjeTrudnoce.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
-			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(PracenjeTrudnoce.isChecked()) {
 					DatumRodjenja.setVisibility(View.GONE);
@@ -115,7 +118,6 @@ public class SettingsActivity extends Activity {
         
         PracenjeRazvoja.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
-			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(PracenjeRazvoja.isChecked()){
 					TerminPoroda.setVisibility(View.GONE);
@@ -127,7 +129,6 @@ public class SettingsActivity extends Activity {
         
         Spasi.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
 				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 			    SharedPreferences.Editor editor = settings.edit();
@@ -149,6 +150,21 @@ public class SettingsActivity extends Activity {
              }
                 editor.commit();
 				
+			}
+		});
+        
+        Otkazi.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				if(PracenjeTrudnoce.isChecked()) {
+					Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
+					startActivityForResult(intent, 0);
+					finish();
+	             } else {
+	            	Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
+	 				startActivityForResult(intent, 0);
+	 				finish();
+	             }
 			}
 		});
 	}

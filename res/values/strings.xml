@@ -8,5 +8,6 @@
     <string name="birthdate">Datum rođenja bebe</string>
     <string name="notification">Uključi notifikaciju</string>
     <string name="save_changes">Spasi promjene</string>
+    <string name="cancel_changes">Otkaži</string>
 
 </resources>

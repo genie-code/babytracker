@@ -20,10 +20,10 @@ public class PregTracker extends Activity {
         
         Postavke.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(PregTracker.this, SettingsActivity.class);
- 				startActivity(intent);				
+ 				startActivityForResult(intent, 0);
+ 				finish();
 			}
 		});
         
