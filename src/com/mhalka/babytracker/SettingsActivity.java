@@ -108,7 +108,7 @@ public class SettingsActivity extends Activity {
 			}
         }
         
-        // Prikazi adekvatan Text Box za odabranu vrstu pracenja.
+        // Prikazi adekvatan TextBox za odabranu vrstu pracenja.
         PracenjeTrudnoce.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
