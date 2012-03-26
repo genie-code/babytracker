@@ -24,7 +24,7 @@ public class About extends Activity {
 	    	VerzijaString = "Verzija "+ String.valueOf(pInfo.versionName);
 	    } catch (NameNotFoundException e) {
 	    		e.printStackTrace();
-	    		VerzijaString = "Ne mogu pronaæi verziju!";
+	    		VerzijaString = "Nepoznata verzija!";
 	    }
 	    
 	    VerzijaAplikacije.setText(VerzijaString);
