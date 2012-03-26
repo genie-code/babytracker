@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/podesavanja"
+        android:title="@string/meni_podesavanja"
+        android:icon="@android:drawable/ic_menu_preferences">
+    </item>
+    <item android:id="@+id/about" android:title="@string/meni_about" android:icon="@android:drawable/ic_menu_info_details"></item>
+</menu>

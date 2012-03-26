@@ -9,5 +9,7 @@
     <string name="notification">Uključi notifikaciju</string>
     <string name="save_changes">Spasi promjene</string>
     <string name="cancel_changes">Otkaži</string>
+    <string name="meni_podesavanja">Podešavanja</string>
+    <string name="meni_about">O programu</string>
 
 </resources>
