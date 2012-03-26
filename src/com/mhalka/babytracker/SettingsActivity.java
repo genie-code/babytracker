@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 public class SettingsActivity extends Activity {
 	
+	// Namjesti konstante za preference.
 	public static final String PREFS_NAME = "BabyTrackerPrefs";
 	public static final String FIRSTRUN = "PrvoPokretanje";
 	public static final String TRUDNOCA = "PracenjeTrudnoce";
@@ -23,6 +24,7 @@ public class SettingsActivity extends Activity {
 	public static final String MJESEC = "MjesecPocetkaPracenja";
 	public static final String GODINA = "GodinaPocetkaPracenja";
 	
+	// Setiraj varijable za elemente forme.
 	private RadioButton PracenjeTrudnoce;
 	private RadioButton PracenjeRazvoja;
 	private TextView TerminPoroda;
@@ -38,6 +40,7 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         
+        // Povezi prethodno setirane varijable za elemente forme sa ID-jevima u XML file-u.
         PracenjeTrudnoce = (RadioButton) findViewById(R.id.rbPracenjeTrudnoce);
         PracenjeRazvoja = (RadioButton) findViewById(R.id.rbPracenjeRazvoja);
         TerminPoroda = (TextView) findViewById(R.id.txtTerminPoroda);
@@ -61,15 +64,15 @@ public class SettingsActivity extends Activity {
         } else {
         	Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
         	if(pracenjeTrudnoce) {
-				Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
+        		Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
 				startActivityForResult(intent, 0);
 				finish();
-             } else {
-            	Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
- 				startActivityForResult(intent, 0);
- 				finish();
-             }
-        } */
+				} else {
+					Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
+					startActivityForResult(intent, 0);
+					finish();
+					}
+        	} */
         
         // Provjeri da li postoje ranije unesene preference i populariziraj formu sa
         // postojecim vrijednostima.
@@ -105,6 +108,7 @@ public class SettingsActivity extends Activity {
 			}
         }
         
+        // Prikazi adekvatan Text Box za odabranu vrstu pracenja.
         PracenjeTrudnoce.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -127,9 +131,11 @@ public class SettingsActivity extends Activity {
 			}
 		});
         
+        // OnClick funkcija za dugme za spasavanje podesavanja.
         Spasi.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
+				// Dobavi ime file-a gdje su preference i unesi nove vrijednosti.
 				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 			    SharedPreferences.Editor editor = settings.edit();
 			    editor.putBoolean(FIRSTRUN, false);
@@ -138,34 +144,37 @@ public class SettingsActivity extends Activity {
                 editor.putInt(DAN, DatumPocetkaPracenja.getDayOfMonth());
                 editor.putInt(MJESEC, DatumPocetkaPracenja.getMonth());
                 editor.putInt(GODINA, DatumPocetkaPracenja.getYear());
-                  
-             if(PracenjeTrudnoce.isChecked()) {
-				Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
-				startActivityForResult(intent, 0);
-				finish();
-             } else {
-            	Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
- 				startActivityForResult(intent, 0);
- 				finish();
-             }
+                
+                // Otvori novi Activity shodno odabiru vrste pracenja.
+                if(PracenjeTrudnoce.isChecked()) {
+                	Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
+                	startActivityForResult(intent, 0);
+                	finish();
+                	} else {
+                		Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
+                		startActivityForResult(intent, 0);
+                		finish();
+                		}
+                // Zapisi preference.
                 editor.commit();
-				
-			}
-		});
+                }
+			});
         
+        // OnClick funkcija za dugme za zatvaranje Activity-ja bez cuvanja preferenci.
         Otkazi.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
+				// Otvori novi Activity shodno odabiru vrste pracenja.
 				if(PracenjeTrudnoce.isChecked()) {
 					Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
 					startActivityForResult(intent, 0);
 					finish();
-	             } else {
-	            	Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
-	 				startActivityForResult(intent, 0);
-	 				finish();
-	             }
-			}
-		});
-	}
+					} else {
+						Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
+						startActivityForResult(intent, 0);
+						finish();
+						}
+				}
+			});
+    }
 }
