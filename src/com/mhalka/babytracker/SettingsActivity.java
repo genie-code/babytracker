@@ -54,9 +54,11 @@ public class SettingsActivity extends Activity {
         // Procitaj preference
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         
-        // Provjeri da li se aplikacija pokrece prvi put i otvori formu shodno tome.
+        // Provjeri da li se activity starta iz drugog activity-ja ili ne i, u skladu s tim,
+        // pokreni provjeru prvog pokretanja aplikacije.
         Bundle podesavanjaExtras = getIntent().getExtras();
         if(podesavanjaExtras == null) {
+        	// Provjeri da li se aplikacija pokrece prvi put i otvori formu shodno tome.
         	Boolean prvoPokretanje = settings.getBoolean(FIRSTRUN, true);
         	if(prvoPokretanje) {
         		SharedPreferences.Editor editor = settings.edit();
