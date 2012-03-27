@@ -8,7 +8,7 @@
         android:id="@+id/txtStarostPloda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sedmica_jednina"
+        android:text="@string/sedmica"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </LinearLayout>

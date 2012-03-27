@@ -15,15 +15,15 @@
     <string name="autor">Almir Džinović &lt;almir@dzinovic.net&gt;</string>
     <string name="mhalka_member">Ponosni član mHalke: www.mhalka.com</string>
     <string name="mhalka_moto">Yes, we mHalka! :)</string>
-    <string name="vasa_beba">Vaša beba sada ima</string>
-    <string name="mjesec_jednina">mjesec.</string><string name="mjesec_mnozina234">mjeseca.</string><string name="mjesec_mnozina">mjeseci.</string>
+    <string name="vasa_beba">Vaša beba je trenutno u</string><string name="mjesec">mjesecu.</string>
     
-    <string name="sedmica_jednina">sedmicu.</string><string name="sedmica_mnozina234">sedmice.</string><string name="sedmica_mnozina">sedmica.</string>
-    <string name="vise_od_godine">Čestitamo! Vaša beba je napunila godinu dana.</string>
+    <string name="sedmica">sedmici.</string>
+    <string name="vise_od_godine">Čestitamo! Vrijeme je da Vaša beba proslavi svoj prvi rođendan.</string>
     <string name="preko_termina">Čestitamo! Vaša beba je konačno ugledala svijet.</string>
     <string name="namjesti_novo_pracenje">Želite li podesiti aplikaciju za praćenje razvoja Vašeg novorođenčeta?</string>
     <string name="dugme_yes">Da</string>
     <string name="dugme_no">Ne</string>
+    
     
     
     

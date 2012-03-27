@@ -26,8 +26,6 @@ public class BabyTracker extends Activity {
 	private TextView StarostBebe;
 	private String VasaBeba;
 	private String Mjesec;
-	private String Mjeseci234;
-	private String Mjeseci;
 	private String PrekoGodine;
 	
     /** Called when the activity is first created. */
@@ -38,9 +36,7 @@ public class BabyTracker extends Activity {
         
         StarostBebe = (TextView) findViewById(R.id.txtStarostBebe);
         VasaBeba = this.getString(R.string.vasa_beba);
-        Mjesec = this.getString(R.string.mjesec_jednina);
-        Mjeseci234 = this.getString(R.string.mjesec_mnozina234);
-        Mjeseci = this.getString(R.string.mjesec_mnozina);
+        Mjesec = this.getString(R.string.mjesec);
         PrekoGodine = this.getString(R.string.vise_od_godine);
         
         // Procitaj preference
@@ -49,17 +45,16 @@ public class BabyTracker extends Activity {
         Calendar datumPocetkaPracenja = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
         Calendar today = Calendar.getInstance();
         
-        int months  = (today.get(Calendar.YEAR) - datumPocetkaPracenja.get(Calendar.YEAR)) * 12 +
-        		(today.get(Calendar.MONTH)- datumPocetkaPracenja.get(Calendar.MONTH)) +
-        		(today.get(Calendar.DAY_OF_MONTH) >= datumPocetkaPracenja.get(Calendar.DAY_OF_MONTH)? 0: -1);
+        Calendar datum = (Calendar) datumPocetkaPracenja.clone();
+        long monthsBetween = 0;
+        while (datum.before(today)) {
+        	datum.add(Calendar.MONTH, 1);
+        	monthsBetween++;
+        	}
         
-        if(months == 1) {
-        	StarostBebe.setText(VasaBeba + " " + months + " " + Mjesec);
-        } else if((months > 1) && (months < 5)) {
-        	StarostBebe.setText(VasaBeba + " " + months + " " + Mjeseci234);
-        } else {
-        	StarostBebe.setText(VasaBeba + " " + months + " " + Mjeseci);
-        }
+        int months = (int) monthsBetween;
+        
+        StarostBebe.setText(VasaBeba + " " + months + "." + " " + Mjesec);
         
         if(months > 12) {
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
@@ -72,8 +67,8 @@ public class BabyTracker extends Activity {
         	alertbox.show();
         }
     }
-    
-    @Override
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
