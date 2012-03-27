@@ -24,7 +24,7 @@ public class PregTracker extends Activity {
 	
 	// Setiraj varijable za elemente forme.
 	private TextView StarostPloda;
-	private String VasaBeba;
+	private String VasaTrudnoca;
 	private String Sedmica;
 	private String NerealnaVrijednost;
 	private String PrekoTermina;
@@ -40,7 +40,7 @@ public class PregTracker extends Activity {
         
         // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
         StarostPloda = (TextView) findViewById(R.id.txtStarostPloda);
-        VasaBeba = this.getString(R.string.vasa_beba);
+        VasaTrudnoca = this.getString(R.string.vasa_trudnoca);
         Sedmica = this.getString(R.string.sedmica);
         NerealnaVrijednost = this.getString(R.string.nerealna_vrijednost);
         PrekoTermina = this.getString(R.string.preko_termina);
@@ -65,7 +65,7 @@ public class PregTracker extends Activity {
         int weeks = 43 - ((int) weeksBetween);
         
         // Populariziraj TextBox sa izracunatom vrijednoscu.
-        StarostPloda.setText(VasaBeba + " " + weeks + "." + " " + Sedmica);
+        StarostPloda.setText(VasaTrudnoca + " " + weeks + "." + " " + Sedmica);
         
         // Provjeri da izracunata vrijednost nije negativna.
         if(weeks < 1) {
