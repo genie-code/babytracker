@@ -29,11 +29,14 @@ public class BabyTracker extends Activity {
         switch (item.getItemId()) {
             case R.id.podesavanja:
             	Intent podesavanja = new Intent(this, SettingsActivity.class);
+            	podesavanja.putExtra("BezProvjere", "nema");
  				startActivityForResult(podesavanja, 0);
+ 				finish();
                 return true;
             case R.id.about:
             	Intent about = new Intent(this, About.class);
  				startActivityForResult(about, 0);
+ 				finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

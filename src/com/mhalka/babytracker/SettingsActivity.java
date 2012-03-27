@@ -55,24 +55,25 @@ public class SettingsActivity extends Activity {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         
         // Provjeri da li se aplikacija pokrece prvi put i otvori formu shodno tome.
-        /* Boolean prvoPokretanje = settings.getBoolean(FIRSTRUN, true);
-        
-        if(prvoPokretanje) {
-        	SharedPreferences.Editor editor = settings.edit();
-        	editor.putBoolean(FIRSTRUN, false);
-        	editor.commit();
-        } else {
-        	Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
-        	if(pracenjeTrudnoce) {
-        		Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
-				startActivityForResult(intent, 0);
-				finish();
-				} else {
-					Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
-					startActivityForResult(intent, 0);
-					finish();
-					}
-        	} */
+        Bundle podesavanjaExtras = getIntent().getExtras();
+        if(podesavanjaExtras == null) {
+        	Boolean prvoPokretanje = settings.getBoolean(FIRSTRUN, true);
+        	if(prvoPokretanje) {
+        		SharedPreferences.Editor editor = settings.edit();
+        		editor.putBoolean(FIRSTRUN, false);
+        		} else {
+        			Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
+        			if(pracenjeTrudnoce) {
+        				Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
+        				startActivityForResult(intent, 0);
+        				finish();
+        				} else {
+        					Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
+        					startActivityForResult(intent, 0);
+        					finish();
+        				}
+        		}
+        }
         
         // Provjeri da li postoje ranije unesene preference i populariziraj formu sa
         // postojecim vrijednostima.
@@ -145,8 +146,12 @@ public class SettingsActivity extends Activity {
                 editor.putInt(MJESEC, DatumPocetkaPracenja.getMonth());
                 editor.putInt(GODINA, DatumPocetkaPracenja.getYear());
                 
+                // Zapisi preference.
+                editor.commit();
+                
                 // Otvori novi Activity shodno odabiru vrste pracenja.
-                if(PracenjeTrudnoce.isChecked()) {
+                Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
+    			if(pracenjeTrudnoce) {
                 	Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
                 	startActivityForResult(intent, 0);
                 	finish();
@@ -154,9 +159,7 @@ public class SettingsActivity extends Activity {
                 		Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
                 		startActivityForResult(intent, 0);
                 		finish();
-                		}
-                // Zapisi preference.
-                editor.commit();
+                	}
                 }
 			});
         
@@ -164,17 +167,26 @@ public class SettingsActivity extends Activity {
         Otkazi.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				// Otvori novi Activity shodno odabiru vrste pracenja.
-				if(PracenjeTrudnoce.isChecked()) {
-					Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
-					startActivityForResult(intent, 0);
-					finish();
-					} else {
-						Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
+				finish();
+				
+				// Otvori novi Activity shodno odabiru vrste pracenja, ako je odabir prethodno izvrsen.
+				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+				Boolean unesenePreference = settings.contains(TRUDNOCA);
+				
+				if(unesenePreference) {
+					Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
+					
+					if(pracenjeTrudnoce) {
+						Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
 						startActivityForResult(intent, 0);
 						finish();
+						} else {
+							Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
+							startActivityForResult(intent, 0);
+							finish();
 						}
 				}
-			});
+			}
+		});
     }
 }
