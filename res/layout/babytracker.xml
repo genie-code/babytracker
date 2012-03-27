@@ -8,7 +8,7 @@
         android:id="@+id/txtStarostBebe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mjeseci"
+        android:text="@string/mjesec_jednina"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </LinearLayout>

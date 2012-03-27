@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,7 +25,10 @@ public class BabyTracker extends Activity {
 	// Namjesti varijable
 	private TextView StarostBebe;
 	private String VasaBeba;
+	private String Mjesec;
+	private String Mjeseci234;
 	private String Mjeseci;
+	private String PrekoGodine;
 	
     /** Called when the activity is first created. */
     @Override
@@ -33,7 +38,10 @@ public class BabyTracker extends Activity {
         
         StarostBebe = (TextView) findViewById(R.id.txtStarostBebe);
         VasaBeba = this.getString(R.string.vasa_beba);
-        Mjeseci = this.getString(R.string.mjeseci);
+        Mjesec = this.getString(R.string.mjesec_jednina);
+        Mjeseci234 = this.getString(R.string.mjesec_mnozina234);
+        Mjeseci = this.getString(R.string.mjesec_mnozina);
+        PrekoGodine = this.getString(R.string.vise_od_godine);
         
         // Procitaj preference
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -45,7 +53,24 @@ public class BabyTracker extends Activity {
         		(today.get(Calendar.MONTH)- datumPocetkaPracenja.get(Calendar.MONTH)) +
         		(today.get(Calendar.DAY_OF_MONTH) >= datumPocetkaPracenja.get(Calendar.DAY_OF_MONTH)? 0: -1);
         
-        StarostBebe.setText(VasaBeba + " " + months + " " + Mjeseci);
+        if(months == 1) {
+        	StarostBebe.setText(VasaBeba + " " + months + " " + Mjesec);
+        } else if((months > 1) && (months < 5)) {
+        	StarostBebe.setText(VasaBeba + " " + months + " " + Mjeseci234);
+        } else {
+        	StarostBebe.setText(VasaBeba + " " + months + " " + Mjeseci);
+        }
+        
+        if(months > 12) {
+        	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+        	alertbox.setMessage(PrekoGodine);
+        	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+        		public void onClick(DialogInterface arg0, int arg1) {
+        			finish();
+        		}
+        	});
+        	alertbox.show();
+        }
     }
     
     @Override
