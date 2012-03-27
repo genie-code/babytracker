@@ -11,6 +11,8 @@ import android.widget.TextView;
 public class About extends Activity {
 	
 	private TextView VerzijaAplikacije;
+	private String Verzija;
+	private String VerzijaNepoznata;
 	private String VerzijaString;
 	private Button OK;
 
@@ -21,14 +23,16 @@ public class About extends Activity {
 	    setContentView(R.layout.about);
 	    
 	    VerzijaAplikacije = (TextView) findViewById(R.id.txtVerzija);
+	    Verzija = this.getString(R.string.verzija);
+	    VerzijaNepoznata = this.getString(R.string.verzija_nepoznata);
 	    OK = (Button) findViewById(R.id.btnOK);
 	    
 	    try {
 	    	PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-	    	VerzijaString = "Verzija "+ String.valueOf(pInfo.versionName);
+	    	VerzijaString = Verzija + " "+ String.valueOf(pInfo.versionName);
 	    } catch (NameNotFoundException e) {
 	    		e.printStackTrace();
-	    		VerzijaString = "Nepoznata verzija!";
+	    		VerzijaString = VerzijaNepoznata;
 	    }
 	    
 	    VerzijaAplikacije.setText(VerzijaString);

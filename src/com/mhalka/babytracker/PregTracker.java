@@ -1,6 +1,7 @@
 package com.mhalka.babytracker;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,7 +21,10 @@ public class PregTracker extends Activity {
 	public static final String GODINA = "GodinaPocetkaPracenja";
 	
     // Namjesti varijable
-    private TextView DobDjeteta;
+    private TextView StarostPloda;
+    private String VasaBeba;
+    private String Sedmice;
+
 	
     /** Called when the activity is first created. */
     @Override
@@ -28,31 +32,24 @@ public class PregTracker extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pregtracker);
         
-        DobDjeteta = (TextView) findViewById(R.id.txtAge);
+        StarostPloda = (TextView) findViewById(R.id.txtStarostPloda);
+        VasaBeba = this.getString(R.string.vasa_beba);
+        Sedmice = this.getString(R.string.sedmice);
         
         // Procitaj preference
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         
-        Calendar dob = Calendar.getInstance();
+        Calendar datumPocetkaPracenja = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
         Calendar today = Calendar.getInstance();
-
-        dob.set(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
         
-        int godine = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
-        int mjeseci = today.get(Calendar.MONTH) - dob.get(Calendar.MONTH);
-        int dani = today.get(Calendar.DAY_OF_MONTH) - dob.get(Calendar.DAY_OF_MONTH);
-
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
-            godine--;
-            mjeseci--;
-            dani--;
-        }
+        int months  = (today.get(Calendar.YEAR) - datumPocetkaPracenja.get(Calendar.YEAR)) * 12 +
+        		(today.get(Calendar.MONTH)- datumPocetkaPracenja.get(Calendar.MONTH)) +
+        		(today.get(Calendar.DAY_OF_MONTH) >= datumPocetkaPracenja.get(Calendar.DAY_OF_MONTH)? 0: -1);
         
-        DobDjeteta.setText("Imas " + String.valueOf(godine) + " godina " + String.valueOf(mjeseci) + " mjeseci i "+ String.valueOf(dani) + " dana.");
-        
+        StarostPloda.setText(VasaBeba + " " + months + " " + Sedmice);
     }
-    
-    @Override
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);

@@ -1,19 +1,51 @@
 package com.mhalka.babytracker;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class BabyTracker extends Activity {
+	
+	// Namjesti konstante za preference.
+	public static final String PREFS_NAME = "BabyTrackerPrefs";
+	public static final String DAN = "DanPocetkaPracenja";
+	public static final String MJESEC = "MjesecPocetkaPracenja";
+	public static final String GODINA = "GodinaPocetkaPracenja";
+	
+	// Namjesti varijable
+	private TextView StarostBebe;
+	private String VasaBeba;
+	private String Mjeseci;
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.babytracker);
+        
+        StarostBebe = (TextView) findViewById(R.id.txtStarostBebe);
+        VasaBeba = this.getString(R.string.vasa_beba);
+        Mjeseci = this.getString(R.string.mjeseci);
+        
+        // Procitaj preference
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        
+        Calendar datumPocetkaPracenja = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
+        Calendar today = Calendar.getInstance();
+        
+        int months  = (today.get(Calendar.YEAR) - datumPocetkaPracenja.get(Calendar.YEAR)) * 12 +
+        		(today.get(Calendar.MONTH)- datumPocetkaPracenja.get(Calendar.MONTH)) +
+        		(today.get(Calendar.DAY_OF_MONTH) >= datumPocetkaPracenja.get(Calendar.DAY_OF_MONTH)? 0: -1);
+        
+        StarostBebe.setText(VasaBeba + " " + months + " " + Mjeseci);
     }
     
     @Override
