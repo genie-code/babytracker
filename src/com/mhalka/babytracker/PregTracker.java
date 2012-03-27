@@ -23,14 +23,14 @@ public class PregTracker extends Activity {
 	public static final String GODINA = "GodinaPocetkaPracenja";
 	
 	// Setiraj varijable za elemente forme.
-    private TextView StarostPloda;
-    private String VasaBeba;
-    private String Sedmica;
-    private String NerealnaVrijednost;
-    private String PrekoTermina;
-    private String NovoPracenje;
-    private String DugmeYes;
-    private String DugmeNo;
+	private TextView StarostPloda;
+	private String VasaBeba;
+	private String Sedmica;
+	private String NerealnaVrijednost;
+	private String PrekoTermina;
+	private String NovoPracenje;
+	private String DugmeYes;
+	private String DugmeNo;
 	
     /** Called when the activity is first created. */
     @Override

@@ -45,7 +45,7 @@ public class BabyTracker extends Activity {
         // Procitaj preference
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         
-        // Izracunaj starost ploda u mjesecima.
+        // Izracunaj starost bebe u mjesecima.
         Calendar datumPocetkaPracenja = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
         Calendar today = Calendar.getInstance();
         
