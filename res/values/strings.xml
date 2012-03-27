@@ -23,6 +23,7 @@
     <string name="namjesti_novo_pracenje">Želite li podesiti aplikaciju za praćenje razvoja Vašeg novorođenčeta?</string>
     <string name="dugme_yes">Da</string>
     <string name="dugme_no">Ne</string>
+    <string name="nerealna_vrijednost">Vrijednost za datum koju ste podesili je nerealna! Provjerite da li ste odabrali prave vrijednosti.</string>
     
     
     

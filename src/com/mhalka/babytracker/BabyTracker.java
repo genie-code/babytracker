@@ -22,10 +22,11 @@ public class BabyTracker extends Activity {
 	public static final String MJESEC = "MjesecPocetkaPracenja";
 	public static final String GODINA = "GodinaPocetkaPracenja";
 	
-	// Namjesti varijable
+	// Setiraj varijable za elemente forme.
 	private TextView StarostBebe;
 	private String VasaBeba;
 	private String Mjesec;
+	private String NerealnaVrijednost;
 	private String PrekoGodine;
 	
     /** Called when the activity is first created. */
@@ -34,14 +35,17 @@ public class BabyTracker extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.babytracker);
         
+        // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
         StarostBebe = (TextView) findViewById(R.id.txtStarostBebe);
         VasaBeba = this.getString(R.string.vasa_beba);
         Mjesec = this.getString(R.string.mjesec);
+        NerealnaVrijednost = this.getString(R.string.nerealna_vrijednost);
         PrekoGodine = this.getString(R.string.vise_od_godine);
         
         // Procitaj preference
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         
+        // Izracunaj starost ploda u mjesecima.
         Calendar datumPocetkaPracenja = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
         Calendar today = Calendar.getInstance();
         
@@ -54,8 +58,26 @@ public class BabyTracker extends Activity {
         
         int months = (int) monthsBetween;
         
+        // Populariziraj TextBox sa izracunatom vrijednoscu.
         StarostBebe.setText(VasaBeba + " " + months + "." + " " + Mjesec);
         
+        // Provjeri da izracunata vrijednost nije negativna.
+        if(months < 1) {
+        	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+        	alertbox.setMessage(NerealnaVrijednost);
+        	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+        		public void onClick(DialogInterface arg0, int arg1) {
+        			Intent podesavanja = new Intent(BabyTracker.this, SettingsActivity.class);
+                	podesavanja.putExtra("BezProvjere", "nema");
+     				startActivityForResult(podesavanja, 0);
+     				finish();
+        		}
+        	});
+        	alertbox.show();
+        }
+        
+        // Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje i
+        // zatvori aplikaciju.
         if(months > 12) {
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
         	alertbox.setMessage(PrekoGodine);
@@ -77,7 +99,7 @@ public class BabyTracker extends Activity {
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
+        // Opcije menija.
         switch (item.getItemId()) {
             case R.id.podesavanja:
             	Intent podesavanja = new Intent(this, SettingsActivity.class);
