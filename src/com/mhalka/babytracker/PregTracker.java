@@ -36,7 +36,6 @@ public class PregTracker extends Activity {
             case R.id.about:
             	Intent about = new Intent(this, About.class);
             	startActivityForResult(about, 0);
-            	finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
