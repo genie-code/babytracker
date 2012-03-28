@@ -27,4 +27,6 @@
     <string name="dugme_yes">Da</string>
     <string name="dugme_no">Ne</string>
     <string name="nerealna_vrijednost">Vrijednost za datum koju ste podesili je nerealna! Provjerite da li ste odabrali prave vrijednosti.</string>
+    <string name="nove_informacije_scrolling">Nove informacije!</string>
+    <string name="nove_informacije_notifikacija">Pogledajte nove informacije vezane za Vašu bebu.</string>
 </resources>

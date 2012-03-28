@@ -4,7 +4,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,9 +21,11 @@ public class BabyTracker extends Activity {
 	
 	// Namjesti konstante za preference.
 	public static final String PREFS_NAME = "BabyTrackerPrefs";
+	public static final String NOTIFIKACIJA = "Notifikacija";
 	public static final String DAN = "DanPocetkaPracenja";
 	public static final String MJESEC = "MjesecPocetkaPracenja";
 	public static final String GODINA = "GodinaPocetkaPracenja";
+	public static final String MJESECI = "TrenutnaStarostBebe";
 	
 	// Setiraj varijable za elemente forme.
 	private TextView StarostBebe;
@@ -28,6 +33,7 @@ public class BabyTracker extends Activity {
 	private String Mjesec;
 	private String NerealnaVrijednost;
 	private String PrekoGodine;
+	private AlarmManager am;
 	
     /** Called when the activity is first created. */
     @Override
@@ -44,6 +50,7 @@ public class BabyTracker extends Activity {
         
         // Procitaj preference
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        Boolean NotifikacijaUkljucena = settings.getBoolean(NOTIFIKACIJA, true);
         
         // Izracunaj starost bebe u mjesecima.
         Calendar datumPocetkaPracenja = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
@@ -88,6 +95,22 @@ public class BabyTracker extends Activity {
         	});
         	alertbox.show();
         }
+        
+        // Zapisi izracunatu vrijednost ako je ukljucena notifikacija i okini alarm.
+        if(NotifikacijaUkljucena == true) {
+        	
+        	// Zapisi trenutnu vrijednost u preference radi koristenja kasnije
+        	SharedPreferences.Editor editor = settings.edit();
+        	editor.putInt(MJESECI, months);
+        	editor.commit();
+        	
+        	am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        	Intent intent = new Intent(this, AlarmReceiver.class);
+        	PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
+        			intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        	am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
+        			(5 * 1000), pendingIntent);
+     	    }
     }
 
 	@Override

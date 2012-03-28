@@ -4,5 +4,8 @@
         android:title="@string/meni_podesavanja"
         android:icon="@android:drawable/ic_menu_preferences">
     </item>
-    <item android:id="@+id/about" android:title="@string/meni_about" android:icon="@android:drawable/ic_menu_info_details"></item>
+    <item android:id="@+id/about"
+        android:title="@string/meni_about"
+        android:icon="@android:drawable/ic_menu_info_details">
+    </item>
 </menu>
