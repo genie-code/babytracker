@@ -10,4 +10,19 @@
         android:layout_height="wrap_content"
         android:text="@string/mjesec"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true" >
+        
+        <TextView
+            android:id="@+id/txtPodaciBeba"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dugi_text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+    </ScrollView>
+
 </LinearLayout>

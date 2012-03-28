@@ -14,7 +14,7 @@
     <string name="verzija">Verzija</string>
     <string name="verzija_nepoznata">Nepoznata verzija!</string>
     <string name="opis_aplikacije">Aplikacija za praćenje razvoja djeteta od začeća, pa do navršene jedne godine života.</string>
-    <string name="autor">Almir Džinović &lt;almir@dzinovic.net&gt;</string>
+    <string name="copyright">Copyright© 2012</string><string name="autor">Almir Džinović &lt;almir@dzinovic.net&gt;</string>
     <string name="mhalka_member">Ponosni član mHalke: www.mhalka.com</string>
     <string name="mhalka_moto">Yes, we mHalka! :)</string>
     <string name="vasa_beba">Vaša beba je sada u</string>
@@ -29,4 +29,14 @@
     <string name="nerealna_vrijednost">Vrijednost za datum koju ste podesili je nerealna! Provjerite da li ste odabrali prave vrijednosti.</string>
     <string name="nove_informacije_scrolling">Nove informacije!</string>
     <string name="nove_informacije_notifikacija">Nove informacije o Vašoj bebi.</string>
+    <string name="dugi_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non ligula eu ligula adipiscing vehicula at at tortor. Phasellus fermentum lobortis justo, vitae sodales quam convallis non. Morbi adipiscing ultrices sapien quis scelerisque. Pellentesque ultricies fermentum elit, vel posuere lectus sagittis id. In ac nisl turpis, aliquam interdum leo. Morbi a risus est, vel pharetra mi. Curabitur purus sem, tincidunt nec tristique nec, varius et quam. Pellentesque adipiscing vulputate ipsum, ac tempor sapien lobortis nec.
+
+Donec blandit feugiat odio a pharetra. Cras pellentesque sagittis lectus nec accumsan. Donec imperdiet odio sit amet tellus interdum eget eleifend odio pellentesque. Nulla eu ultrices turpis. Nunc erat augue, lobortis quis sagittis sit amet, malesuada ut mauris. Fusce nec dui felis, quis tristique mauris. Praesent vehicula ipsum a diam semper sed pulvinar est dapibus. Praesent ullamcorper, eros sit amet sodales consectetur, mauris diam congue ante, quis imperdiet est nibh at nunc. Curabitur mollis vestibulum dui, at adipiscing leo suscipit quis. Nunc sodales dui sed enim facilisis condimentum.
+
+Nulla facilisi. Aliquam tincidunt urna a nibh commodo sed hendrerit felis vulputate. Donec ut posuere tortor. Suspendisse lacinia placerat lectus at imperdiet. Morbi sit amet mauris tempus urna semper eleifend vitae congue odio. Aliquam non ante dolor, in placerat elit. Donec ac elit molestie nisi commodo aliquet sit amet nec dui. Donec eget erat justo, ac tristique nunc. In faucibus viverra eros. Vestibulum rutrum vestibulum risus, ac condimentum lorem egestas non. Donec interdum tristique euismod. Nullam tincidunt congue dictum. Aenean elit odio, placerat sit amet suscipit sit amet, luctus ut lacus.
+
+Maecenas dignissim urna eget tortor pretium malesuada. Cras tristique mauris et metus viverra vestibulum. Sed eros nulla, vehicula ac eleifend nec, ornare vel nibh. Proin et dui eu dui malesuada tempor id sit amet lorem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque pulvinar porttitor viverra. Nam ullamcorper blandit augue et commodo. Suspendisse sit amet blandit enim.
+
+Pellentesque vitae quam neque, aliquam cursus diam. Aliquam blandit orci nec velit fermentum ac consequat nibh placerat. Nam a viverra nisl. Cras leo magna, venenatis ut laoreet id, condimentum sed velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam gravida facilisis purus eget semper. In porta massa vitae nunc dictum eu auctor odio cursus. Nunc aliquam, massa quis condimentum adipiscing, nisl augue viverra enim, sit amet adipiscing dolor nibh vitae dolor. Suspendisse fermentum nulla quis velit volutpat cursus. Phasellus vestibulum tincidunt sodales. Quisque tempor lectus vitae leo aliquet placerat ut sed augue.</string>
+    
 </resources>
