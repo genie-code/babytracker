@@ -50,31 +50,31 @@ public class AlarmReceiver extends BroadcastReceiver {
         
         if(pracenjeTrudnoce) {
         	// Izracunaj starost ploda u sedmicama.
-            long weeksBetween = 0;
-            while (today.before(datumPocetkaPracenja)) {
-            	today.add(Calendar.DAY_OF_MONTH, 6);
-            	weeksBetween++;
-            	}
-            int weeks = 43 - ((int) weeksBetween);
-            
-            // Pokreni notifikaciju ako su ispunjeni svi uslovi.
+        	long weeksBetween = 0;
+        	while (today.before(datumPocetkaPracenja)) {
+        		today.add(Calendar.DAY_OF_MONTH, 6);
+        		weeksBetween++;
+        		}
+        	int weeks = 43 - ((int) weeksBetween);
+        	
+        	// Pokreni notifikaciju ako su ispunjeni svi uslovi.
         	if(weeks != SedmicaTrudnoce) {
         		startNotifikaciju(context);
         	}
         } else {
-				// Izracunaj starost bebe u mjesecima.
-		        long monthsBetween = 0;
-		        while (datumPocetkaPracenja.before(today)) {
-		        	datumPocetkaPracenja.add(Calendar.MONTH, 1);
-		        	monthsBetween++;
-		        	}
-		        int months = (int) monthsBetween;
-		        
-		        // Pokreni notifikaciju ako su ispunjeni svi uslovi.
-	        	if(months != StarostBebe) {
-	        		startNotifikaciju(context);
-	        	}
-		}
+        	// Izracunaj starost bebe u mjesecima.
+        	long monthsBetween = 0;
+        	while (datumPocetkaPracenja.before(today)) {
+        		datumPocetkaPracenja.add(Calendar.MONTH, 1);
+        		monthsBetween++;
+        		}
+        	int months = (int) monthsBetween;
+        	
+        	// Pokreni notifikaciju ako su ispunjeni svi uslovi.
+        	if(months != StarostBebe) {
+        		startNotifikaciju(context);
+        	}
+        }
     }
     
     public void startNotifikaciju(Context context) {
