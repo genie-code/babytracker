@@ -15,6 +15,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 	
 	// Namjesti konstante za preference.
 	public static final String PREFS_NAME = "BabyTrackerPrefs";
+	public static final String TRUDNOCA = "PracenjeTrudnoce";
 	public static final String NOTIFIKACIJA = "Notifikacija";
 	public static final String DAN = "DanPocetkaPracenja";
 	public static final String MJESEC = "MjesecPocetkaPracenja";
@@ -39,6 +40,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 		
     	// Procitaj preference.
     	SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+    	Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
     	Integer SedmicaTrudnoce = settings.getInt(SEDMICA, 1);
     	Integer StarostBebe = settings.getInt(MJESECI, 1);
         
@@ -46,30 +48,33 @@ public class AlarmReceiver extends BroadcastReceiver {
         Calendar datumPocetkaPracenja = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
         Calendar today = Calendar.getInstance();
         
-        // Izracunaj starost ploda u sedmicama.
-        long weeksBetween = 0;
-        while (today.before(datumPocetkaPracenja)) {
-        	today.add(Calendar.DAY_OF_MONTH, 6);
-        	weeksBetween++;
+        if(pracenjeTrudnoce) {
+        	// Izracunaj starost ploda u sedmicama.
+            long weeksBetween = 0;
+            while (today.before(datumPocetkaPracenja)) {
+            	today.add(Calendar.DAY_OF_MONTH, 6);
+            	weeksBetween++;
+            	}
+            int weeks = 43 - ((int) weeksBetween);
+            
+            // Pokreni notifikaciju ako su ispunjeni svi uslovi.
+        	if(weeks != SedmicaTrudnoce) {
+        		startNotifikaciju(context);
         	}
-        int weeks = 43 - ((int) weeksBetween);
-        
-        // Izracunaj starost bebe u mjesecima.
-        long monthsBetween = 0;
-        while (datumPocetkaPracenja.before(today)) {
-        	datumPocetkaPracenja.add(Calendar.MONTH, 1);
-        	monthsBetween++;
-        	}
-        int months = (int) monthsBetween;
-    	
-        // Pokreni notifikaciju ako su ispunjeni svi uslovi.
-    	if(weeks != SedmicaTrudnoce) {
-    		startNotifikaciju(context);
-    	}
-    	
-    	if(months != StarostBebe) {
-    		startNotifikaciju(context);
-    	}
+        } else {
+				// Izracunaj starost bebe u mjesecima.
+		        long monthsBetween = 0;
+		        while (datumPocetkaPracenja.before(today)) {
+		        	datumPocetkaPracenja.add(Calendar.MONTH, 1);
+		        	monthsBetween++;
+		        	}
+		        int months = (int) monthsBetween;
+		        
+		        // Pokreni notifikaciju ako su ispunjeni svi uslovi.
+	        	if(months != StarostBebe) {
+	        		startNotifikaciju(context);
+	        	}
+		}
     }
     
     public void startNotifikaciju(Context context) {
