@@ -60,7 +60,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         	int weeks = 43 - ((int) weeksBetween);
         	
         	// Pokreni notifikaciju ako su ispunjeni svi uslovi.
-        	if(weeks != SedmicaTrudnoce) {
+        	if((weeks != SedmicaTrudnoce) && (weeks > 0) && (weeks < 43)) {
         		startNotifikaciju(context);
         	}
         } else {
@@ -88,7 +88,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         	int months = (int) monthsBetween;
         	
         	// Pokreni notifikaciju ako su ispunjeni svi uslovi.
-        	if(months != StarostBebe) {
+        	if((months != StarostBebe) && (months > 0) && (months < 13)) {
         		startNotifikaciju(context);
         	}
         }
