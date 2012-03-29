@@ -67,7 +67,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         	// Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
         	// pokreni notifikaciju.
         	if(!BebinRodjendan) {
-        		if(((datumPocetkaPracenja.get(Calendar.MONTH)) == (today.get(Calendar.MONTH))) &&
+        		if(((datumPocetkaPracenja.get(Calendar.YEAR)) < (today.get(Calendar.YEAR))) &&
+        				((datumPocetkaPracenja.get(Calendar.MONTH)) == (today.get(Calendar.MONTH))) &&
         				((datumPocetkaPracenja.get(Calendar.DAY_OF_MONTH)) == (today.get(Calendar.DAY_OF_MONTH)))) {
         			// Zapisi u preference da je pokazana notifikacija za ovaj event
         			SharedPreferences.Editor editor = settings.edit();

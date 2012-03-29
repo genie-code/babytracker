@@ -60,7 +60,8 @@ public class BabyTracker extends Activity {
         
         // Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
         // pokazi alert dijalog da je beba napunila godinu dana.
-        if(((datumPocetkaPracenja.get(Calendar.MONTH)) == (today.get(Calendar.MONTH))) &&
+        if(((datumPocetkaPracenja.get(Calendar.YEAR)) < (today.get(Calendar.YEAR))) &&
+        		((datumPocetkaPracenja.get(Calendar.MONTH)) == (today.get(Calendar.MONTH))) &&
         		((datumPocetkaPracenja.get(Calendar.DAY_OF_MONTH)) == (today.get(Calendar.DAY_OF_MONTH)))) {
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
         	alertbox.setMessage(NapunjenaGodina);
