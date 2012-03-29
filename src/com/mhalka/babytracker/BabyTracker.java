@@ -76,7 +76,7 @@ public class BabyTracker extends Activity {
         Calendar datum = (Calendar) datumPocetkaPracenja.clone();
         long monthsBetween = 0;
         while (datum.before(today)) {
-        	datum.add(Calendar.MONTH, 1);
+        	today.add(Calendar.MONTH, -1);
         	monthsBetween++;
         	}
         

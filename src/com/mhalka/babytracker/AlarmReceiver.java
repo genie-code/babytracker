@@ -22,6 +22,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 	public static final String GODINA = "GodinaPocetkaPracenja";
 	public static final String SEDMICA = "TrenutnaSedmicaTrudnoce";
 	public static final String MJESECI = "TrenutnaStarostBebe";
+	public static final String RODJENDAN = "BebinPrviRodjendan";
 	
 	// Konstanta za notifikaciju.
 	public static final int NOTIFIKACIJA_ID = 0;
@@ -41,6 +42,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     	// Procitaj preference.
     	SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
     	Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
+    	Boolean BebinRodjendan = settings.getBoolean(RODJENDAN, false);
     	Integer SedmicaTrudnoce = settings.getInt(SEDMICA, 1);
     	Integer StarostBebe = settings.getInt(MJESECI, 1);
         
@@ -64,15 +66,22 @@ public class AlarmReceiver extends BroadcastReceiver {
         } else {
         	// Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
             // pokreni notifikaciju.
-            if(((datumPocetkaPracenja.get(Calendar.MONTH)) == (today.get(Calendar.MONTH))) &&
-            		((datumPocetkaPracenja.get(Calendar.DAY_OF_MONTH)) == (today.get(Calendar.DAY_OF_MONTH)))) {
-            	startNotifikaciju(context);
-            }
+        	if(!BebinRodjendan) {
+        		if(((datumPocetkaPracenja.get(Calendar.MONTH)) == (today.get(Calendar.MONTH))) &&
+        				((datumPocetkaPracenja.get(Calendar.DAY_OF_MONTH)) == (today.get(Calendar.DAY_OF_MONTH)))) {
+        			// Zapisi u preference da je pokazana notifikacija za ovaj event
+        			SharedPreferences.Editor editor = settings.edit();
+        			editor.putBoolean(RODJENDAN, true);
+        			editor.commit();
+        			// Pokreni notifikaciju
+        			startNotifikaciju(context);
+        		}
+        	}
         	
         	// Izracunaj starost bebe u mjesecima.
         	long monthsBetween = 0;
         	while (datumPocetkaPracenja.before(today)) {
-        		datumPocetkaPracenja.add(Calendar.MONTH, 1);
+        		today.add(Calendar.MONTH, -1);
         		monthsBetween++;
         		}
         	int months = (int) monthsBetween;
