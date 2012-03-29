@@ -65,7 +65,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         	}
         } else {
         	// Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
-            // pokreni notifikaciju.
+        	// pokreni notifikaciju.
         	if(!BebinRodjendan) {
         		if(((datumPocetkaPracenja.get(Calendar.MONTH)) == (today.get(Calendar.MONTH))) &&
         				((datumPocetkaPracenja.get(Calendar.DAY_OF_MONTH)) == (today.get(Calendar.DAY_OF_MONTH)))) {
