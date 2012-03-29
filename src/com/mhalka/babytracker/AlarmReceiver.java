@@ -62,6 +62,13 @@ public class AlarmReceiver extends BroadcastReceiver {
         		startNotifikaciju(context);
         	}
         } else {
+        	// Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
+            // pokreni notifikaciju.
+            if(((datumPocetkaPracenja.get(Calendar.MONTH)) == (today.get(Calendar.MONTH))) &&
+            		((datumPocetkaPracenja.get(Calendar.DAY_OF_MONTH)) == (today.get(Calendar.DAY_OF_MONTH)))) {
+            	startNotifikaciju(context);
+            }
+        	
         	// Izracunaj starost bebe u mjesecima.
         	long monthsBetween = 0;
         	while (datumPocetkaPracenja.before(today)) {

@@ -32,6 +32,7 @@ public class BabyTracker extends Activity {
 	private String VasaBeba;
 	private String Mjesec;
 	private String NerealnaVrijednost;
+	private String NapunjenaGodina;
 	private String PrekoGodine;
 	private AlarmManager am;
 	
@@ -46,16 +47,32 @@ public class BabyTracker extends Activity {
         VasaBeba = this.getString(R.string.vasa_beba);
         Mjesec = this.getString(R.string.mjesec);
         NerealnaVrijednost = this.getString(R.string.nerealna_vrijednost);
+        NapunjenaGodina = this.getString(R.string.napunjena_godina);
         PrekoGodine = this.getString(R.string.vise_od_godine);
         
         // Procitaj preference
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         Boolean NotifikacijaUkljucena = settings.getBoolean(NOTIFIKACIJA, true);
         
-        // Izracunaj starost bebe u mjesecima.
+        // Dobavi datum pocetka pracenja i danasnji datum.
         Calendar datumPocetkaPracenja = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
         Calendar today = Calendar.getInstance();
         
+        // Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
+        // pokazi alert dijalog da je beba napunila godinu dana.
+        if(((datumPocetkaPracenja.get(Calendar.MONTH)) == (today.get(Calendar.MONTH))) &&
+        		((datumPocetkaPracenja.get(Calendar.DAY_OF_MONTH)) == (today.get(Calendar.DAY_OF_MONTH)))) {
+        	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+        	alertbox.setMessage(NapunjenaGodina);
+        	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+        		public void onClick(DialogInterface arg0, int arg1) {
+        			finish();
+        		}
+        	});
+        	alertbox.show();
+        }
+        
+        // Izracunaj starost bebe u mjesecima.
         Calendar datum = (Calendar) datumPocetkaPracenja.clone();
         long monthsBetween = 0;
         while (datum.before(today)) {
