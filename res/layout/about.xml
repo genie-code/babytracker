@@ -38,11 +38,19 @@
     <TextView
         android:id="@+id/txtAutor"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:text="@string/autor"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_gravity="center_horizontal"
         android:autoLink="all" />
+
+    <TextView
+        android:id="@+id/txtPrava"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="@string/all_rights_reserved"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/txtMhalkaMember"
