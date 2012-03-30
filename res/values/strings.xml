@@ -14,7 +14,9 @@
     <string name="verzija">Verzija</string>
     <string name="verzija_nepoznata">Nepoznata verzija!</string>
     <string name="opis_aplikacije">Aplikacija za praćenje razvoja djeteta od začeća, pa do navršene jedne godine života.</string>
-    <string name="copyright">Copyright© 2012 by</string><string name="all_rights_reserved">Sva prava zadržana.</string><string name="autor">Almir Džinović &lt;almir@dzinovic.net&gt;</string>
+    <string name="copyright">Copyright© 2012 by</string><string name="all_rights_reserved">Sva prava zadržana.</string>
+    <string name="autor">Almir Džinović &lt;almir@dzinovic.net&gt;</string>
+    <string name="info_preuzete_website">Informacije preuzete sa: www.ringeraja.ba</string>
     <string name="mhalka_member">Ponosni član mHalke: www.mhalka.com</string>
     <string name="mhalka_moto">Yes, we mHalka! :)</string>
     <string name="vasa_beba">Vaša beba je sada u</string>
@@ -22,7 +24,8 @@
     <string name="mjesec">mjesecu života.</string>
     <string name="sedmica">sedmici trudnoće.</string>
     <string name="napunjena_godina">Čestitamo! Vrijeme je da Vaša beba proslavi svoj prvi rođendan.</string>
-    <string name="vise_od_godine">Datum kojega ste odabrali sugerira da je Vaše dijete starije od 12 mjeseci. Žao nam je, ali ova aplikacija prati razvoj djeteta samo do navršene jedne godine života.</string><string name="preko_termina">Čestitamo! Vaša beba je konačno ugledala svijet.</string>
+    <string name="vise_od_godine">Datum kojega ste odabrali sugerira da je Vaše dijete starije od 12 mjeseci. Žao nam je, ali ova aplikacija prati razvoj djeteta samo do navršene jedne godine života.</string>
+    <string name="preko_termina">Čestitamo! Vaša beba je konačno ugledala svijet.</string>
     <string name="namjesti_novo_pracenje">Želite li podesiti aplikaciju za praćenje razvoja Vašeg novorođenčeta?</string>
     <string name="dugme_yes">Da</string>
     <string name="dugme_no">Ne</string>
@@ -38,7 +41,4 @@ Nulla facilisi. Aliquam tincidunt urna a nibh commodo sed hendrerit felis vulput
 Maecenas dignissim urna eget tortor pretium malesuada. Cras tristique mauris et metus viverra vestibulum. Sed eros nulla, vehicula ac eleifend nec, ornare vel nibh. Proin et dui eu dui malesuada tempor id sit amet lorem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque pulvinar porttitor viverra. Nam ullamcorper blandit augue et commodo. Suspendisse sit amet blandit enim.
 
 Pellentesque vitae quam neque, aliquam cursus diam. Aliquam blandit orci nec velit fermentum ac consequat nibh placerat. Nam a viverra nisl. Cras leo magna, venenatis ut laoreet id, condimentum sed velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam gravida facilisis purus eget semper. In porta massa vitae nunc dictum eu auctor odio cursus. Nunc aliquam, massa quis condimentum adipiscing, nisl augue viverra enim, sit amet adipiscing dolor nibh vitae dolor. Suspendisse fermentum nulla quis velit volutpat cursus. Phasellus vestibulum tincidunt sodales. Quisque tempor lectus vitae leo aliquet placerat ut sed augue.</string>
-    
-    
-    
 </resources>
