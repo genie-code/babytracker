@@ -1,5 +1,9 @@
 package com.mhalka.babytracker;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -29,6 +33,7 @@ public class BabyTracker extends Activity {
 	
 	// Setiraj varijable za elemente forme.
 	private TextView StarostBebe;
+	private TextView PodaciBeba;
 	private String VasaBeba;
 	private String Mjesec;
 	private String NerealnaVrijednost;
@@ -44,6 +49,7 @@ public class BabyTracker extends Activity {
         
         // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
         StarostBebe = (TextView) findViewById(R.id.txtStarostBebe);
+        PodaciBeba = (TextView) findViewById(R.id.txtPodaciBeba);
         VasaBeba = this.getString(R.string.vasa_beba);
         Mjesec = this.getString(R.string.mjesec);
         NerealnaVrijednost = this.getString(R.string.nerealna_vrijednost);
@@ -83,9 +89,6 @@ public class BabyTracker extends Activity {
         
         int months = (int) monthsBetween;
         
-        // Populariziraj TextBox sa izracunatom vrijednoscu.
-        StarostBebe.setText(VasaBeba + " " + months + "." + " " + Mjesec);
-        
         // Provjeri da izracunata vrijednost nije negativna.
         if(months < 1) {
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
@@ -103,7 +106,7 @@ public class BabyTracker extends Activity {
         
         // Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje i
         // zatvori aplikaciju.
-        if(months > 12) {
+        else if(months > 12) {
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
         	alertbox.setMessage(PrekoGodine);
         	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
@@ -114,21 +117,52 @@ public class BabyTracker extends Activity {
         	alertbox.show();
         }
         
-        // Zapisi izracunatu vrijednost ako je ukljucena notifikacija i okini alarm.
-        if(NotifikacijaUkljucena == true) {
+        // Ako je izracunata vrijednost u dozvoljenim granicama nastavi dalje
+        else {
+        	// Zapisi izracunatu vrijednost ako je ukljucena notifikacija i okini alarm.
+        	if(NotifikacijaUkljucena) {
+        		
+        		// Zapisi trenutnu vrijednost u preference radi koristenja kasnije
+        		SharedPreferences.Editor editor = settings.edit();
+        		editor.putInt(MJESECI, months);
+        		editor.commit();
+        		
+        		am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        		Intent intent = new Intent(this, AlarmReceiver.class);
+        		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
+        				intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        		am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
+        				(5 * 1000), pendingIntent);
+        		}
         	
-        	// Zapisi trenutnu vrijednost u preference radi koristenja kasnije
-        	SharedPreferences.Editor editor = settings.edit();
-        	editor.putInt(MJESECI, months);
-        	editor.commit();
+        	// Populariziraj TextView sa izracunatom vrijednoscu.
+        	StarostBebe.setText(VasaBeba + " " + months + "." + " " + Mjesec);
         	
-        	am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        	Intent intent = new Intent(this, AlarmReceiver.class);
-        	PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
-        			intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        	am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
-        			(5 * 1000), pendingIntent);
-     	    }
+        	// Setiraj array sa vrijednostima za podatke o razvoju.
+        	int num[] = { R.raw.mjesec1, R.raw.mjesec2, R.raw.mjesec3, R.raw.mjesec4, R.raw.mjesec5,
+        			R.raw.mjesec6, R.raw.mjesec7, R.raw.mjesec8, R.raw.mjesec9, R.raw.mjesec10,
+        			R.raw.mjesec11, R.raw.mjesec12 };
+        	
+        	// Setiraj resource ID shodno izracunatom mjesecu u kojem se beba trenutno nalazi.
+        	int resId = num[months - 1];
+        	
+        	// Dobavi odgovarajuci text file, parsiraj ga i sa njegovim sadrzajem populariziraj
+        	// TextView u kojem treba da se nalaze podaci.
+        	InputStream inputStream = this.getResources().openRawResource(resId);
+        	InputStreamReader inputreader = new InputStreamReader(inputStream);
+        	BufferedReader buffreader = new BufferedReader(inputreader);
+        	String line;
+        	StringBuilder text = new StringBuilder();
+        	try {
+        		while ((line = buffreader.readLine()) != null) {
+        			text.append(line);
+        			text.append('\n');
+        			}
+        		} catch (IOException e) {
+        			return;
+        			}
+        	PodaciBeba.setText(text.toString());
+        }
     }
 
 	@Override

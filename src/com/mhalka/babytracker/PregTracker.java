@@ -58,10 +58,11 @@ public class PregTracker extends Activity {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         Boolean NotifikacijaUkljucena = settings.getBoolean(NOTIFIKACIJA, true);
         
-        // Izracunaj starost ploda u sedmicama.
+        // Dobavi datum pocetka pracenja i danasnji datum.
         Calendar datumPocetkaPracenja = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
         Calendar today = Calendar.getInstance();
         
+        // Izracunaj starost ploda u sedmicama.
         Calendar datum = (Calendar) datumPocetkaPracenja.clone();
         long weeksBetween = 0;
         while (today.before(datum)) {
@@ -70,9 +71,6 @@ public class PregTracker extends Activity {
         	}
         
         int weeks = 43 - ((int) weeksBetween);
-        
-        // Populariziraj TextBox sa izracunatom vrijednoscu.
-        StarostPloda.setText(VasaTrudnoca + " " + weeks + "." + " " + Sedmica);
         
         // Provjeri da izracunata vrijednost nije negativna.
         if(weeks < 1) {
@@ -91,7 +89,7 @@ public class PregTracker extends Activity {
         
         // Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje, sa mogucnoscu
         // odabira nove vrste pracenja ili zatvaranja aplikacije.
-        if(weeks > 42) {
+        else if(weeks > 42) {
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
         	alertbox.setMessage(PrekoTermina);
         	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
@@ -118,21 +116,28 @@ public class PregTracker extends Activity {
         	alertbox.show();
         }
         
-        // Zapisi izracunatu vrijednost ako je ukljucena notifikacija i okini alarm.
-		if(NotifikacijaUkljucena == true) {
-			
-			// Zapisi trenutnu vrijednost u preference radi koristenja kasnije
-	        SharedPreferences.Editor editor = settings.edit();
-	        editor.putInt(SEDMICA, weeks);
-	        editor.commit();
-	        
-	        am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-	        Intent intent = new Intent(this, AlarmReceiver.class);
-	        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
-	        		intent, PendingIntent.FLAG_CANCEL_CURRENT);
-	        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
-	        		(5 * 1000), pendingIntent);
-	    }
+        // Ako je izracunata vrijednost u dozvoljenim granicama nastavi dalje
+        else {
+        	
+        	// Zapisi izracunatu vrijednost ako je ukljucena notifikacija i okini alarm.
+        	if(NotifikacijaUkljucena) {
+        		
+        		// Zapisi trenutnu vrijednost u preference radi koristenja kasnije
+        		SharedPreferences.Editor editor = settings.edit();
+        		editor.putInt(SEDMICA, weeks);
+        		editor.commit();
+        		
+        		am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        		Intent intent = new Intent(this, AlarmReceiver.class);
+        		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
+        				intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        		am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
+        				(5 * 1000), pendingIntent);
+        		}
+        	
+        	// Populariziraj TextView sa izracunatom vrijednoscu.
+        	StarostPloda.setText(VasaTrudnoca + " " + weeks + "." + " " + Sedmica);
+        }
     }
 
 	@Override
