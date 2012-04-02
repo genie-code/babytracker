@@ -139,8 +139,8 @@ public class BabyTracker extends Activity {
         	StarostBebe.setText(VasaBeba + " " + months + "." + " " + Mjesec);
         	
         	// Setiraj array sa vrijednostima za podatke o razvoju.
-        	int num[] = { R.raw.mjesec1, R.raw.mjesec2, R.raw.mjesec3, R.raw.mjesec4, R.raw.mjesec5,
-        			R.raw.mjesec6, R.raw.mjesec7, R.raw.mjesec8, R.raw.mjesec9, R.raw.mjesec10,
+        	int num[] = { R.raw.mjesec01, R.raw.mjesec02, R.raw.mjesec03, R.raw.mjesec04, R.raw.mjesec05,
+        			R.raw.mjesec06, R.raw.mjesec07, R.raw.mjesec08, R.raw.mjesec09, R.raw.mjesec10,
         			R.raw.mjesec11, R.raw.mjesec12 };
         	
         	// Setiraj resource ID shodno izracunatom mjesecu u kojem se beba trenutno nalazi.
