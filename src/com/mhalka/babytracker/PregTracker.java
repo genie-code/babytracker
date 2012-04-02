@@ -1,5 +1,9 @@
 package com.mhalka.babytracker;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -29,6 +33,7 @@ public class PregTracker extends Activity {
 	
 	// Setiraj varijable za elemente forme.
 	private TextView StarostPloda;
+	private TextView PodaciPlod;
 	private String VasaTrudnoca;
 	private String Sedmica;
 	private String NerealnaVrijednost;
@@ -46,6 +51,7 @@ public class PregTracker extends Activity {
         
         // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
         StarostPloda = (TextView) findViewById(R.id.txtStarostPloda);
+        PodaciPlod = (TextView) findViewById(R.id.txtPodaciPlod);
         VasaTrudnoca = this.getString(R.string.vasa_trudnoca);
         Sedmica = this.getString(R.string.sedmica);
         NerealnaVrijednost = this.getString(R.string.nerealna_vrijednost);
@@ -137,6 +143,39 @@ public class PregTracker extends Activity {
         	
         	// Populariziraj TextView sa izracunatom vrijednoscu.
         	StarostPloda.setText(VasaTrudnoca + " " + weeks + "." + " " + Sedmica);
+        	
+        	// Setiraj array sa vrijednostima za podatke o trudnoci.
+        	int num[] = { R.raw.sedmica01, R.raw.sedmica02, R.raw.sedmica03, R.raw.sedmica04,
+        			R.raw.sedmica05, R.raw.sedmica06, R.raw.sedmica07, R.raw.sedmica08,
+        			R.raw.sedmica09, R.raw.sedmica10, R.raw.sedmica11, R.raw.sedmica12,
+        			R.raw.sedmica13, R.raw.sedmica14, R.raw.sedmica15, R.raw.sedmica16,
+        			R.raw.sedmica17, R.raw.sedmica18, R.raw.sedmica19, R.raw.sedmica20,
+        			R.raw.sedmica21, R.raw.sedmica22, R.raw.sedmica23, R.raw.sedmica24,
+        			R.raw.sedmica25, R.raw.sedmica26, R.raw.sedmica27, R.raw.sedmica28,
+        			R.raw.sedmica29, R.raw.sedmica30, R.raw.sedmica31, R.raw.sedmica32,
+        			R.raw.sedmica33, R.raw.sedmica34, R.raw.sedmica35, R.raw.sedmica36,
+        			R.raw.sedmica37, R.raw.sedmica38, R.raw.sedmica39, R.raw.sedmica40,
+        			R.raw.sedmica41, R.raw.sedmica42 };
+        	
+        	// Setiraj resource ID shodno izracunatoj semdici trudnoce.
+        	int resId = num[weeks - 1];
+        	
+        	// Dobavi odgovarajuci text file, parsiraj ga i sa njegovim sadrzajem populariziraj
+        	// TextView u kojem treba da se nalaze podaci.
+        	InputStream inputStream = this.getResources().openRawResource(resId);
+        	InputStreamReader inputreader = new InputStreamReader(inputStream);
+        	BufferedReader buffreader = new BufferedReader(inputreader);
+        	String line;
+        	StringBuilder text = new StringBuilder();
+        	try {
+        		while ((line = buffreader.readLine()) != null) {
+        			text.append(line);
+        			text.append('\n');
+        			}
+        		} catch (IOException e) {
+        			return;
+        			}
+        	PodaciPlod.setText(text.toString());
         }
     }
 
