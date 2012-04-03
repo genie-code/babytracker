@@ -40,8 +40,7 @@
             android:layout_alignParentBottom="true"
             ads:adSize="BANNER"
             ads:adUnitId="a14f79ada1d298f"
-            ads:loadAdOnCreate="true"
-            ads:testDevices="TEST_EMULATOR, SH17SRT03015" />
+            ads:loadAdOnCreate="true" />
     
     </RelativeLayout>
 
