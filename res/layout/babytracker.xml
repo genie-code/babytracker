@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
@@ -10,19 +12,37 @@
         android:layout_height="wrap_content"
         android:text="@string/mjesec"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <ScrollView
+    
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:fillViewport="true" >
+        android:layout_height="wrap_content" >
         
-        <TextView
-            android:id="@+id/txtPodaciBeba"
-            android:layout_width="wrap_content"
+        <ScrollView
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/dugi_text"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:layout_above="@+id/adView"
+            android:layout_alignParentTop="true"
+            android:fillViewport="true" >
+            
+            <TextView
+                android:id="@+id/txtPodaciBeba"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dugi_text"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
         
-    </ScrollView>
+        </ScrollView>
+        
+        <com.google.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="a14f79ada1d298f"
+            ads:loadAdOnCreate="true"
+            ads:testDevices="TEST_EMULATOR, SH17SRT03015" />
+    
+    </RelativeLayout>
 
 </LinearLayout>
