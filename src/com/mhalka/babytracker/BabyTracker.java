@@ -68,21 +68,6 @@ public class BabyTracker extends Activity {
         Calendar datumPocetkaPracenja = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
         Calendar today = Calendar.getInstance();
         
-        // Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
-        // pokazi alert dijalog da je beba napunila godinu dana.
-        if(((datumPocetkaPracenja.get(Calendar.YEAR)) < (today.get(Calendar.YEAR))) &&
-        		((datumPocetkaPracenja.get(Calendar.MONTH)) == (today.get(Calendar.MONTH))) &&
-        		((datumPocetkaPracenja.get(Calendar.DAY_OF_MONTH)) == (today.get(Calendar.DAY_OF_MONTH)))) {
-        	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-        	alertbox.setMessage(NapunjenaGodina);
-        	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-        		public void onClick(DialogInterface arg0, int arg1) {
-        			finish();
-        		}
-        	});
-        	alertbox.show();
-        }
-        
         // Izracunaj starost bebe u mjesecima.
         Calendar datum = (Calendar) datumPocetkaPracenja.clone();
         long monthsBetween = 0;
@@ -93,9 +78,34 @@ public class BabyTracker extends Activity {
         
         int months = (int) monthsBetween;
         
-        // Provjeri da izracunata vrijednost nije negativna.
-        if(months < 1) {
+        // Ponovo dobavi datum pocetka pracenja i danasnji datum, jer, iz nekog razloga, ovaj if
+    	// statement ne moze da koristi prethodno dobavljene vrijednosti.
+        Calendar pocetni = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
+        Calendar danasnji = Calendar.getInstance();
+    	
+    	// Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
+        // pokazi alert dijalog da je beba napunila godinu dana.
+        if((months == 12) && ((pocetni.get(Calendar.YEAR)) < (danasnji.get(Calendar.YEAR))) &&
+        		((pocetni.get(Calendar.MONTH)) == (danasnji.get(Calendar.MONTH))) &&
+        		((pocetni.get(Calendar.DAY_OF_MONTH)) == (danasnji.get(Calendar.DAY_OF_MONTH)))) {
+        	
         	BebaLayout.setVisibility(View.INVISIBLE);
+        	
+        	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+        	alertbox.setMessage(NapunjenaGodina);
+        	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+        		public void onClick(DialogInterface arg0, int arg1) {
+        			finish();
+        		}
+        	});
+        	alertbox.show();
+        }
+        
+        // Provjeri da izracunata vrijednost nije negativna.
+        else if(months < 1) {
+        	
+        	BebaLayout.setVisibility(View.INVISIBLE);
+        	
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
         	alertbox.setMessage(NerealnaVrijednost);
         	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
@@ -109,25 +119,50 @@ public class BabyTracker extends Activity {
         	alertbox.show();
         }
         
-        // Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje i
-        // zatvori aplikaciju.
+        // Provjeri da li je izracunata vrijednost veca od 12 i shodno tome pokazi odgovarajuci alert.
         else if(months > 12) {
+        	
         	BebaLayout.setVisibility(View.INVISIBLE);
-        	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-        	alertbox.setMessage(PrekoGodine);
-        	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-        		public void onClick(DialogInterface arg0, int arg1) {
-        			Intent podesavanja = new Intent(BabyTracker.this, SettingsActivity.class);
-                	podesavanja.putExtra("BezProvjere", "nema");
-     				startActivityForResult(podesavanja, 0);
-        			finish();
-        		}
-        	});
-        	alertbox.show();
+        	
+        	// Ponovo dobavi datum pocetka pracenja i danasnji datum, jer, iz nekog razloga, ovaj if
+        	// statement ne moze da koristi prethodno dobavljene vrijednosti.
+            Calendar pocetak = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
+            Calendar danas = Calendar.getInstance();
+        	
+        	// Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
+            // pokazi alert dijalog da je beba napunila godinu dana.
+            if(((pocetak.get(Calendar.YEAR)) < (danas.get(Calendar.YEAR))) &&
+            		((pocetak.get(Calendar.MONTH)) == (danas.get(Calendar.MONTH))) &&
+            		((pocetak.get(Calendar.DAY_OF_MONTH)) == (danas.get(Calendar.DAY_OF_MONTH)))) {
+            	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+            	alertbox.setMessage(NapunjenaGodina);
+            	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            		public void onClick(DialogInterface arg0, int arg1) {
+            			finish();
+            		}
+            	});
+            	alertbox.show();
+            } else {
+            	
+            	// Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje i
+                // vrati korisnika na settings activity.
+            	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+            	alertbox.setMessage(PrekoGodine);
+            	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            		public void onClick(DialogInterface arg0, int arg1) {
+            			Intent podesavanja = new Intent(BabyTracker.this, SettingsActivity.class);
+                    	podesavanja.putExtra("BezProvjere", "nema");
+         				startActivityForResult(podesavanja, 0);
+            			finish();
+            		}
+            	});
+            	alertbox.show();
+            }
         }
         
         // Ako je izracunata vrijednost u dozvoljenim granicama nastavi dalje
         else {
+        	
         	// Zapisi izracunatu vrijednost ako je ukljucena notifikacija i okini alarm.
         	if(NotifikacijaUkljucena) {
         		

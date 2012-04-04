@@ -84,7 +84,9 @@ public class PregTracker extends Activity {
         
         // Provjeri da izracunata vrijednost nije negativna.
         if(weeks < 1) {
+        	
         	PregLayout.setVisibility(View.INVISIBLE);
+        	
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
         	alertbox.setMessage(NerealnaVrijednost);
         	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
@@ -101,7 +103,9 @@ public class PregTracker extends Activity {
         // Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje, sa mogucnoscu
         // odabira nove vrste pracenja ili zatvaranja aplikacije.
         else if(weeks > 42) {
+        	
         	PregLayout.setVisibility(View.INVISIBLE);
+        	
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
         	alertbox.setMessage(PrekoTermina);
         	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
