@@ -78,16 +78,16 @@ public class BabyTracker extends Activity {
         
         int months = (int) monthsBetween;
         
-        // Ponovo dobavi datum pocetka pracenja i danasnji datum, jer, iz nekog razloga, ovaj if
+        // Ponovo dobavi datum pocetka pracenja i danasnji datum, jer, iz nekog razloga, donji if
     	// statement ne moze da koristi prethodno dobavljene vrijednosti.
-        Calendar pocetni = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
-        Calendar danasnji = Calendar.getInstance();
-    	
-    	// Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
-        // pokazi alert dijalog da je beba napunila godinu dana.
-        if((months == 12) && ((pocetni.get(Calendar.YEAR)) < (danasnji.get(Calendar.YEAR))) &&
-        		((pocetni.get(Calendar.MONTH)) == (danasnji.get(Calendar.MONTH))) &&
-        		((pocetni.get(Calendar.DAY_OF_MONTH)) == (danasnji.get(Calendar.DAY_OF_MONTH)))) {
+        Calendar pocetak = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
+        Calendar danas = Calendar.getInstance();
+        
+        // Provjeri da li je izracunata vrijednost 12 i da li datum rodjenja (mjesec i dan) odgovaraju
+        // danasnjem datumu i shodno tome pokazi alert dijalog da je beba napunila godinu dana.
+        if((months == 12) && ((pocetak.get(Calendar.YEAR)) < (danas.get(Calendar.YEAR))) &&
+        		((pocetak.get(Calendar.MONTH)) == (danas.get(Calendar.MONTH))) &&
+        		((pocetak.get(Calendar.DAY_OF_MONTH)) == (danas.get(Calendar.DAY_OF_MONTH)))) {
         	
         	BebaLayout.setVisibility(View.INVISIBLE);
         	
@@ -123,11 +123,6 @@ public class BabyTracker extends Activity {
         else if(months > 12) {
         	
         	BebaLayout.setVisibility(View.INVISIBLE);
-        	
-        	// Ponovo dobavi datum pocetka pracenja i danasnji datum, jer, iz nekog razloga, ovaj if
-        	// statement ne moze da koristi prethodno dobavljene vrijednosti.
-            Calendar pocetak = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
-            Calendar danas = Calendar.getInstance();
         	
         	// Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
             // pokazi alert dijalog da je beba napunila godinu dana.
