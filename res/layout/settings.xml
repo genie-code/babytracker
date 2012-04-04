@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/llVertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
@@ -49,18 +48,20 @@
     <DatePicker
         android:id="@+id/dpDatumPocetkaPracenja"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false" />
 
     <CheckBox
         android:id="@+id/cbNotifikacija"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/notification" android:checked="true"/>
+        android:text="@string/notification"
+        android:checked="true"/>
 
     <LinearLayout
-        android:id="@+id/llHorizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_gravity="center_horizontal">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
 
         <Button
             android:id="@+id/btnSpasi"
