@@ -15,7 +15,8 @@
     <TextView
         android:id="@+id/txtVerzija"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
         android:layout_gravity="center_horizontal"
         android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -23,7 +24,8 @@
     <TextView
         android:id="@+id/txtOpis"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="@string/opis_aplikacije"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -47,7 +49,8 @@
     <TextView
         android:id="@+id/txtPrava"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="@string/all_rights_reserved"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_gravity="center_horizontal" />
@@ -55,7 +58,8 @@
     <TextView
         android:id="@+id/txtInfoIzvor"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="@string/info_preuzete_website"
         android:autoLink="all"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -71,7 +75,8 @@
     <TextView
         android:id="@+id/txtMhalkaMoto"
         android:layout_width="wrap_content"
-        android:layout_height="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="@string/mhalka_moto"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
