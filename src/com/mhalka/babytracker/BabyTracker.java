@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class BabyTracker extends Activity {
@@ -32,6 +34,7 @@ public class BabyTracker extends Activity {
 	public static final String MJESECI = "TrenutnaStarostBebe";
 	
 	// Setiraj varijable za elemente forme.
+	private LinearLayout BebaLayout;
 	private TextView StarostBebe;
 	private TextView PodaciBeba;
 	private String VasaBeba;
@@ -48,6 +51,7 @@ public class BabyTracker extends Activity {
         setContentView(R.layout.babytracker);
         
         // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
+        BebaLayout = (LinearLayout) findViewById(R.id.llBabyTracker);
         StarostBebe = (TextView) findViewById(R.id.txtStarostBebe);
         PodaciBeba = (TextView) findViewById(R.id.txtPodaciBeba);
         VasaBeba = this.getString(R.string.vasa_beba);
@@ -91,6 +95,7 @@ public class BabyTracker extends Activity {
         
         // Provjeri da izracunata vrijednost nije negativna.
         if(months < 1) {
+        	BebaLayout.setVisibility(View.INVISIBLE);
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
         	alertbox.setMessage(NerealnaVrijednost);
         	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
@@ -107,10 +112,14 @@ public class BabyTracker extends Activity {
         // Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje i
         // zatvori aplikaciju.
         else if(months > 12) {
+        	BebaLayout.setVisibility(View.INVISIBLE);
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
         	alertbox.setMessage(PrekoGodine);
         	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
         		public void onClick(DialogInterface arg0, int arg1) {
+        			Intent podesavanja = new Intent(BabyTracker.this, SettingsActivity.class);
+                	podesavanja.putExtra("BezProvjere", "nema");
+     				startActivityForResult(podesavanja, 0);
         			finish();
         		}
         	});

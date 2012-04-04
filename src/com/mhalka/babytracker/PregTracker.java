@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class PregTracker extends Activity {
@@ -32,6 +34,7 @@ public class PregTracker extends Activity {
 	public static final String SEDMICA = "TrenutnaSedmicaTrudnoce";
 	
 	// Setiraj varijable za elemente forme.
+	private LinearLayout PregLayout;
 	private TextView StarostPloda;
 	private TextView PodaciPlod;
 	private String VasaTrudnoca;
@@ -50,6 +53,7 @@ public class PregTracker extends Activity {
         setContentView(R.layout.pregtracker);
         
         // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
+        PregLayout = (LinearLayout) findViewById(R.id.llPregTracker);
         StarostPloda = (TextView) findViewById(R.id.txtStarostPloda);
         PodaciPlod = (TextView) findViewById(R.id.txtPodaciPlod);
         VasaTrudnoca = this.getString(R.string.vasa_trudnoca);
@@ -80,6 +84,7 @@ public class PregTracker extends Activity {
         
         // Provjeri da izracunata vrijednost nije negativna.
         if(weeks < 1) {
+        	PregLayout.setVisibility(View.INVISIBLE);
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
         	alertbox.setMessage(NerealnaVrijednost);
         	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
@@ -96,6 +101,7 @@ public class PregTracker extends Activity {
         // Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje, sa mogucnoscu
         // odabira nove vrste pracenja ili zatvaranja aplikacije.
         else if(weeks > 42) {
+        	PregLayout.setVisibility(View.INVISIBLE);
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
         	alertbox.setMessage(PrekoTermina);
         	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
