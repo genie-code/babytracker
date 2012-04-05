@@ -41,57 +41,60 @@ public class AlarmReceiver extends BroadcastReceiver {
 		
     	// Procitaj preference.
     	SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+    	Boolean NotifikacijaUkljucena = settings.getBoolean(NOTIFIKACIJA, true);
     	Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
     	Boolean BebinRodjendan = settings.getBoolean(RODJENDAN, false);
     	Integer SedmicaTrudnoce = settings.getInt(SEDMICA, 1);
     	Integer StarostBebe = settings.getInt(MJESECI, 1);
-        
-        // Setiraj vrijednosti varijabli potrebnih za izracunavanje starosti.
-        Calendar datumPocetkaPracenja = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
-        Calendar today = Calendar.getInstance();
-        
-        if(pracenjeTrudnoce) {
-        	// Izracunaj starost ploda u sedmicama.
-        	long weeksBetween = 0;
-        	while (today.before(datumPocetkaPracenja)) {
-        		today.add(Calendar.DAY_OF_MONTH, 6);
-        		weeksBetween++;
-        		}
-        	int weeks = 43 - ((int) weeksBetween);
-        	
-        	// Pokreni notifikaciju ako su ispunjeni svi uslovi.
-        	if((weeks != SedmicaTrudnoce) && (weeks > 0) && (weeks < 43)) {
-        		startNotifikaciju(context);
-        	}
-        } else {
-        	// Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
-        	// pokreni notifikaciju.
-        	if(!BebinRodjendan) {
-        		if(((datumPocetkaPracenja.get(Calendar.YEAR)) < (today.get(Calendar.YEAR))) &&
-        				((datumPocetkaPracenja.get(Calendar.MONTH)) == (today.get(Calendar.MONTH))) &&
-        				((datumPocetkaPracenja.get(Calendar.DAY_OF_MONTH)) == (today.get(Calendar.DAY_OF_MONTH)))) {
-        			// Zapisi u preference da je pokazana notifikacija za ovaj event
-        			SharedPreferences.Editor editor = settings.edit();
-        			editor.putBoolean(RODJENDAN, true);
-        			editor.commit();
-        			// Pokreni notifikaciju
-        			startNotifikaciju(context);
-        		}
-        	}
-        	
-        	// Izracunaj starost bebe u mjesecima.
-        	long monthsBetween = 0;
-        	while (datumPocetkaPracenja.before(today)) {
-        		today.add(Calendar.MONTH, -1);
-        		monthsBetween++;
-        		}
-        	int months = (int) monthsBetween;
-        	
-        	// Pokreni notifikaciju ako su ispunjeni svi uslovi.
-        	if((months != StarostBebe) && (months > 0) && (months < 13)) {
-        		startNotifikaciju(context);
-        	}
-        }
+    	
+    	if(NotifikacijaUkljucena) {
+    		// Setiraj vrijednosti varijabli potrebnih za izracunavanje starosti.
+            Calendar datumPocetkaPracenja = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
+            Calendar today = Calendar.getInstance();
+            
+            if(pracenjeTrudnoce) {
+            	// Izracunaj starost ploda u sedmicama.
+            	long weeksBetween = 0;
+            	while (today.before(datumPocetkaPracenja)) {
+            		today.add(Calendar.DAY_OF_MONTH, 6);
+            		weeksBetween++;
+            		}
+            	int weeks = 43 - ((int) weeksBetween);
+            	
+            	// Pokreni notifikaciju ako su ispunjeni svi uslovi.
+            	if((weeks != SedmicaTrudnoce) && (weeks > 0) && (weeks < 43)) {
+            		startNotifikaciju(context);
+            	}
+            } else {
+            	// Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
+            	// pokreni notifikaciju.
+            	if(!BebinRodjendan) {
+            		if(((datumPocetkaPracenja.get(Calendar.YEAR)) < (today.get(Calendar.YEAR))) &&
+            				((datumPocetkaPracenja.get(Calendar.MONTH)) == (today.get(Calendar.MONTH))) &&
+            				((datumPocetkaPracenja.get(Calendar.DAY_OF_MONTH)) == (today.get(Calendar.DAY_OF_MONTH)))) {
+            			// Zapisi u preference da je pokazana notifikacija za ovaj event
+            			SharedPreferences.Editor editor = settings.edit();
+            			editor.putBoolean(RODJENDAN, true);
+            			editor.commit();
+            			// Pokreni notifikaciju
+            			startNotifikaciju(context);
+            		}
+            	}
+            	
+            	// Izracunaj starost bebe u mjesecima.
+            	long monthsBetween = 0;
+            	while (datumPocetkaPracenja.before(today)) {
+            		today.add(Calendar.MONTH, -1);
+            		monthsBetween++;
+            		}
+            	int months = (int) monthsBetween;
+            	
+            	// Pokreni notifikaciju ako su ispunjeni svi uslovi.
+            	if((months != StarostBebe) && (months > 0) && (months < 13)) {
+            		startNotifikaciju(context);
+            	}
+            }
+    	}
     }
     
     public void startNotifikaciju(Context context) {
