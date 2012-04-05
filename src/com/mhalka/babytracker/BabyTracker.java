@@ -166,12 +166,18 @@ public class BabyTracker extends Activity {
         		editor.putInt(MJESECI, months);
         		editor.commit();
         		
+        		// Namjesti vrijeme za alarm i okidanje notifikacije
+        		Calendar calendar = Calendar.getInstance();
+        		calendar.set(Calendar.HOUR_OF_DAY, 10);
+        		calendar.set(Calendar.MINUTE, 00);
+        		calendar.set(Calendar.SECOND, 00);
+        		
         		am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         		Intent intent = new Intent(this, AlarmReceiver.class);
         		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
         				intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        		am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
-        				(5 * 1000), pendingIntent);
+        		am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+        				(24 * 60 * 60 * 1000), pendingIntent);
         		}
         	
         	// Populariziraj TextView sa izracunatom vrijednoscu.
