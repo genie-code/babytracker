@@ -19,7 +19,13 @@ public class About extends Activity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
+		
+		// Setiraj Holo Light temu za Android 3 i vecu verziju.
+    	if(android.os.Build.VERSION.SDK_INT >= 11) {
+    		setTheme(android.R.style.Theme_Holo_Light);
+    	}
+    	
+    	super.onCreate(savedInstanceState);
 	    setContentView(R.layout.about);
 	    
 	    VerzijaAplikacije = (TextView) findViewById(R.id.txtVerzija);

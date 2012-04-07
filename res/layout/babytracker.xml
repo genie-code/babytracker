@@ -10,7 +10,9 @@
         android:id="@+id/txtStarostBebe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:text="@string/mjesec"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
@@ -21,7 +23,8 @@
         <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:layout_above="@+id/adView"
             android:layout_alignParentTop="true"
             android:fillViewport="true" >
@@ -31,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/dugi_text"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
         
         </ScrollView>
         
