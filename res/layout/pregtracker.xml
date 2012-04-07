@@ -5,13 +5,13 @@
     android:id="@+id/llPregTracker"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="5dp"
     android:orientation="vertical" >
 
     <TextView
         android:id="@+id/txtStarostPloda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         android:text="@string/sedmica"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
@@ -22,6 +22,7 @@
         <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:layout_above="@+id/adView"
             android:layout_alignParentTop="true"
             android:fillViewport="true" >
