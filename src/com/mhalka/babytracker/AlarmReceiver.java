@@ -106,7 +106,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, new Intent(context, SettingsActivity.class), PendingIntent.FLAG_CANCEL_CURRENT);
 
         notification.setLatestEventInfo(context, context.getText(R.string.app_name), NotificationText, contentIntent);
-        notification.flags |= Notification.FLAG_ONLY_ALERT_ONCE | Notification.FLAG_ONGOING_EVENT | Notification.FLAG_AUTO_CANCEL;
+        notification.flags |= Notification.FLAG_ONLY_ALERT_ONCE | Notification.FLAG_AUTO_CANCEL;
         notification.defaults |= Notification.DEFAULT_VIBRATE;
         
         notifier.notify(NOTIFIKACIJA_ID, notification);
