@@ -57,7 +57,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     			// Izracunaj starost ploda u sedmicama.
     			long weeksBetween = 0;
     			while (today.before(datumPocetkaPracenja)) {
-    				today.add(Calendar.DAY_OF_MONTH, 6);
+    				today.add(Calendar.DAY_OF_MONTH, 7);
     				weeksBetween++;
     				}
     			int weeks = 43 - ((int) weeksBetween);

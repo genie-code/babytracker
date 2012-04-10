@@ -82,7 +82,7 @@ public class PregTracker extends Activity {
         Calendar datum = (Calendar) datumPocetkaPracenja.clone();
         long weeksBetween = 0;
         while (today.before(datum)) {
-        	today.add(Calendar.DAY_OF_MONTH, 6);
+        	today.add(Calendar.DAY_OF_MONTH, 7);
         	weeksBetween++;
         	}
         
