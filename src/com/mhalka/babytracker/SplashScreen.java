@@ -50,9 +50,6 @@ public class SplashScreen extends Activity {
                     // Provjeri da li se aplikacija pokrece prvi put i otvori formu shodno tome.
                     Boolean prvoPokretanje = settings.getBoolean(FIRSTRUN, true);
                     if(prvoPokretanje) {
-                    	SharedPreferences.Editor editor = settings.edit();
-                    	editor.putBoolean(FIRSTRUN, false);
-                    	editor.commit();
                     	finish();
                     	Intent podesavanja = new Intent(SplashScreen.this, SettingsActivity.class);
                     	startActivityForResult(podesavanja, 0);

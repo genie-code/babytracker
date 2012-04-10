@@ -17,6 +17,7 @@ public class SettingsActivity extends Activity {
 	
 	// Namjesti konstante za preference.
 	public static final String PREFS_NAME = "BabyTrackerPrefs";
+	public static final String FIRSTRUN = "PrvoPokretanje";
 	public static final String TRUDNOCA = "PracenjeTrudnoce";
 	public static final String NOTIFIKACIJA = "Notifikacija";
 	public static final String DAN = "DanPocetkaPracenja";
@@ -123,6 +124,7 @@ public class SettingsActivity extends Activity {
 				// Dobavi ime file-a gdje su preference i unesi nove vrijednosti.
 				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 			    SharedPreferences.Editor editor = settings.edit();
+			    editor.putBoolean(FIRSTRUN, false);
 			    editor.putBoolean(TRUDNOCA, PracenjeTrudnoce.isChecked());
                 editor.putBoolean(NOTIFIKACIJA, Notifikacija.isChecked());
                 editor.putInt(DAN, DatumPocetkaPracenja.getDayOfMonth());
