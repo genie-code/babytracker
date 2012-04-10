@@ -66,14 +66,16 @@
 
         <Button
             android:id="@+id/btnSpasi"
-            android:layout_width="120dp"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/save_changes" />
 
         <Button
             android:id="@+id/btnOtkazi"
-            android:layout_width="120dp"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/cancel_changes" />
