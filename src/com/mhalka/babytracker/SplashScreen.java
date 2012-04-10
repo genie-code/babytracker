@@ -15,7 +15,7 @@ public class SplashScreen extends Activity {
 	
 	// Class variables set for SplashScreen
 	protected boolean _active = true;
-    protected int _splashTime = 5000;
+    protected int _splashTime = 3000;
 
 	/** Called when the activity is first created. */
 	@Override
