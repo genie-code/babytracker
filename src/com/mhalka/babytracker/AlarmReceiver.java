@@ -103,7 +103,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     	
         Notification notification = new Notification(R.drawable.ic_launcher, ScrollingText, System.currentTimeMillis());
         
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, new Intent(context, SettingsActivity.class), PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, new Intent(context, SplashScreen.class), PendingIntent.FLAG_CANCEL_CURRENT);
 
         notification.setLatestEventInfo(context, context.getText(R.string.app_name), NotificationText, contentIntent);
         notification.flags |= Notification.FLAG_ONLY_ALERT_ONCE | Notification.FLAG_AUTO_CANCEL;
