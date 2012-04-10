@@ -17,7 +17,6 @@ public class SettingsActivity extends Activity {
 	
 	// Namjesti konstante za preference.
 	public static final String PREFS_NAME = "BabyTrackerPrefs";
-	public static final String FIRSTRUN = "PrvoPokretanje";
 	public static final String TRUDNOCA = "PracenjeTrudnoce";
 	public static final String NOTIFIKACIJA = "Notifikacija";
 	public static final String DAN = "DanPocetkaPracenja";
@@ -59,29 +58,6 @@ public class SettingsActivity extends Activity {
         
         // Procitaj preference
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        
-        // Provjeri da li se activity starta iz drugog activity-ja ili ne i, u skladu s tim,
-        // pokreni provjeru prvog pokretanja aplikacije.
-        Bundle podesavanjaExtras = getIntent().getExtras();
-        if(podesavanjaExtras == null) {
-        	// Provjeri da li se aplikacija pokrece prvi put i otvori formu shodno tome.
-        	Boolean prvoPokretanje = settings.getBoolean(FIRSTRUN, true);
-        	if(prvoPokretanje) {
-        		SharedPreferences.Editor editor = settings.edit();
-        		editor.putBoolean(FIRSTRUN, false);
-        		} else {
-        			Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
-        			if(pracenjeTrudnoce) {
-        				Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
-        				startActivityForResult(intent, 0);
-        				finish();
-        				} else {
-        					Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
-        					startActivityForResult(intent, 0);
-        					finish();
-        				}
-        		}
-        }
         
         // Provjeri da li postoje ranije unesene preference i populariziraj formu sa
         // postojecim vrijednostima.
@@ -147,7 +123,6 @@ public class SettingsActivity extends Activity {
 				// Dobavi ime file-a gdje su preference i unesi nove vrijednosti.
 				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 			    SharedPreferences.Editor editor = settings.edit();
-			    editor.putBoolean(FIRSTRUN, false);
 			    editor.putBoolean(TRUDNOCA, PracenjeTrudnoce.isChecked());
                 editor.putBoolean(NOTIFIKACIJA, Notifikacija.isChecked());
                 editor.putInt(DAN, DatumPocetkaPracenja.getDayOfMonth());

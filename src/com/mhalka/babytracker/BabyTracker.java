@@ -117,8 +117,7 @@ public class BabyTracker extends Activity {
         	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
         		public void onClick(DialogInterface arg0, int arg1) {
         			Intent podesavanja = new Intent(BabyTracker.this, SettingsActivity.class);
-                	podesavanja.putExtra("BezProvjere", "nema");
-     				startActivityForResult(podesavanja, 0);
+        			startActivityForResult(podesavanja, 0);
      				finish();
         		}
         	});
@@ -152,8 +151,7 @@ public class BabyTracker extends Activity {
             	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
             		public void onClick(DialogInterface arg0, int arg1) {
             			Intent podesavanja = new Intent(BabyTracker.this, SettingsActivity.class);
-                    	podesavanja.putExtra("BezProvjere", "nema");
-         				startActivityForResult(podesavanja, 0);
+            			startActivityForResult(podesavanja, 0);
             			finish();
             		}
             	});
@@ -229,8 +227,7 @@ public class BabyTracker extends Activity {
         switch (item.getItemId()) {
             case R.id.podesavanja:
             	Intent podesavanja = new Intent(this, SettingsActivity.class);
-            	podesavanja.putExtra("BezProvjere", "nema");
- 				startActivityForResult(podesavanja, 0);
+            	startActivityForResult(podesavanja, 0);
  				finish();
                 return true;
             case R.id.about:
