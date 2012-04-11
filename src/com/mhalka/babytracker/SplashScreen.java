@@ -30,7 +30,7 @@ public class SplashScreen extends Activity {
 	    setContentView(R.layout.splash);
 	    
 	    // Thread for displaying the SplashScreen
-        Thread splashTread = new Thread() {
+        Thread splashThread = new Thread() {
             @Override
             public void run() {
                 try {
@@ -69,7 +69,7 @@ public class SplashScreen extends Activity {
                  }
             }
         };
-        splashTread.start();
+        splashThread.start();
 	}
 	
 	@Override

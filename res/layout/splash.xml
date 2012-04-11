@@ -8,8 +8,9 @@
         android:id="@+id/imgSplash"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
         android:src="@drawable/splash"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
         android:contentDescription="@string/app_name" >
     </ImageView>
 
