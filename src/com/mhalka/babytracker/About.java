@@ -22,7 +22,7 @@ public class About extends Activity {
 		
 		// Setiraj Holo Light temu za Android 3 i vecu verziju.
     	if(android.os.Build.VERSION.SDK_INT >= 11) {
-    		setTheme(android.R.style.Theme_Holo_Light);
+    		setTheme(android.R.style.Theme_Holo_Light_NoActionBar);
     	}
     	
     	super.onCreate(savedInstanceState);
