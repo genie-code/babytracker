@@ -56,11 +56,29 @@ public class AlarmReceiver extends BroadcastReceiver {
     		if(pracenjeTrudnoce) {
     			// Izracunaj starost ploda u sedmicama.
     			long weeksBetween = 0;
-    			while (today.before(datumPocetkaPracenja)) {
-    				today.add(Calendar.DAY_OF_MONTH, 7);
-    				weeksBetween++;
-    				}
-    			int weeks = 43 - ((int) weeksBetween);
+    			// Racunaj starost ploda u odnosu na optimalni broj sedmica trajanja trudnoce
+    	        while (today.before(datumPocetkaPracenja)) {
+    	        	today.add(Calendar.DAY_OF_MONTH, 7);
+    	        	weeksBetween++;
+    	        	}
+    	        // Namjesti varijablu za optimalan broj sedmica trudnoce
+    	        int weeksopt = 41 - ((int) weeksBetween);
+    	        
+    	        // Racunaj starost ploda u odnosu na maksimalni broj sedmica trajanja trudnoce
+    	        while (today.after(datumPocetkaPracenja)) {
+    	        	datumPocetkaPracenja.add(Calendar.DAY_OF_MONTH, 7);
+    	        	weeksBetween++;
+    	        	}
+    	        // Namjesti varijablu za produzeni broj sedmica trudnoce
+    	        int weeksexp = 40 + ((int) weeksBetween);
+    	        
+    	        // Namjesti varijablu za globalni broj sedmica trudnoce
+    	        int weeks = 0;
+    	        if(weeksopt > 40) {
+    	    		weeks = weeksexp;
+    	    	} else {
+    	    		weeks = weeksopt;
+    	    	}
     			
     			// Pokreni notifikaciju ako su ispunjeni svi uslovi.
     			if((weeks != SedmicaTrudnoce) && (weeks > 0) && (weeks < 43)) {

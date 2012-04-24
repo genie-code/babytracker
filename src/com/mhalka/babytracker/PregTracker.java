@@ -81,12 +81,30 @@ public class PregTracker extends Activity {
         // Izracunaj starost ploda u sedmicama.
         Calendar datum = (Calendar) datumPocetkaPracenja.clone();
         long weeksBetween = 0;
+        
+        // Racunaj starost ploda u odnosu na optimalni broj sedmica trajanja trudnoce
         while (today.before(datum)) {
         	today.add(Calendar.DAY_OF_MONTH, 7);
         	weeksBetween++;
         	}
+        // Namjesti varijablu za optimalan broj sedmica trudnoce
+        int weeksopt = 41 - ((int) weeksBetween);
         
-        int weeks = 43 - ((int) weeksBetween);
+        // Racunaj starost ploda u odnosu na maksimalni broj sedmica trajanja trudnoce
+        while (today.after(datum)) {
+        	datum.add(Calendar.DAY_OF_MONTH, 7);
+        	weeksBetween++;
+        	}
+        // Namjesti varijablu za produzeni broj sedmica trudnoce
+        int weeksexp = 40 + ((int) weeksBetween);
+        
+        // Namjesti varijablu za globalni broj sedmica trudnoce
+        int weeks = 0;
+        if(weeksopt > 40) {
+    		weeks = weeksexp;
+    	} else {
+    		weeks = weeksopt;
+    	}
         
         // Provjeri da izracunata vrijednost nije negativna.
         if(weeks < 1) {
@@ -105,8 +123,8 @@ public class PregTracker extends Activity {
         	alertbox.show();
         }
         
-        // Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje, sa mogucnoscu
-        // odabira nove vrste pracenja ili zatvaranja aplikacije.
+        /** Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje, sa mogucnoscu
+         *  odabira nove vrste pracenja ili zatvaranja aplikacije. */
         else if(weeks > 42) {
         	
         	PregLayout.setVisibility(View.INVISIBLE);
@@ -180,8 +198,8 @@ public class PregTracker extends Activity {
         	// Setiraj resource ID shodno izracunatoj semdici trudnoce.
         	int resId = num[weeks - 1];
         	
-        	// Dobavi odgovarajuci text file, parsiraj ga i sa njegovim sadrzajem populariziraj
-        	// TextView u kojem treba da se nalaze podaci.
+        	/** Dobavi odgovarajuci text file, parsiraj ga i sa njegovim sadrzajem populariziraj
+        	 *  TextView u kojem treba da se nalaze podaci. */
         	InputStream inputStream = this.getResources().openRawResource(resId);
         	InputStreamReader inputreader = new InputStreamReader(inputStream);
         	BufferedReader buffreader = new BufferedReader(inputreader);
