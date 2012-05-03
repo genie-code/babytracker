@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mhalka.babytracker"
-    android:versionCode="9"
-    android:versionName="1.3"
-    android:installLocation="auto" >
+<manifest package="com.mhalka.babytracker"
+    android:versionCode="10"
+    android:versionName="1.4"
+    android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android">
     
     <supports-screens android:smallScreens="false" android:xlargeScreens="false" />
 
@@ -37,9 +36,8 @@
         <activity android:name=".About"
             android:screenOrientation="portrait" >
         </activity>
-        <receiver android:name=".AlarmReceiver"
-            android:enabled="true"
-            android:exported="true" >
+        <receiver android:name=".AlarmReceiver" ></receiver>
+        <receiver android:name=".StartAtBootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
