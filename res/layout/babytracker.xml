@@ -29,12 +29,39 @@
             android:layout_alignParentTop="true"
             android:fillViewport="true" >
             
-            <TextView
-                android:id="@+id/txtPodaciBeba"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dugi_text"
-                android:textAppearance="?android:attr/textAppearanceSmall"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                
+                <ImageView
+                    android:id="@+id/ivSlikaBeba"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:paddingTop="5dp"
+                    android:src="@drawable/mjesec01"
+                    android:contentDescription="@string/devtracking"
+                    android:layout_alignParentLeft="true" />
+                
+                <TextView
+                    android:id="@+id/txtIntroPodaciBeba"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/devtracking"
+                    android:layout_toRightOf="@+id/ivSlikaBeba"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="5dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                
+                <TextView
+                    android:id="@+id/txtPodaciBeba"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ivSlikaBeba"
+                    android:text="@string/dugi_text"
+                    android:paddingTop="5dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+            
+            </RelativeLayout>
         
         </ScrollView>
         

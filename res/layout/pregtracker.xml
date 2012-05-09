@@ -30,13 +30,40 @@
             android:layout_alignParentTop="true"
             android:fillViewport="true" >
             
-            <TextView
-                android:id="@+id/txtPodaciPlod"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dugi_text"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-        
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                
+                <ImageView
+                    android:id="@+id/ivSlikaPlod"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:paddingTop="5dp"
+                    android:src="@drawable/sedmica01"
+                    android:contentDescription="@string/pregtracking"
+                    android:layout_alignParentLeft="true" />
+                
+                <TextView
+                    android:id="@+id/txtIntroPodaciPlod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pregtracking"
+                    android:layout_toRightOf="@+id/ivSlikaPlod"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="5dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                
+                <TextView
+                    android:id="@+id/txtPodaciPlod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ivSlikaPlod"
+                    android:text="@string/dugi_text"
+                    android:paddingTop="5dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+            
+            </RelativeLayout>
+            
         </ScrollView>
         
         <com.google.ads.AdView

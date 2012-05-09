@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,7 +37,9 @@ public class PregTracker extends Activity {
 	// Setiraj varijable za elemente forme.
 	private LinearLayout PregLayout;
 	private TextView StarostPloda;
+	private TextView IntroPodaciPlod;
 	private TextView PodaciPlod;
+	private ImageView SlikaPlod;
 	private String VasaTrudnoca;
 	private String Sedmica;
 	private String NerealnaVrijednost;
@@ -61,7 +64,9 @@ public class PregTracker extends Activity {
         // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
         PregLayout = (LinearLayout) findViewById(R.id.llPregTracker);
         StarostPloda = (TextView) findViewById(R.id.txtStarostPloda);
+        IntroPodaciPlod = (TextView) findViewById(R.id.txtIntroPodaciPlod);
         PodaciPlod = (TextView) findViewById(R.id.txtPodaciPlod);
+        SlikaPlod = (ImageView) findViewById(R.id.ivSlikaPlod);
         VasaTrudnoca = this.getString(R.string.vasa_trudnoca);
         Sedmica = this.getString(R.string.sedmica);
         NerealnaVrijednost = this.getString(R.string.nerealna_vrijednost);
@@ -182,8 +187,30 @@ public class PregTracker extends Activity {
         	// Populariziraj TextView sa izracunatom vrijednoscu.
         	StarostPloda.setText(VasaTrudnoca + " " + weeks + "." + " " + Sedmica);
         	
+        	// Setiraj array sa resource ID-jevima za slike.
+        	int slike[] = { R.drawable.sedmica01, R.drawable.sedmica02, R.drawable.sedmica03,
+        			R.drawable.sedmica04, R.drawable.sedmica05, R.drawable.sedmica06,
+        			R.drawable.sedmica07, R.drawable.sedmica08, R.drawable.sedmica09,
+        			R.drawable.sedmica10, R.drawable.sedmica11, R.drawable.sedmica12,
+        			R.drawable.sedmica13, R.drawable.sedmica14, R.drawable.sedmica15,
+        			R.drawable.sedmica16, R.drawable.sedmica17, R.drawable.sedmica18,
+        			R.drawable.sedmica19, R.drawable.sedmica20, R.drawable.sedmica21,
+        			R.drawable.sedmica22, R.drawable.sedmica23, R.drawable.sedmica24,
+        			R.drawable.sedmica25, R.drawable.sedmica26, R.drawable.sedmica27,
+        			R.drawable.sedmica28, R.drawable.sedmica29, R.drawable.sedmica30,
+        			R.drawable.sedmica31, R.drawable.sedmica32, R.drawable.sedmica33,
+        			R.drawable.sedmica34, R.drawable.sedmica35, R.drawable.sedmica36,
+        			R.drawable.sedmica37, R.drawable.sedmica38, R.drawable.sedmica39,
+        			R.drawable.sedmica40, R.drawable.sedmica41, R.drawable.sedmica42 };
+        	
+        	// Setiraj resource ID shodno izracunatom mjesecu u kojem se beba trenutno nalazi.
+        	int resIdSlike = slike[weeks - 1];
+        	
+        	// Populariziraj ImageView sa odgovarajucom slikom.
+        	SlikaPlod.setImageResource(resIdSlike);
+        	
         	// Setiraj array sa vrijednostima za podatke o trudnoci.
-        	int num[] = { R.raw.sedmica01, R.raw.sedmica02, R.raw.sedmica03, R.raw.sedmica04,
+        	int podaci[] = { R.raw.sedmica01, R.raw.sedmica02, R.raw.sedmica03, R.raw.sedmica04,
         			R.raw.sedmica05, R.raw.sedmica06, R.raw.sedmica07, R.raw.sedmica08,
         			R.raw.sedmica09, R.raw.sedmica10, R.raw.sedmica11, R.raw.sedmica12,
         			R.raw.sedmica13, R.raw.sedmica14, R.raw.sedmica15, R.raw.sedmica16,
@@ -195,24 +222,44 @@ public class PregTracker extends Activity {
         			R.raw.sedmica37, R.raw.sedmica38, R.raw.sedmica39, R.raw.sedmica40,
         			R.raw.sedmica41, R.raw.sedmica42 };
         	
-        	// Setiraj resource ID shodno izracunatoj semdici trudnoce.
-        	int resId = num[weeks - 1];
+        	// Setiraj resource ID shodno izracunatoj sedmici trudnoce.
+        	int resIdPodaci = podaci[weeks - 1];
         	
         	/** Dobavi odgovarajuci text file, parsiraj ga i sa njegovim sadrzajem populariziraj
         	 *  TextView u kojem treba da se nalaze podaci. */
-        	InputStream inputStream = this.getResources().openRawResource(resId);
+        	InputStream inputStream = this.getResources().openRawResource(resIdPodaci);
         	InputStreamReader inputreader = new InputStreamReader(inputStream);
         	BufferedReader buffreader = new BufferedReader(inputreader);
-        	String line;
+        	String line = null;
+        	int numLines = 2;
+        	int lineCtr = 0;
+        	StringBuilder introtext = new StringBuilder();
+        	try {
+        		while ((line = buffreader.readLine()) != null) {
+        			if (lineCtr == numLines) {
+    				    break;
+    				}
+        			lineCtr++;
+        			introtext.append(line);
+        			introtext.append('\n');
+        		}
+        	} catch (IOException e) {
+        			return;
+        		}
+        	IntroPodaciPlod.setText(introtext.toString());
+        	
         	StringBuilder text = new StringBuilder();
         	try {
         		while ((line = buffreader.readLine()) != null) {
-        			text.append(line);
-        			text.append('\n');
-        			}
-        		} catch (IOException e) {
+        			if (lineCtr >= numLines) {
+        				lineCtr++;
+            			text.append(line);
+            			text.append('\n');
+            		}
+        		}
+        	} catch (IOException e) {
         			return;
-        			}
+        		}
         	PodaciPlod.setText(text.toString());
         }
     }

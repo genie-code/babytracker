@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,7 +37,9 @@ public class BabyTracker extends Activity {
 	// Setiraj varijable za elemente forme.
 	private LinearLayout BebaLayout;
 	private TextView StarostBebe;
+	private TextView IntroPodaciBeba;
 	private TextView PodaciBeba;
+	private ImageView SlikaBeba;
 	private String VasaBeba;
 	private String Mjesec;
 	private String NerealnaVrijednost;
@@ -60,6 +63,8 @@ public class BabyTracker extends Activity {
         BebaLayout = (LinearLayout) findViewById(R.id.llBabyTracker);
         StarostBebe = (TextView) findViewById(R.id.txtStarostBebe);
         PodaciBeba = (TextView) findViewById(R.id.txtPodaciBeba);
+        IntroPodaciBeba = (TextView) findViewById(R.id.txtIntroPodaciBeba);
+        SlikaBeba = (ImageView) findViewById(R.id.ivSlikaBeba);
         VasaBeba = this.getString(R.string.vasa_beba);
         Mjesec = this.getString(R.string.mjesec);
         NerealnaVrijednost = this.getString(R.string.nerealna_vrijednost);
@@ -84,13 +89,13 @@ public class BabyTracker extends Activity {
         
         int months = (int) monthsBetween;
         
-        // Ponovo dobavi datum pocetka pracenja i danasnji datum, jer, iz nekog razloga, donji if
-    	// statement ne moze da koristi prethodno dobavljene vrijednosti.
+        /** Ponovo dobavi datum pocetka pracenja i danasnji datum, jer, iz nekog razloga, donji if
+         *  statement ne moze da koristi prethodno dobavljene vrijednosti. */
         Calendar pocetak = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
         Calendar danas = Calendar.getInstance();
         
-        // Provjeri da li je izracunata vrijednost 12 i da li datum rodjenja (mjesec i dan) odgovaraju
-        // danasnjem datumu i shodno tome pokazi alert dijalog da je beba napunila godinu dana.
+        /** Provjeri da li je izracunata vrijednost 12 i da li datum rodjenja (mjesec i dan) odgovaraju
+         * danasnjem datumu i shodno tome pokazi alert dijalog da je beba napunila godinu dana. */
         if((months == 12) && ((pocetak.get(Calendar.YEAR)) < (danas.get(Calendar.YEAR))) &&
         		((pocetak.get(Calendar.MONTH)) == (danas.get(Calendar.MONTH))) &&
         		((pocetak.get(Calendar.DAY_OF_MONTH)) == (danas.get(Calendar.DAY_OF_MONTH)))) {
@@ -129,8 +134,8 @@ public class BabyTracker extends Activity {
         	
         	BebaLayout.setVisibility(View.INVISIBLE);
         	
-        	// Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
-            // pokazi alert dijalog da je beba napunila godinu dana.
+        	/** Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
+        	 *  pokazi alert dijalog da je beba napunila godinu dana. */
             if(((pocetak.get(Calendar.YEAR)) < (danas.get(Calendar.YEAR))) &&
             		((pocetak.get(Calendar.MONTH)) == (danas.get(Calendar.MONTH))) &&
             		((pocetak.get(Calendar.DAY_OF_MONTH)) == (danas.get(Calendar.DAY_OF_MONTH)))) {
@@ -144,8 +149,8 @@ public class BabyTracker extends Activity {
             	alertbox.show();
             } else {
             	
-            	// Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje i
-                // vrati korisnika na settings activity.
+            	/** Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje i
+            	 *  vrati korisnika na settings activity. */
             	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
             	alertbox.setMessage(PrekoGodine);
             	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
@@ -187,34 +192,66 @@ public class BabyTracker extends Activity {
         	// Populariziraj TextView sa izracunatom vrijednoscu.
         	StarostBebe.setText(VasaBeba + " " + months + "." + " " + Mjesec);
         	
+        	// Setiraj array sa resource ID-jevima za slike.
+        	int slike[] = { R.drawable.mjesec01, R.drawable.mjesec02, R.drawable.mjesec03,
+        			R.drawable.mjesec04, R.drawable.mjesec05, R.drawable.mjesec06, R.drawable.mjesec07,
+        			R.drawable.mjesec08, R.drawable.mjesec09, R.drawable.mjesec10, R.drawable.mjesec11,
+        			R.drawable.mjesec12 };
+        	
+        	// Setiraj resource ID shodno izracunatom mjesecu u kojem se beba trenutno nalazi.
+        	int resIdSlike = slike[months - 1];
+        	
+        	// Populariziraj ImageView sa odgovarajucom slikom.
+        	SlikaBeba.setImageResource(resIdSlike);
+        	
         	// Setiraj array sa vrijednostima za podatke o razvoju.
-        	int num[] = { R.raw.mjesec01, R.raw.mjesec02, R.raw.mjesec03, R.raw.mjesec04, R.raw.mjesec05,
+        	int podaci[] = { R.raw.mjesec01, R.raw.mjesec02, R.raw.mjesec03, R.raw.mjesec04, R.raw.mjesec05,
         			R.raw.mjesec06, R.raw.mjesec07, R.raw.mjesec08, R.raw.mjesec09, R.raw.mjesec10,
         			R.raw.mjesec11, R.raw.mjesec12 };
         	
         	// Setiraj resource ID shodno izracunatom mjesecu u kojem se beba trenutno nalazi.
-        	int resId = num[months - 1];
+        	int resIdPodaci = podaci[months - 1];
         	
-        	// Dobavi odgovarajuci text file, parsiraj ga i sa njegovim sadrzajem populariziraj
-        	// TextView u kojem treba da se nalaze podaci.
-        	InputStream inputStream = this.getResources().openRawResource(resId);
+        	/** Dobavi odgovarajuci text file, parsiraj ga i sa njegovim sadrzajem populariziraj
+        	 *  TextView u kojem treba da se nalaze podaci. */
+        	InputStream inputStream = this.getResources().openRawResource(resIdPodaci);
         	InputStreamReader inputreader = new InputStreamReader(inputStream);
         	BufferedReader buffreader = new BufferedReader(inputreader);
-        	String line;
+        	String line = null;
+        	int numLines = 2;
+        	int lineCtr = 0;
+        	StringBuilder introtext = new StringBuilder();
+        	try {
+        		while ((line = buffreader.readLine()) != null) {
+        			if (lineCtr == numLines) {
+    				    break;
+    				}
+        			lineCtr++;
+        			introtext.append(line);
+        			introtext.append('\n');
+        		}
+        	} catch (IOException e) {
+        			return;
+        		}
+        	IntroPodaciBeba.setText(introtext.toString());
+        	
         	StringBuilder text = new StringBuilder();
         	try {
         		while ((line = buffreader.readLine()) != null) {
-        			text.append(line);
-        			text.append('\n');
-        			}
-        		} catch (IOException e) {
+        			if (lineCtr >= numLines) {
+        				lineCtr++;
+            			text.append(line);
+            			text.append('\n');
+            		}
+        		}
+        	} catch (IOException e) {
         			return;
-        			}
+        		}
         	PodaciBeba.setText(text.toString());
         }
     }
-
-	@Override
+    
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
