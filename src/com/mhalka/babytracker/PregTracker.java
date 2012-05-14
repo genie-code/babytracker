@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -55,7 +56,7 @@ public class PregTracker extends Activity {
     	
     	// Setiraj Holo Light temu za Android 3 i vecu verziju.
     	if(android.os.Build.VERSION.SDK_INT >= 11) {
-    		setTheme(android.R.style.Theme_Holo_Light_NoActionBar);
+    		setTheme(android.R.style.Theme_Holo_Light);
     	}
     	
     	super.onCreate(savedInstanceState);
@@ -182,7 +183,17 @@ public class PregTracker extends Activity {
         				intent, PendingIntent.FLAG_CANCEL_CURRENT);
         		am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
         				(24 * 60 * 60 * 1000), pendingIntent);
-        		}
+        	}
+        	
+        	// Namjesti ActionBar za Android 3 i vece verzije.
+        	if(android.os.Build.VERSION.SDK_INT >= 11) {
+        		ActionBar actionBar = getActionBar();
+        		actionBar.setDisplayShowHomeEnabled(false);
+        		actionBar.setTitle(R.string.pregtracking);
+        	}
+        	
+        	// Namjesti Title prema odabranom nacinu pracenja.
+        	setTitle(R.string.pregtracking);
         	
         	// Populariziraj TextView sa izracunatom vrijednoscu.
         	StarostPloda.setText(VasaTrudnoca + " " + weeks + "." + " " + Sedmica);

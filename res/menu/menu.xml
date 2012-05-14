@@ -2,10 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/podesavanja"
         android:title="@string/meni_podesavanja"
-        android:icon="@android:drawable/ic_menu_preferences">
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:showAsAction="collapseActionView" >
     </item>
     <item android:id="@+id/about"
         android:title="@string/meni_about"
-        android:icon="@android:drawable/ic_menu_info_details">
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:showAsAction="collapseActionView" >
     </item>
 </menu>
