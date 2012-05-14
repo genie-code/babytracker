@@ -195,10 +195,10 @@ public class BabyTracker extends Activity {
         		ActionBar actionBar = getActionBar();
         		actionBar.setDisplayShowHomeEnabled(false);
         		actionBar.setTitle(R.string.devtracking);
+        	} else {
+        		// Namjesti Title prema odabranom nacinu pracenja.
+        		setTitle(R.string.devtracking);
         	}
-        	
-        	// Namjesti Title prema odabranom nacinu pracenja.
-        	setTitle(R.string.devtracking);
         	
         	// Populariziraj TextView sa izracunatom vrijednoscu.
         	StarostBebe.setText(VasaBeba + " " + months + "." + " " + Mjesec);

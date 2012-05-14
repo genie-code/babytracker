@@ -190,10 +190,10 @@ public class PregTracker extends Activity {
         		ActionBar actionBar = getActionBar();
         		actionBar.setDisplayShowHomeEnabled(false);
         		actionBar.setTitle(R.string.pregtracking);
+        	} else {
+        		// Namjesti Title prema odabranom nacinu pracenja.
+        		setTitle(R.string.pregtracking);
         	}
-        	
-        	// Namjesti Title prema odabranom nacinu pracenja.
-        	setTitle(R.string.pregtracking);
         	
         	// Populariziraj TextView sa izracunatom vrijednoscu.
         	StarostPloda.setText(VasaTrudnoca + " " + weeks + "." + " " + Sedmica);
