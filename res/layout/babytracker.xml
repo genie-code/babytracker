@@ -70,7 +70,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            ads:adSize="BANNER"
+            ads:adSize="SMART_BANNER"
             ads:adUnitId="a14f79ada1d298f"
             ads:loadAdOnCreate="true" />
     
