@@ -3,7 +3,6 @@ package com.mhalka.babytracker;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -117,6 +116,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     	}
     }
 	
+	@SuppressWarnings("deprecation")
 	public void startNotifikaciju(Context context) {
 		notifier = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
