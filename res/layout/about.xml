@@ -83,7 +83,7 @@
 
     <Button
         android:id="@+id/btnOK"
-        android:textSize="13dp"
+        android:textSize="13sp"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

@@ -15,65 +15,50 @@
         android:paddingRight="5dp"
         android:text="@string/mjesec"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <RelativeLayout
+        
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:fillViewport="true" >
         
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:layout_above="@+id/adView"
-            android:layout_alignParentTop="true"
-            android:fillViewport="true" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
             
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/ivSlikaBeba"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:src="@drawable/mjesec01"
+                android:contentDescription="@string/devtracking"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+                
+            <TextView
+                android:id="@+id/txtIntroPodaciBeba"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:text="@string/devtracking"
+                android:layout_toRightOf="@+id/ivSlikaBeba"
+                android:layout_toEndOf="@+id/ivSlikaBeba"
+                android:paddingTop="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="0dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
                 
-                <ImageView
-                    android:id="@+id/ivSlikaBeba"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:paddingTop="5dp"
-                    android:src="@drawable/mjesec01"
-                    android:contentDescription="@string/devtracking"
-                    android:layout_alignParentLeft="true" />
-                
-                <TextView
-                    android:id="@+id/txtIntroPodaciBeba"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/devtracking"
-                    android:layout_toRightOf="@+id/ivSlikaBeba"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="5dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-                
-                <TextView
-                    android:id="@+id/txtPodaciBeba"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ivSlikaBeba"
-                    android:text="@string/dugi_text"
-                    android:paddingTop="5dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
-            
-            </RelativeLayout>
-        
-        </ScrollView>
-        
-        <com.google.ads.AdView
-            android:id="@+id/adView"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            ads:adSize="SMART_BANNER"
-            ads:adUnitId="a14f79ada1d298f"
-            ads:loadAdOnCreate="true" />
-    
-    </RelativeLayout>
-
+            <TextView
+                android:id="@+id/txtPodaciBeba"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivSlikaBeba"
+                android:text="@string/dugi_text"
+                android:paddingTop="5dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+        </RelativeLayout>
+    </ScrollView>
 </LinearLayout>
