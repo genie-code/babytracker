@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="com.mhalka.babytracker"
-    android:versionCode="16"
-    android:versionName="1.6"
+    android:versionCode="17"
+    android:versionName="1.6.1"
     android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android">
     
     <supports-screens android:smallScreens="false" android:xlargeScreens="false" />
 
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="16"/>
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="19"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Baby and Pregnancy Tracker</string>
+    <string name="app_name">Trudnoća i razvoj bebe</string>
     <string name="vrsta_pracenja">Odaberite vrstu praćenja</string>
     <string name="pregtracking">Praćenje trudnoće</string>
     <string name="devtracking">Praćenje razvoja bebe</string>
