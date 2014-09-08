@@ -1,5 +1,6 @@
 package com.mhalka.babytracker;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -17,11 +18,12 @@ public class About extends Activity {
 	private Button OK;
 
 	/** Called when the activity is first created. */
+	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		
-		// Setiraj Holo Light temu za Android 3 i vecu verziju.
-    	if(android.os.Build.VERSION.SDK_INT >= 11) {
+		// Setiraj Holo Light temu za Android 4 i vecu verziju.
+    	if(android.os.Build.VERSION.SDK_INT >= 14) {
     		setTheme(android.R.style.Theme_Holo_Light_NoActionBar);
     	}
     	

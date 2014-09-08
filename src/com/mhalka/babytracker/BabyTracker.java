@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -49,12 +50,13 @@ public class BabyTracker extends Activity {
 	private AlarmManager am;
 	
     /** Called when the activity is first created. */
+	@SuppressLint("NewApi")
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	
-    	// Setiraj Holo Light temu za Android 3 i vecu verziju.
-    	if(android.os.Build.VERSION.SDK_INT >= 11) {
-    		setTheme(android.R.style.Theme_Holo_Light);
+    	// Setiraj Holo Light temu za Android 4 i vecu verziju.
+    	if(android.os.Build.VERSION.SDK_INT >= 14) {
+    		setTheme(android.R.style.Theme_Holo_Light_DarkActionBar);
     	}
     	
     	super.onCreate(savedInstanceState);
@@ -190,10 +192,10 @@ public class BabyTracker extends Activity {
         				(24 * 60 * 60 * 1000), pendingIntent);
         	}
         	
-        	// Namjesti ActionBar za Android 3 i vece verzije.
-        	if(android.os.Build.VERSION.SDK_INT >= 11) {
+        	// Namjesti ActionBar za Android 4 i vece verzije.
+        	if(android.os.Build.VERSION.SDK_INT >= 14) {
         		ActionBar actionBar = getActionBar();
-        		actionBar.setDisplayShowHomeEnabled(false);
+        		actionBar.setDisplayShowHomeEnabled(true);
         		actionBar.setTitle(R.string.devtracking);
         	} else {
         		// Namjesti Title prema odabranom nacinu pracenja.

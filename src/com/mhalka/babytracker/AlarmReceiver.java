@@ -2,7 +2,7 @@ package com.mhalka.babytracker;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -28,7 +28,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 	public static final int NOTIFIKACIJA_ID = 0;
 	
 	// Setiraj varijable.
-	private NotificationManager notifier;
+	private NotificationManager mNotificationManager;
 	private String ScrollingText;
 	private String NotificationText;
 	
@@ -116,38 +116,39 @@ public class AlarmReceiver extends BroadcastReceiver {
     	}
     }
 	
+	@SuppressLint("NewApi")
 	@SuppressWarnings("deprecation")
 	public void startNotifikaciju(Context context) {
-		notifier = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
         		new Intent(context, SplashScreen.class), PendingIntent.FLAG_CANCEL_CURRENT);
 		
-		Notification notification = new Notification(R.drawable.ic_launcher,
-        		ScrollingText, System.currentTimeMillis());
-        notification.setLatestEventInfo(context, context.getText(R.string.app_name),
-        		NotificationText, contentIntent);
-        notification.flags |= Notification.FLAG_ONLY_ALERT_ONCE | Notification.FLAG_AUTO_CANCEL;
-        notification.defaults |= Notification.DEFAULT_VIBRATE;
+		Notification notification;
 		
-		/** Novi nacin kreiranja notifikacije koristeci Notification.Builder (za API >= 11)
-		 * 
-		 Notification.Builder builder = new Notification.Builder(context);
-		 
-		 builder.setContentIntent(contentIntent)
-		            .setSmallIcon(R.drawable.ic_launcher)
-		            .setTicker(ScrollingText)
-		            .setWhen(System.currentTimeMillis())
-		            .setAutoCancel(true)
-		            .setOnlyAlertOnce(true)
-		            .setDefaults(Notification.DEFAULT_VIBRATE)
-		            .setContentTitle(context.getText(R.string.app_name))
-		            .setContentText(NotificationText);
-		 Notification notification = builder.getNotification();
-		 // Gornje je u API-ju 16 deprecated koristi se metod ispod
-		 // Notification notification = builder.build();
-		 *
-		 **/
-        
-        notifier.notify(NOTIFIKACIJA_ID, notification);
+		if(android.os.Build.VERSION.SDK_INT >= 11) {
+			Notification.Builder builder = new Notification.Builder(context);
+			builder.setContentIntent(contentIntent)
+				.setSmallIcon(R.drawable.ic_launcher)
+				.setTicker(ScrollingText)
+				.setWhen(System.currentTimeMillis())
+				.setAutoCancel(true)
+				.setOnlyAlertOnce(true)
+				.setDefaults(Notification.DEFAULT_VIBRATE)
+				.setContentTitle(context.getText(R.string.app_name))
+				.setContentText(NotificationText);
+			if(android.os.Build.VERSION.SDK_INT >= 16) {
+				notification = builder.build();
+			} else {
+				notification = builder.getNotification();
+			}
+		} else {
+			notification = new Notification(R.drawable.ic_launcher,
+	        		ScrollingText, System.currentTimeMillis());
+	        notification.setLatestEventInfo(context, context.getText(R.string.app_name),
+	        		NotificationText, contentIntent);
+	        notification.flags |= Notification.FLAG_ONLY_ALERT_ONCE | Notification.FLAG_AUTO_CANCEL;
+	        notification.defaults |= Notification.DEFAULT_VIBRATE;
+		}
+		mNotificationManager.notify(NOTIFIKACIJA_ID, notification);
     }
 }
