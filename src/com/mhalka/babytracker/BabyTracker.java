@@ -321,10 +321,10 @@ public class BabyTracker extends Activity {
     	final SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
     	final SharedPreferences.Editor editor = settings.edit();
     	Integer mPosition = settings.getInt(POZADINA, 2);
-
+    	
     	// Procitaj array vrijednosti za pozadine
     	final CharSequence[] items = getResources().getStringArray(R.array.backgrounds);
-
+    	
     	new AlertDialog.Builder(this)
     	.setTitle(getString(R.string.bg_change_title))
     	.setSingleChoiceItems(items, mPosition, new DialogInterface.OnClickListener() {
@@ -338,11 +338,11 @@ public class BabyTracker extends Activity {
     				} else {
     					BebaLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_blue));
     				}
-
+    				
     				// Zapisi preference
     				editor.putInt(POZADINA, which);
     				editor.commit();
-
+    				
     				break;
     			case 1:
     				if (Build.VERSION.SDK_INT >= 16) {
@@ -350,11 +350,11 @@ public class BabyTracker extends Activity {
     				} else {
     					BebaLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_pink));
     				}
-
+    				
     				// Zapisi preference
     				editor.putInt(POZADINA, which);
     				editor.commit();
-
+    				
     				break;
     			case 2:
     				if (Build.VERSION.SDK_INT >= 16) {
@@ -362,11 +362,11 @@ public class BabyTracker extends Activity {
     				} else {
     					BebaLayout.setBackgroundDrawable(null);
     				}
-
+    				
     				// Zapisi preference
     				editor.putInt(POZADINA, which);
     				editor.commit();
-
+    				
     				break;
     			}
     			dialog.dismiss();
