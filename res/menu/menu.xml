@@ -5,6 +5,11 @@
         android:icon="@android:drawable/ic_menu_preferences"
         android:showAsAction="never" >
     </item>
+    <item android:id="@+id/background"
+        android:title="@string/meni_background"
+        android:icon="@android:drawable/ic_menu_gallery"
+        android:showAsAction="never" >
+    </item>
     <item android:id="@+id/about"
         android:title="@string/meni_about"
         android:icon="@android:drawable/ic_menu_info_details"
