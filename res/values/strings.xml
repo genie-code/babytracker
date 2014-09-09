@@ -43,4 +43,10 @@ Maecenas dignissim urna eget tortor pretium malesuada. Cras tristique mauris et 
 
 Pellentesque vitae quam neque, aliquam cursus diam. Aliquam blandit orci nec velit fermentum ac consequat nibh placerat. Nam a viverra nisl. Cras leo magna, venenatis ut laoreet id, condimentum sed velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam gravida facilisis purus eget semper. In porta massa vitae nunc dictum eu auctor odio cursus. Nunc aliquam, massa quis condimentum adipiscing, nisl augue viverra enim, sit amet adipiscing dolor nibh vitae dolor. Suspendisse fermentum nulla quis velit volutpat cursus. Phasellus vestibulum tincidunt sodales. Quisque tempor lectus vitae leo aliquet placerat ut sed augue.</string>
     <string name="touch_to_skip">Pritisni za nastavak</string>
+    <string-array name="backgrounds">
+        <item >Plava</item>
+        <item >Roza</item>
+        <item >Bez pozadine</item>
+    </string-array>
+    <string name="bg_change_title">Odaberite pozadinu</string>
 </resources>
