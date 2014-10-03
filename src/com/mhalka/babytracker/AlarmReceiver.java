@@ -62,7 +62,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     	        	weeksBetween++;
     	        	}
     	        // Namjesti varijablu za optimalan broj sedmica trudnoce
-    	        int weeksopt = 41 - ((int) weeksBetween);
+    	        int weeksopt = 40 - ((int) weeksBetween);
     	        
     	        // Racunaj starost ploda u odnosu na maksimalni broj sedmica trajanja trudnoce
     	        while (today.after(datumPocetkaPracenja)) {
@@ -125,30 +125,22 @@ public class AlarmReceiver extends BroadcastReceiver {
 		
 		Notification notification;
 		
-		if(android.os.Build.VERSION.SDK_INT >= 11) {
-			Notification.Builder builder = new Notification.Builder(context);
-			builder.setContentIntent(contentIntent)
-				.setSmallIcon(R.drawable.ic_launcher)
-				.setTicker(ScrollingText)
-				.setWhen(System.currentTimeMillis())
-				.setAutoCancel(true)
-				.setOnlyAlertOnce(true)
-				.setDefaults(Notification.DEFAULT_VIBRATE)
-				.setContentTitle(context.getText(R.string.app_name))
-				.setContentText(NotificationText);
-			if(android.os.Build.VERSION.SDK_INT >= 16) {
-				notification = builder.build();
-			} else {
-				notification = builder.getNotification();
-			}
+		Notification.Builder builder = new Notification.Builder(context);
+		builder.setContentIntent(contentIntent)
+			.setSmallIcon(R.drawable.ic_launcher)
+			.setTicker(ScrollingText)
+			.setWhen(System.currentTimeMillis())
+			.setAutoCancel(true)
+			.setOnlyAlertOnce(true)
+			.setDefaults(Notification.DEFAULT_VIBRATE)
+			.setContentTitle(context.getText(R.string.app_name))
+			.setContentText(NotificationText);
+		if(android.os.Build.VERSION.SDK_INT >= 16) {
+			notification = builder.build();
 		} else {
-			notification = new Notification(R.drawable.ic_launcher,
-	        		ScrollingText, System.currentTimeMillis());
-	        notification.setLatestEventInfo(context, context.getText(R.string.app_name),
-	        		NotificationText, contentIntent);
-	        notification.flags |= Notification.FLAG_ONLY_ALERT_ONCE | Notification.FLAG_AUTO_CANCEL;
-	        notification.defaults |= Notification.DEFAULT_VIBRATE;
+			notification = builder.getNotification();
 		}
+		
 		mNotificationManager.notify(NOTIFIKACIJA_ID, notification);
     }
 }
