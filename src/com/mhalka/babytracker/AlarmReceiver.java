@@ -62,7 +62,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     	        	weeksBetween++;
     	        	}
     	        // Namjesti varijablu za optimalan broj sedmica trudnoce
-    	        int weeksopt = 40 - ((int) weeksBetween);
+    	        int weeksopt = 41 - ((int) weeksBetween);
     	        
     	        // Racunaj starost ploda u odnosu na maksimalni broj sedmica trajanja trudnoce
     	        while (today.after(datumPocetkaPracenja)) {
