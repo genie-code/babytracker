@@ -60,7 +60,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     	        while (today.before(datumPocetkaPracenja)) {
     	        	today.add(Calendar.DAY_OF_MONTH, 7);
     	        	weeksBetween++;
-    	        	}
+    	        }
     	        // Namjesti varijablu za optimalan broj sedmica trudnoce
     	        int weeksopt = 41 - ((int) weeksBetween);
     	        
@@ -68,7 +68,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     	        while (today.after(datumPocetkaPracenja)) {
     	        	datumPocetkaPracenja.add(Calendar.DAY_OF_MONTH, 7);
     	        	weeksBetween++;
-    	        	}
+    	        }
     	        // Namjesti varijablu za produzeni broj sedmica trudnoce
     	        int weeksexp = 40 + ((int) weeksBetween);
     	        
@@ -105,7 +105,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     			while (datumPocetkaPracenja.before(today)) {
     				today.add(Calendar.MONTH, -1);
     				monthsBetween++;
-    				}
+    			}
     			int months = (int) monthsBetween;
     			
     			// Pokreni notifikaciju ako su ispunjeni svi uslovi.

@@ -112,7 +112,7 @@ public class BabyTracker extends Activity {
         while (datum.before(today)) {
         	today.add(Calendar.MONTH, -1);
         	monthsBetween++;
-        	}
+        }
         
         int months = (int) monthsBetween;
         
