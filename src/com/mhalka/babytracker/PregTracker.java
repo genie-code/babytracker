@@ -13,10 +13,12 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,6 +28,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PregTracker extends Activity {
 	
@@ -41,13 +44,14 @@ public class PregTracker extends Activity {
 	// Setiraj varijable za elemente forme.
 	private LinearLayout PregLayout;
 	private TextView StarostPloda;
+	private TextView PuneSedmice;
 	private TextView IntroPodaciPlod;
 	private TextView PodaciPlod;
 	private ImageView SlikaPlod;
 	private String VasaTrudnoca;
 	private String Sedmica;
-	private String TacnaSedmica;
-	private String TacanDan;
+	private String PunaSedmica;
+	private String PuniDan;
 	private String NerealnaVrijednost;
 	private String PrekoTermina;
 	private String NovoPracenje;
@@ -72,13 +76,14 @@ public class PregTracker extends Activity {
         // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
         PregLayout = (LinearLayout) findViewById(R.id.llPregTracker);
         StarostPloda = (TextView) findViewById(R.id.txtStarostPloda);
+        PuneSedmice = (TextView) findViewById(R.id.txtPuneSedmice);
         IntroPodaciPlod = (TextView) findViewById(R.id.txtIntroPodaciPlod);
         PodaciPlod = (TextView) findViewById(R.id.txtPodaciPlod);
         SlikaPlod = (ImageView) findViewById(R.id.ivSlikaPlod);
         VasaTrudnoca = this.getString(R.string.vasa_trudnoca);
         Sedmica = this.getString(R.string.sedmica);
-        TacnaSedmica = this.getString(R.string.sedmice_tacno);
-        TacanDan = this.getString(R.string.dani_tacno);
+        PunaSedmica = this.getString(R.string.pune_sedmice);
+        PuniDan = this.getString(R.string.puni_dani);
         NerealnaVrijednost = this.getString(R.string.nerealna_vrijednost);
         PrekoTermina = this.getString(R.string.preko_termina);
         NovoPracenje = this.getString(R.string.namjesti_novo_pracenje);
@@ -275,9 +280,10 @@ public class PregTracker extends Activity {
         	} 
         	
         	// Populariziraj TextView sa izracunatom vrijednoscu.
-        	StarostPloda.setText(VasaTrudnoca + " " + weeks + "." + " " + Sedmica
-        			+ " (" + TacnaSedmica + " " + exactweeks + ", " + TacanDan
-        			+ " " + days + ").");
+        	StarostPloda.setText(VasaTrudnoca + " " + weeks + "." + " " + Sedmica);
+        	// Popuni TextView sa napunjenim brojem sedmica i dana
+        	PuneSedmice.setText("[ " + PunaSedmica + " " + exactweeks
+        			+ " i " + PuniDan + " " + days + " ]");
         	
         	// Setiraj array sa resource ID-jevima za slike.
         	int slike[] = { R.drawable.sedmica01, R.drawable.sedmica02, R.drawable.sedmica03,
@@ -375,6 +381,9 @@ public class PregTracker extends Activity {
             case R.id.background:
                 bgChangeDialog();
                 return true;
+            case R.id.rateapp:
+                rateApp();
+                return true;
             case R.id.about:
             	Intent about = new Intent(this, About.class);
             	startActivityForResult(about, 0);
@@ -442,5 +451,31 @@ public class PregTracker extends Activity {
     	})
     	.setCancelable(true)
     	.show();
+    }
+    
+    private boolean tryStartActivity(Intent aIntent) {
+    	try
+    	{
+    		startActivity(aIntent);
+    		return true;
+    	}
+    	catch (ActivityNotFoundException e)
+    	{
+    		return false;
+    	}
+    }
+    
+    public void rateApp() {
+    	Intent intent = new Intent(Intent.ACTION_VIEW);
+    	// Probaj Google Play
+    	intent.setData(Uri.parse("market://details?id=com.mhalka.babytracker"));
+    	if (!tryStartActivity(intent)) {
+    		// Izgleda da Google Play nije instaliran, probaj web browser
+    		intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.mhalka.babytracker"));
+    		if (!tryStartActivity(intent)) {
+    			// Ako nista od prethodnog ne upali informisi korisnika o tome
+    			Toast.makeText(this, getString(R.string.no_google_play), Toast.LENGTH_SHORT).show();
+    		}
+    	}
     }
 }
