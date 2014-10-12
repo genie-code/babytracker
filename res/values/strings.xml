@@ -23,7 +23,9 @@
     <string name="vasa_beba">Vaša beba je sada u</string>
     <string name="vasa_trudnoca">Vi ste sada u</string>
     <string name="mjesec">mjesecu života.</string>
-    <string name="sedmica">sedmici trudnoće.</string>
+    <string name="sedmica">sedmici trudnoće</string>
+    <string name="sedmice_tacno">sedmica:</string>
+    <string name="dani_tacno">dana:</string>
     <string name="napunjena_godina">Čestitamo! Vrijeme je da Vaša beba proslavi svoj prvi rođendan.</string>
     <string name="vise_od_godine">Datum kojega ste odabrali sugerira da je Vaše dijete starije od 12 mjeseci. Provjerite da li ste odabrali prave vrijednosti.</string>
     <string name="preko_termina">Čestitamo! Vaša beba je konačno ugledala svijet.</string>

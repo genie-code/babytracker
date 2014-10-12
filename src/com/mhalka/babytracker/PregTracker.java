@@ -46,6 +46,8 @@ public class PregTracker extends Activity {
 	private ImageView SlikaPlod;
 	private String VasaTrudnoca;
 	private String Sedmica;
+	private String TacnaSedmica;
+	private String TacanDan;
 	private String NerealnaVrijednost;
 	private String PrekoTermina;
 	private String NovoPracenje;
@@ -75,6 +77,8 @@ public class PregTracker extends Activity {
         SlikaPlod = (ImageView) findViewById(R.id.ivSlikaPlod);
         VasaTrudnoca = this.getString(R.string.vasa_trudnoca);
         Sedmica = this.getString(R.string.sedmica);
+        TacnaSedmica = this.getString(R.string.sedmice_tacno);
+        TacanDan = this.getString(R.string.dani_tacno);
         NerealnaVrijednost = this.getString(R.string.nerealna_vrijednost);
         PrekoTermina = this.getString(R.string.preko_termina);
         NovoPracenje = this.getString(R.string.namjesti_novo_pracenje);
@@ -118,7 +122,7 @@ public class PregTracker extends Activity {
         while (today.before(datum)) {
         	today.add(Calendar.DAY_OF_MONTH, 7);
         	weeksBetween++;
-        	}
+        }
         // Namjesti varijablu za optimalan broj sedmica trudnoce
         int weeksopt = 41 - ((int) weeksBetween);
         
@@ -126,9 +130,47 @@ public class PregTracker extends Activity {
         while (today.after(datum)) {
         	datum.add(Calendar.DAY_OF_MONTH, 7);
         	weeksBetween++;
-        	}
+        }
         // Namjesti varijablu za produzeni broj sedmica trudnoce
         int weeksexp = 40 + ((int) weeksBetween);
+        
+        // Izracunaj starost ploda u danima.
+        // Dobavi datum pocetka pracenja i danasnji datum.
+        Calendar endDate = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
+        Calendar startDate = Calendar.getInstance();
+        
+        // Izracunaj starost ploda u danima za optimalni broj dana
+        Calendar date = (Calendar) endDate.clone();
+        long daysBetween = 0;
+        while (startDate.before(date)) {
+        	startDate.add(Calendar.DAY_OF_MONTH, 1);
+        	daysBetween++;
+        }
+        // Namjesti varijablu za optimalan broj dana starosti ploda
+        int daysopt = 0;
+        if (((int) daysBetween % 7) != 0) {
+        	daysopt = 7 - ((int) daysBetween % 7);
+        } else {
+        	daysopt = ((int) daysBetween % 7);
+        }
+        
+        // Namjesti varijablu koja odbrojava dane unazad
+        int pregdaysopt = 281 - ((int) daysBetween);
+        
+        // Racunaj starost ploda u odnosu na maksimalni broj dana trajanja trudnoce
+        while (startDate.after(date)) {
+        	date.add(Calendar.DAY_OF_MONTH, 1);
+        	daysBetween++;
+        }
+        // Namjesti varijablu za produzeni broj dana starosti ploda
+        int daysexp = 0;
+        if ((int) daysBetween < 8) {
+        	daysexp = ((int) daysBetween - 1);
+        } else if ((int) daysBetween == 8) {
+        	daysexp = 0;
+        } else {
+        	daysexp = (((int) daysBetween - 1) % 7);
+        }
         
         // Namjesti varijablu za globalni broj sedmica trudnoce
         int weeks = 0;
@@ -137,6 +179,17 @@ public class PregTracker extends Activity {
     	} else {
     		weeks = weeksopt;
     	}
+        
+        // Namjesti varijablu za tacan broj sedmica starosti ploda
+        int exactweeks = weeks - 1;
+        
+        // Namjesti varijablu za globalni broj dana
+        int days = 0;
+        if(pregdaysopt > 280) {
+        	days = daysexp;
+        } else {
+        	days = daysopt;
+        }
         
         // Provjeri da izracunata vrijednost nije negativna.
         if(weeks < 1) {
@@ -219,10 +272,12 @@ public class PregTracker extends Activity {
         	} else {
         		// Namjesti Title prema odabranom nacinu pracenja.
         		setTitle(R.string.pregtracking);
-        	}
+        	} 
         	
         	// Populariziraj TextView sa izracunatom vrijednoscu.
-        	StarostPloda.setText(VasaTrudnoca + " " + weeks + "." + " " + Sedmica);
+        	StarostPloda.setText(VasaTrudnoca + " " + weeks + "." + " " + Sedmica
+        			+ " (" + TacnaSedmica + " " + exactweeks + ", " + TacanDan
+        			+ " " + days + ").");
         	
         	// Setiraj array sa resource ID-jevima za slike.
         	int slike[] = { R.drawable.sedmica01, R.drawable.sedmica02, R.drawable.sedmica03,
@@ -300,7 +355,7 @@ public class PregTracker extends Activity {
         	PodaciPlod.setText(text.toString());
         }
     }
-
+	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
