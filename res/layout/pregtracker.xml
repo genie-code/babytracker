@@ -14,6 +14,8 @@
         android:paddingTop="5dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:text="@string/sedmica"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
@@ -24,6 +26,8 @@
         android:layout_gravity="center"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:text="@string/pune_sedmice"
         android:textAppearance="?android:attr/textAppearanceSmall" />
         
@@ -33,6 +37,8 @@
         android:paddingTop="5dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:fillViewport="true" >
             
         <RelativeLayout
