@@ -22,11 +22,6 @@ public class SplashScreen extends Activity {
     @SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
-		// Setiraj Holo Light temu za Android 4 i vecu verziju.
-    	if(android.os.Build.VERSION.SDK_INT >= 14) {
-    		setTheme(android.R.style.Theme_Holo_Light_NoActionBar_Fullscreen);
-    	}
     	
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.splash);

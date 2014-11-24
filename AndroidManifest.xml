@@ -8,17 +8,17 @@
     <supports-screens android:smallScreens="false"
         android:xlargeScreens="false" />
 
-    <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="19"/>
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="21"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Light"
+        android:theme="@android:style/Theme.DeviceDefault.Light.DarkActionBar"
         android:allowBackup="true">
         <activity android:name=".SplashScreen"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SettingsActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar"
             android:screenOrientation="portrait" >
         </activity>
         <activity android:name=".PregTracker"
@@ -36,7 +36,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity android:name=".About"
-            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar"
             android:screenOrientation="portrait" >
         </activity>
         <receiver android:name=".AlarmReceiver" ></receiver>

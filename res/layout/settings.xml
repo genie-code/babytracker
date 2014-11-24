@@ -50,7 +50,8 @@
         android:id="@+id/dpDatumPocetkaPracenja"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:calendarViewShown="false" />
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner" />
 
     <CheckBox
         android:id="@+id/cbNotifikacija"
@@ -66,7 +67,7 @@
 
         <Button
             android:id="@+id/btnSpasi"
-            android:textSize="13dp"
+            android:textSize="13sp"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -74,7 +75,7 @@
 
         <Button
             android:id="@+id/btnOtkazi"
-            android:textSize="13dp"
+            android:textSize="13sp"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
