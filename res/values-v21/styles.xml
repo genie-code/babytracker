@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="ColoredActionBarTheme" parent="@android:style/Theme.DeviceDefault.Light">
+        <item name="android:colorPrimary">@color/turquoise</item>
+        <item name="android:colorPrimaryDark">@color/dark_turquoise</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:popupTheme">@android:style/Theme.DeviceDefault.Light</item>
+    </style>
+</resources>

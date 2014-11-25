@@ -5,11 +5,6 @@
         android:icon="@android:drawable/ic_menu_preferences"
         android:showAsAction="never" >
     </item>
-    <item android:id="@+id/background"
-        android:title="@string/meni_background"
-        android:icon="@android:drawable/ic_menu_gallery"
-        android:showAsAction="never" >
-    </item>
     <item android:id="@+id/rateapp"
         android:title="@string/meni_rateapp"
         android:icon="@android:drawable/star_off"

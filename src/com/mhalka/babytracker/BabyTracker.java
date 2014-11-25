@@ -19,7 +19,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,7 +38,6 @@ public class BabyTracker extends Activity {
 	public static final String MJESEC = "MjesecPocetkaPracenja";
 	public static final String GODINA = "GodinaPocetkaPracenja";
 	public static final String MJESECI = "TrenutnaStarostBebe";
-	public static final String POZADINA = "Pozadina";
 	
 	// Setiraj varijable za elemente forme.
 	private LinearLayout BebaLayout;
@@ -55,7 +53,6 @@ public class BabyTracker extends Activity {
 	private AlarmManager am;
 	
     /** Called when the activity is first created. */
-	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,27 +75,6 @@ public class BabyTracker extends Activity {
         // Procitaj preference
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         Boolean NotifikacijaUkljucena = settings.getBoolean(NOTIFIKACIJA, true);
-        Integer mPosition = settings.getInt(POZADINA, 2);
-
-        // Namjesti pozadinu prema sacuvanoj vrijednosti
-        switch (mPosition) {
-        case 0:
-        	if (Build.VERSION.SDK_INT >= 16) {
-        		BebaLayout.setBackground(getResources().getDrawable(R.drawable.bg_blue));
-        	} else {
-        		BebaLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_blue));
-        	}
-        	break;
-        case 1:
-        	if (Build.VERSION.SDK_INT >= 16) {
-        		BebaLayout.setBackground(getResources().getDrawable(R.drawable.bg_pink));
-        	} else {
-        		BebaLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_pink));
-        	}
-        	break;
-        case 2:
-        	break;
-        }
         
         // Dobavi datum pocetka pracenja i danasnji datum.
         Calendar datumPocetkaPracenja = new GregorianCalendar(settings.getInt(GODINA,1920), settings.getInt(MJESEC,0), settings.getInt(DAN,1));
@@ -302,9 +278,6 @@ public class BabyTracker extends Activity {
             	startActivityForResult(podesavanja, 0);
  				finish();
                 return true;
-            case R.id.background:
-                bgChangeDialog();
-                return true;
             case R.id.rateapp:
                 rateApp();
                 return true;
@@ -315,66 +288,6 @@ public class BabyTracker extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void bgChangeDialog() {
-    	// Namjesti varijable za preference
-    	final SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-    	final SharedPreferences.Editor editor = settings.edit();
-    	Integer mPosition = settings.getInt(POZADINA, 2);
-    	
-    	// Procitaj array vrijednosti za pozadine
-    	final CharSequence[] items = getResources().getStringArray(R.array.backgrounds);
-    	
-    	new AlertDialog.Builder(this)
-    	.setTitle(getString(R.string.bg_change_title))
-    	.setSingleChoiceItems(items, mPosition, new DialogInterface.OnClickListener() {
-    		@SuppressWarnings("deprecation")
-    		@SuppressLint("NewApi")
-    		public void onClick(DialogInterface dialog, int which) {
-    			switch (which) {
-    			case 0:
-    				if (Build.VERSION.SDK_INT >= 16) {
-    					BebaLayout.setBackground(getResources().getDrawable(R.drawable.bg_blue));
-    				} else {
-    					BebaLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_blue));
-    				}
-    				
-    				// Zapisi preference
-    				editor.putInt(POZADINA, which);
-    				editor.commit();
-    				
-    				break;
-    			case 1:
-    				if (Build.VERSION.SDK_INT >= 16) {
-    					BebaLayout.setBackground(getResources().getDrawable(R.drawable.bg_pink));
-    				} else {
-    					BebaLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_pink));
-    				}
-    				
-    				// Zapisi preference
-    				editor.putInt(POZADINA, which);
-    				editor.commit();
-    				
-    				break;
-    			case 2:
-    				if (Build.VERSION.SDK_INT >= 16) {
-    					BebaLayout.setBackground(null);
-    				} else {
-    					BebaLayout.setBackgroundDrawable(null);
-    				}
-    				
-    				// Zapisi preference
-    				editor.putInt(POZADINA, which);
-    				editor.commit();
-    				
-    				break;
-    			}
-    			dialog.dismiss();
-    		}
-    	})
-    	.setCancelable(true)
-    	.show();
     }
     
     private boolean tryStartActivity(Intent aIntent) {
