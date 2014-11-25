@@ -1,12 +1,15 @@
 package com.mhalka.babytracker;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -32,8 +35,6 @@ public class SettingsActivity extends Activity {
 	private TextView DatumRodjenja;
 	private CheckBox Notifikacija;
 	private DatePicker DatumPocetkaPracenja;
-	private Button Spasi;
-	private Button Otkazi;
 	
     /** Called when the activity is first created. */
 	@SuppressLint("NewApi")
@@ -50,8 +51,6 @@ public class SettingsActivity extends Activity {
         DatumRodjenja = (TextView) findViewById(R.id.txtDatumRodjenja);
         DatumPocetkaPracenja = (DatePicker) findViewById(R.id.dpDatumPocetkaPracenja);
         Notifikacija = (CheckBox) findViewById(R.id.cbNotifikacija);
-        Spasi = (Button) findViewById(R.id.btnSpasi);
-        Otkazi = (Button) findViewById(R.id.btnOtkazi);
         
         
         // Procitaj preference
@@ -113,62 +112,92 @@ public class SettingsActivity extends Activity {
 				
 			}
 		});
-        
-        // OnClick funkcija za dugme za spasavanje podesavanja.
-        Spasi.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				// Dobavi ime file-a gdje su preference i unesi nove vrijednosti.
-				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-			    SharedPreferences.Editor editor = settings.edit();
-			    editor.putBoolean(FIRSTRUN, false);
-			    editor.putBoolean(TRUDNOCA, PracenjeTrudnoce.isChecked());
-                editor.putBoolean(NOTIFIKACIJA, Notifikacija.isChecked());
-                editor.putInt(DAN, DatumPocetkaPracenja.getDayOfMonth());
-                editor.putInt(MJESEC, DatumPocetkaPracenja.getMonth());
-                editor.putInt(GODINA, DatumPocetkaPracenja.getYear());
                 
-                // Zapisi preference.
-                editor.commit();
-                
-                // Otvori novi Activity shodno odabiru vrste pracenja.
-                Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
-    			if(pracenjeTrudnoce) {
-                	Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
-                	startActivityForResult(intent, 0);
-                	finish();
-                	} else {
-                		Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
-                		startActivityForResult(intent, 0);
-                		finish();
-                	}
-                }
-			});
+        // Namjesti ActionBar
+    	ActionBar actionBar = getActionBar();
+    	actionBar.setDisplayHomeAsUpEnabled(true);
+    	actionBar.setTitle(R.string.meni_podesavanja);
+    }
+	
+	@Override
+	public void onBackPressed() {
+		showSaveDialog();
+	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Opcije menija.
+        switch (item.getItemId()) {
+            case android.R.id.home:
+            	showSaveDialog();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+	
+	// Spasi podesavanja i zatvori activity
+	private void saveAndExit() {
+		// Dobavi ime file-a gdje su preference i unesi nove vrijednosti.
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+	    SharedPreferences.Editor editor = settings.edit();
+	    editor.putBoolean(FIRSTRUN, false);
+	    editor.putBoolean(TRUDNOCA, PracenjeTrudnoce.isChecked());
+        editor.putBoolean(NOTIFIKACIJA, Notifikacija.isChecked());
+        editor.putInt(DAN, DatumPocetkaPracenja.getDayOfMonth());
+        editor.putInt(MJESEC, DatumPocetkaPracenja.getMonth());
+        editor.putInt(GODINA, DatumPocetkaPracenja.getYear());
         
-        // OnClick funkcija za dugme za zatvaranje Activity-ja bez cuvanja preferenci.
-        Otkazi.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				finish();
-				
-				// Otvori novi Activity shodno odabiru vrste pracenja, ako je odabir prethodno izvrsen.
-				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-				Boolean unesenePreference = settings.contains(TRUDNOCA);
-				
-				if(unesenePreference) {
-					Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
+        // Zapisi preference.
+        editor.commit();
+        
+        // Otvori novi Activity shodno odabiru vrste pracenja.
+        Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
+		if(pracenjeTrudnoce) {
+        	Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
+        	startActivityForResult(intent, 0);
+        	finish();
+        } else {
+        		Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
+        		startActivityForResult(intent, 0);
+        		finish();
+        }
+	}
+	
+	// Pokazi dijalog za spasavanje podesavanja
+	private void showSaveDialog() {
+		new AlertDialog.Builder(this)
+			.setTitle(getString(R.string.dialog_podesavanja_title))
+			.setMessage(getString(R.string.dialog_podesavanja_message))
+			.setCancelable(false)
+			.setPositiveButton(R.string.save_changes,
+			new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface d, int w) {
+					saveAndExit();
+				}
+			})
+			.setNegativeButton(R.string.cancel_changes,
+			new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface d, int w) {
+					finish();
 					
-					if(pracenjeTrudnoce) {
-						Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
-						startActivityForResult(intent, 0);
-						finish();
-						} else {
-							Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
+					// Otvori novi Activity shodno odabiru vrste pracenja, ako je odabir prethodno izvrsen.
+					SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+					Boolean unesenePreference = settings.contains(TRUDNOCA);
+					
+					if(unesenePreference) {
+						Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
+						
+						if(pracenjeTrudnoce) {
+							Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
 							startActivityForResult(intent, 0);
 							finish();
+						} else {
+								Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
+								startActivityForResult(intent, 0);
+								finish();
 						}
+					}
 				}
-			}
-		});
-    }
+			}).show();
+	}
 }

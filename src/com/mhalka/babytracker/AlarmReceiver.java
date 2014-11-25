@@ -128,7 +128,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 		
 		Notification.Builder builder = new Notification.Builder(context);
 		builder.setContentIntent(contentIntent)
-			.setSmallIcon(R.drawable.ic_launcher)
+			.setSmallIcon(R.drawable.ic_launcher_bw)
 			.setTicker(ScrollingText)
 			.setWhen(System.currentTimeMillis())
 			.setAutoCancel(true)

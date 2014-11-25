@@ -1,12 +1,12 @@
 package com.mhalka.babytracker;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 public class About extends Activity {
@@ -15,7 +15,6 @@ public class About extends Activity {
 	private String Verzija;
 	private String VerzijaNepoznata;
 	private String VerzijaString;
-	private Button OK;
 
 	/** Called when the activity is first created. */
 	@SuppressLint("NewApi")
@@ -28,7 +27,6 @@ public class About extends Activity {
 	    VerzijaAplikacije = (TextView) findViewById(R.id.txtVerzija);
 	    Verzija = this.getString(R.string.verzija);
 	    VerzijaNepoznata = this.getString(R.string.verzija_nepoznata);
-	    OK = (Button) findViewById(R.id.btnOK);
 	    
 	    try {
 	    	PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -40,11 +38,20 @@ public class About extends Activity {
 	    
 	    VerzijaAplikacije.setText(VerzijaString);
 	    
-	    OK.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				finish();
-			}
-		});
+	    // Namjesti ActionBar
+    	ActionBar actionBar = getActionBar();
+    	actionBar.setDisplayHomeAsUpEnabled(true);
+    	actionBar.setTitle(R.string.meni_about);
 	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Opcije menija.
+        switch (item.getItemId()) {
+            case android.R.id.home:
+            	finish();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

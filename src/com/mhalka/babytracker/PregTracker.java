@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,10 +42,10 @@ public class PregTracker extends Activity {
 	
 	// Setiraj varijable za elemente forme.
 	private LinearLayout PregLayout;
-	private TextView StarostPloda;
-	private TextView PuneSedmice;
 	private TextView IntroPodaciPlod;
 	private TextView PodaciPlod;
+	private TextView actionBarTitle;
+	private TextView actionBarSubtitle;
 	private ImageView SlikaPlod;
 	private String VasaTrudnoca;
 	private String Sedmica;
@@ -67,8 +68,6 @@ public class PregTracker extends Activity {
         
         // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
         PregLayout = (LinearLayout) findViewById(R.id.llPregTracker);
-        StarostPloda = (TextView) findViewById(R.id.txtStarostPloda);
-        PuneSedmice = (TextView) findViewById(R.id.txtPuneSedmice);
         IntroPodaciPlod = (TextView) findViewById(R.id.txtIntroPodaciPlod);
         PodaciPlod = (TextView) findViewById(R.id.txtPodaciPlod);
         SlikaPlod = (ImageView) findViewById(R.id.ivSlikaPlod);
@@ -240,21 +239,23 @@ public class PregTracker extends Activity {
         				(24 * 60 * 60 * 1000), pendingIntent);
         	}
         	
-        	// Namjesti ActionBar za Android 4 i vece verzije.
-        	if(android.os.Build.VERSION.SDK_INT >= 14) {
-        		ActionBar actionBar = getActionBar();
-        		actionBar.setDisplayShowHomeEnabled(true);
-        		actionBar.setTitle(R.string.pregtracking);
-        	} else {
-        		// Namjesti Title prema odabranom nacinu pracenja.
-        		setTitle(R.string.pregtracking);
-        	} 
+        	// Namjesti ActionBar
+        	ActionBar actionBar = getActionBar();
+    		actionBar.setDisplayShowHomeEnabled(true);
+    		actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayShowCustomEnabled(true);
+            
+            LayoutInflater inflater = LayoutInflater.from(this);
+            View actionBarView = inflater.inflate(R.layout.actionbar, PregLayout, false);
+            
+            actionBarTitle = (TextView) actionBarView.findViewById(R.id.abTitle);
+            actionBarSubtitle = (TextView) actionBarView.findViewById(R.id.abSubtitle);
+            
+            actionBarTitle.setText(VasaTrudnoca + " " + weeks + "." + " " + Sedmica);
+            actionBarSubtitle.setText("[ " + PunaSedmica + " " + exactweeks
+            		+ " i " + PuniDan + " " + days + " ]");
         	
-        	// Populariziraj TextView sa izracunatom vrijednoscu.
-        	StarostPloda.setText(VasaTrudnoca + " " + weeks + "." + " " + Sedmica);
-        	// Popuni TextView sa napunjenim brojem sedmica i dana
-        	PuneSedmice.setText("[ " + PunaSedmica + " " + exactweeks
-        			+ " i " + PuniDan + " " + days + " ]");
+        	actionBar.setCustomView(actionBarView);
         	
         	// Setiraj array sa resource ID-jevima za slike.
         	int slike[] = { R.drawable.sedmica01, R.drawable.sedmica02, R.drawable.sedmica03,

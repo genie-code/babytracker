@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,9 +42,10 @@ public class BabyTracker extends Activity {
 	
 	// Setiraj varijable za elemente forme.
 	private LinearLayout BebaLayout;
-	private TextView StarostBebe;
 	private TextView IntroPodaciBeba;
 	private TextView PodaciBeba;
+	private TextView actionBarTitle;
+	private TextView actionBarSubtitle;
 	private ImageView SlikaBeba;
 	private String VasaBeba;
 	private String Mjesec;
@@ -62,7 +64,6 @@ public class BabyTracker extends Activity {
         
         // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
         BebaLayout = (LinearLayout) findViewById(R.id.llBabyTracker);
-        StarostBebe = (TextView) findViewById(R.id.txtStarostBebe);
         PodaciBeba = (TextView) findViewById(R.id.txtPodaciBeba);
         IntroPodaciBeba = (TextView) findViewById(R.id.txtIntroPodaciBeba);
         SlikaBeba = (ImageView) findViewById(R.id.ivSlikaBeba);
@@ -190,18 +191,22 @@ public class BabyTracker extends Activity {
         				(24 * 60 * 60 * 1000), pendingIntent);
         	}
         	
-        	// Namjesti ActionBar za Android 4 i vece verzije.
-        	if(android.os.Build.VERSION.SDK_INT >= 14) {
-        		ActionBar actionBar = getActionBar();
-        		actionBar.setDisplayShowHomeEnabled(true);
-        		actionBar.setTitle(R.string.devtracking);
-        	} else {
-        		// Namjesti Title prema odabranom nacinu pracenja.
-        		setTitle(R.string.devtracking);
-        	}
-        	
-        	// Populariziraj TextView sa izracunatom vrijednoscu.
-        	StarostBebe.setText(VasaBeba + " " + months + "." + " " + Mjesec);
+        	// Namjesti ActionBar
+        	ActionBar actionBar = getActionBar();
+    		actionBar.setDisplayShowHomeEnabled(true);
+    		actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayShowCustomEnabled(true);
+            
+            LayoutInflater inflater = LayoutInflater.from(this);
+            View actionBarView = inflater.inflate(R.layout.actionbar, BebaLayout, false);
+            
+            actionBarTitle = (TextView) actionBarView.findViewById(R.id.abTitle);
+            actionBarSubtitle = (TextView) actionBarView.findViewById(R.id.abSubtitle);
+            
+            actionBarTitle.setText(VasaBeba + " " + months + "." + " " + Mjesec);
+            actionBarSubtitle.setVisibility(View.GONE);
+    		
+    		actionBar.setCustomView(actionBarView);
         	
         	// Setiraj array sa resource ID-jevima za slike.
         	int slike[] = { R.drawable.mjesec01, R.drawable.mjesec02, R.drawable.mjesec03,

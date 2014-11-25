@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mhalka.babytracker"
-    android:versionCode="25"
-    android:versionName="1.9.3"
+    android:versionCode="26"
+    android:versionName="1.9.4"
     android:installLocation="auto">
     
     <supports-screens android:smallScreens="false"
@@ -18,7 +18,7 @@
         android:theme="@style/ColoredActionBarTheme"
         android:allowBackup="true">
         <activity android:name=".SplashScreen"
-            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"
+            android:theme="@style/Theme.NoBackground"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".SettingsActivity"
-            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar"
             android:screenOrientation="portrait" >
         </activity>
         <activity android:name=".PregTracker"
@@ -36,7 +35,6 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity android:name=".About"
-            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar"
             android:screenOrientation="portrait" >
         </activity>
         <receiver android:name=".AlarmReceiver" ></receiver>

@@ -10,7 +10,6 @@
     <string name="save_changes">Sačuvaj</string>
     <string name="cancel_changes">Otkaži</string>
     <string name="meni_podesavanja">Podešavanja</string>
-    <string name="meni_background">Pozadina</string>
     <string name="meni_rateapp">Ocijeni aplikaciju</string>
     <string name="meni_about">O programu</string>
     <string name="verzija">Verzija</string>
@@ -21,8 +20,8 @@
     <string name="info_preuzete_website">Sadržaj i informacije koje ova aplikacija koristi su djelimično ili u potpunosti preuzeti sa web portala Ringeraja.ba i vlasništvo su kompanije Danu media d.o.o., njenih partnera ili autora sadržaja.</string>
     <string name="mhalka_member">Ponosni član mHalke: www.mhalka.com</string>
     <string name="mhalka_moto">Yes, we mHalka! :)</string>
-    <string name="vasa_beba">Vaša beba je sada u</string>
-    <string name="vasa_trudnoca">Vi ste sada u</string>
+    <string name="vasa_beba">Beba u</string>
+    <string name="vasa_trudnoca">Plod u</string>
     <string name="mjesec">mjesecu života</string>
     <string name="sedmica">sedmici trudnoće</string>
     <string name="pune_sedmice">napunjenih sedmica:</string>
@@ -36,7 +35,7 @@
     <string name="nerealna_vrijednost">Vrijednost za datum koju ste podesili je nerealna! Provjerite da li ste odabrali prave vrijednosti.</string>
     <string name="nove_informacije_scrolling">Nove informacije!</string>
     <string name="nove_informacije_notifikacija">Nove informacije o Vašoj bebi</string>
-    <string name="dugi_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non ligula eu ligula adipiscing vehicula at at tortor. Phasellus fermentum lobortis justo, vitae sodales quam convallis non. Morbi adipiscing ultrices sapien quis scelerisque. Pellentesque ultricies fermentum elit, vel posuere lectus sagittis id. In ac nisl turpis, aliquam interdum leo. Morbi a risus est, vel pharetra mi. Curabitur purus sem, tincidunt nec tristique nec, varius et quam. Pellentesque adipiscing vulputate ipsum, ac tempor sapien lobortis nec.
+    <string name="dugi_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non ligula eu ligula adipiscing vehicula at tortor. Phasellus fermentum lobortis justo, vitae sodales quam convallis non. Morbi adipiscing ultrices sapien quis scelerisque. Pellentesque ultricies fermentum elit, vel posuere lectus sagittis id. In ac nisl turpis, aliquam interdum leo. Morbi a risus est, vel pharetra mi. Curabitur purus sem, tincidunt nec tristique nec, varius et quam. Pellentesque adipiscing vulputate ipsum, ac tempor sapien lobortis nec.
 
 Donec blandit feugiat odio a pharetra. Cras pellentesque sagittis lectus nec accumsan. Donec imperdiet odio sit amet tellus interdum eget eleifend odio pellentesque. Nulla eu ultrices turpis. Nunc erat augue, lobortis quis sagittis sit amet, malesuada ut mauris. Fusce nec dui felis, quis tristique mauris. Praesent vehicula ipsum a diam semper sed pulvinar est dapibus. Praesent ullamcorper, eros sit amet sodales consectetur, mauris diam congue ante, quis imperdiet est nibh at nunc. Curabitur mollis vestibulum dui, at adipiscing leo suscipit quis. Nunc sodales dui sed enim facilisis condimentum.
 
@@ -46,11 +45,7 @@ Maecenas dignissim urna eget tortor pretium malesuada. Cras tristique mauris et 
 
 Pellentesque vitae quam neque, aliquam cursus diam. Aliquam blandit orci nec velit fermentum ac consequat nibh placerat. Nam a viverra nisl. Cras leo magna, venenatis ut laoreet id, condimentum sed velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam gravida facilisis purus eget semper. In porta massa vitae nunc dictum eu auctor odio cursus. Nunc aliquam, massa quis condimentum adipiscing, nisl augue viverra enim, sit amet adipiscing dolor nibh vitae dolor. Suspendisse fermentum nulla quis velit volutpat cursus. Phasellus vestibulum tincidunt sodales. Quisque tempor lectus vitae leo aliquet placerat ut sed augue.</string>
     <string name="touch_to_skip">Pritisni za nastavak</string>
-    <string-array name="backgrounds">
-        <item >Plava</item>
-        <item >Roza</item>
-        <item >Bez pozadine</item>
-    </string-array>
-    <string name="bg_change_title">Odaberite pozadinu</string>
+    <string name="dialog_podesavanja_title">Sačuvati podešavanja</string>
+    <string name="dialog_podesavanja_message">Želite li sačuvati trenutna podešavanja?</string>
     <string name="no_google_play">Ne mogu otvoriti Google Play prodavnicu, probajte prethodno instalirati Google aplikacije.</string>
 </resources>
