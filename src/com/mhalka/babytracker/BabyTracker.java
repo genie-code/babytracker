@@ -62,6 +62,9 @@ public class BabyTracker extends Activity {
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.babytracker);
         
+        // Zabiljezi broj otvaranja aplikacije i pokazi rate dijalog ako su uslovi ispunjeni
+        AppRater.appLaunched(this);
+        
         // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
         BebaLayout = (LinearLayout) findViewById(R.id.llBabyTracker);
         PodaciBeba = (TextView) findViewById(R.id.txtPodaciBeba);

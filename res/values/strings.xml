@@ -45,4 +45,8 @@ Maecenas dignissim urna eget tortor pretium malesuada. Cras tristique mauris et 
 Pellentesque vitae quam neque, aliquam cursus diam. Aliquam blandit orci nec velit fermentum ac consequat nibh placerat. Nam a viverra nisl. Cras leo magna, venenatis ut laoreet id, condimentum sed velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam gravida facilisis purus eget semper. In porta massa vitae nunc dictum eu auctor odio cursus. Nunc aliquam, massa quis condimentum adipiscing, nisl augue viverra enim, sit amet adipiscing dolor nibh vitae dolor. Suspendisse fermentum nulla quis velit volutpat cursus. Phasellus vestibulum tincidunt sodales. Quisque tempor lectus vitae leo aliquet placerat ut sed augue.</string>
     <string name="touch_to_skip">Pritisni za nastavak</string>
     <string name="no_google_play">Ne mogu otvoriti Google Play prodavnicu, probajte prethodno instalirati Google aplikacije.</string>
+    <string name="rateapp_dialog_msg">Molimo Vas da, ukoliko Vam se sviđa naša aplikacija, odvojite djelić svoga dragocjenog vremena i ocijenite je.\nHvala na podršci!</string>
+    <string name="rateapp_dialog_rate">Ocijeni</string>
+    <string name="rateapp_dialog_remindlater">Kasnije</string>
+    <string name="rateapp_dialog_dontshowagain">Ne, hvala</string>
 </resources>

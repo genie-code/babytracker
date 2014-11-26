@@ -66,6 +66,9 @@ public class PregTracker extends Activity {
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.pregtracker);
         
+        // Zabiljezi broj otvaranja aplikacije i pokazi rate dijalog ako su uslovi ispunjeni
+        AppRater.appLaunched(this);
+        
         // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
         PregLayout = (LinearLayout) findViewById(R.id.llPregTracker);
         IntroPodaciPlod = (TextView) findViewById(R.id.txtIntroPodaciPlod);
