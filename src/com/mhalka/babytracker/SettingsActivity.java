@@ -3,11 +3,11 @@ package com.mhalka.babytracker;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
@@ -121,15 +121,25 @@ public class SettingsActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
-		showSaveDialog();
+		cancelAndExit();
 	}
 	
 	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings, menu);
+        return true;
+    }
+	
+	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Opcije menija.
         switch (item.getItemId()) {
             case android.R.id.home:
-            	showSaveDialog();
+            	cancelAndExit();
+            	return true;
+            case R.id.spasi:
+            	saveAndExit();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -163,41 +173,26 @@ public class SettingsActivity extends Activity {
         }
 	}
 	
-	// Pokazi dijalog za spasavanje podesavanja
-	private void showSaveDialog() {
-		new AlertDialog.Builder(this)
-			.setTitle(getString(R.string.dialog_podesavanja_title))
-			.setMessage(getString(R.string.dialog_podesavanja_message))
-			.setCancelable(false)
-			.setPositiveButton(R.string.save_changes,
-			new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface d, int w) {
-					saveAndExit();
-				}
-			})
-			.setNegativeButton(R.string.cancel_changes,
-			new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface d, int w) {
-					finish();
-					
-					// Otvori novi Activity shodno odabiru vrste pracenja, ako je odabir prethodno izvrsen.
-					SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-					Boolean unesenePreference = settings.contains(TRUDNOCA);
-					
-					if(unesenePreference) {
-						Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
-						
-						if(pracenjeTrudnoce) {
-							Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
-							startActivityForResult(intent, 0);
-							finish();
-						} else {
-								Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
-								startActivityForResult(intent, 0);
-								finish();
-						}
-					}
-				}
-			}).show();
+	// Zatvori activity bez spasavanja
+	private void cancelAndExit() {
+		finish();
+		
+		// Otvori novi Activity shodno odabiru vrste pracenja, ako je odabir prethodno izvrsen.
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		Boolean unesenePreference = settings.contains(TRUDNOCA);
+		
+		if(unesenePreference) {
+			Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
+			
+			if(pracenjeTrudnoce) {
+				Intent intent = new Intent(SettingsActivity.this, PregTracker.class);
+				startActivityForResult(intent, 0);
+				finish();
+			} else {
+				Intent intent = new Intent(SettingsActivity.this, BabyTracker.class);
+				startActivityForResult(intent, 0);
+				finish();
+			}
+		}
 	}
 }

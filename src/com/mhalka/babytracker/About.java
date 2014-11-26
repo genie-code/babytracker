@@ -50,6 +50,7 @@ public class About extends Activity {
         switch (item.getItemId()) {
             case android.R.id.home:
             	finish();
+            	return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -8,7 +8,6 @@
     <string name="birthdate">Datum rođenja bebe</string>
     <string name="notification">Uključi notifikaciju</string>
     <string name="save_changes">Sačuvaj</string>
-    <string name="cancel_changes">Otkaži</string>
     <string name="meni_podesavanja">Podešavanja</string>
     <string name="meni_rateapp">Ocijeni aplikaciju</string>
     <string name="meni_about">O programu</string>
@@ -45,7 +44,5 @@ Maecenas dignissim urna eget tortor pretium malesuada. Cras tristique mauris et 
 
 Pellentesque vitae quam neque, aliquam cursus diam. Aliquam blandit orci nec velit fermentum ac consequat nibh placerat. Nam a viverra nisl. Cras leo magna, venenatis ut laoreet id, condimentum sed velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam gravida facilisis purus eget semper. In porta massa vitae nunc dictum eu auctor odio cursus. Nunc aliquam, massa quis condimentum adipiscing, nisl augue viverra enim, sit amet adipiscing dolor nibh vitae dolor. Suspendisse fermentum nulla quis velit volutpat cursus. Phasellus vestibulum tincidunt sodales. Quisque tempor lectus vitae leo aliquet placerat ut sed augue.</string>
     <string name="touch_to_skip">Pritisni za nastavak</string>
-    <string name="dialog_podesavanja_title">Sačuvati podešavanja</string>
-    <string name="dialog_podesavanja_message">Želite li sačuvati trenutna podešavanja?</string>
     <string name="no_google_play">Ne mogu otvoriti Google Play prodavnicu, probajte prethodno instalirati Google aplikacije.</string>
 </resources>
