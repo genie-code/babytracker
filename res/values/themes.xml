@@ -4,9 +4,9 @@
         <item name="android:windowBackground">@null</item>
     </style>
     
-    <style name="ColoredActionBarTheme" parent="@android:style/Theme.DeviceDefault.Light.DarkActionBar">
+    <style name="Theme.ColoredActionBar" parent="@android:style/Theme.DeviceDefault.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/ColoredActionBar</item>
-        <item name="android:actionBarWidgetTheme">@style/YourActionBarWidget</item>
+        <item name="android:actionBarWidgetTheme">@style/LightActionBarWidget</item>
     </style>
 
     <style name="ColoredActionBar" parent="@android:style/Widget.DeviceDefault.Light.ActionBar.Solid.Inverse">
@@ -14,7 +14,7 @@
     </style>
     
     <!-- This helps the PopupMenu stick with Light theme while the ActionBar is in Dark theme -->
-    <style name="YourActionBarWidget" parent="@android:style/Theme.DeviceDefault.Light">
+    <style name="LightActionBarWidget" parent="@android:style/Theme.DeviceDefault.Light">
         <item name="android:popupMenuStyle">@android:style/Widget.Holo.Light.PopupMenu</item>
         <item name="android:dropDownListViewStyle">@android:style/Widget.Holo.Light.ListView.DropDown</item>
     </style>
