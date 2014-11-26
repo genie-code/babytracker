@@ -115,6 +115,7 @@ public class SettingsActivity extends Activity {
                 
         // Namjesti ActionBar
     	ActionBar actionBar = getActionBar();
+    	actionBar.setDisplayShowHomeEnabled(false);
     	actionBar.setDisplayHomeAsUpEnabled(true);
     	actionBar.setTitle(R.string.meni_podesavanja);
     }
