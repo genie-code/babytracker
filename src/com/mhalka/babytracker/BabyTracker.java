@@ -13,12 +13,10 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,7 +26,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class BabyTracker extends Activity {
 	
@@ -287,7 +284,7 @@ public class BabyTracker extends Activity {
  				finish();
                 return true;
             case R.id.rateapp:
-                rateApp();
+                AppRater.rateApp(this);
                 return true;
             case R.id.about:
             	Intent about = new Intent(this, About.class);
@@ -296,31 +293,5 @@ public class BabyTracker extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-    
-    private boolean tryStartActivity(Intent aIntent) {
-    	try
-    	{
-    		startActivity(aIntent);
-    		return true;
-    	}
-    	catch (ActivityNotFoundException e)
-    	{
-    		return false;
-    	}
-    }
-    
-    public void rateApp() {
-    	Intent intent = new Intent(Intent.ACTION_VIEW);
-    	// Probaj Google Play
-    	intent.setData(Uri.parse("market://details?id=com.mhalka.babytracker"));
-    	if (!tryStartActivity(intent)) {
-    		// Izgleda da Google Play nije instaliran, probaj web browser
-    		intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.mhalka.babytracker"));
-    		if (!tryStartActivity(intent)) {
-    			// Ako nista od prethodnog ne upali informisi korisnika o tome
-    			Toast.makeText(this, getString(R.string.no_google_play), Toast.LENGTH_SHORT).show();
-    		}
-    	}
     }
 }
