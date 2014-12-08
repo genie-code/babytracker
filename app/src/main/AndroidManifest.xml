@@ -1,48 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mhalka.babytracker"
+    android:installLocation="auto"
     android:versionCode="29"
-    android:versionName="1.9.4"
-    android:installLocation="auto">
-    
-    <supports-screens android:smallScreens="false"
+    android:versionName="1.9.4">
+
+    <supports-screens
+        android:smallScreens="false"
         android:xlargeScreens="false" />
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.ColoredActionBar"
-        android:allowBackup="true"
-        android:supportsRtl="true">
-        <activity android:name=".SplashScreen"
-            android:theme="@style/Theme.NoBackground"
-            android:screenOrientation="portrait" >
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ColoredActionBar">
+        <activity
+            android:name=".SplashScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NoBackground">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity android:name=".PregTracker"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity android:name=".BabyTracker"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity android:name=".About"
-            android:screenOrientation="portrait" >
-        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".PregTracker"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".BabyTracker"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".About"
+            android:screenOrientation="portrait"></activity>
+
         <receiver android:name=".AlarmReceiver" />
-        <receiver android:name=".StartAtBootReceiver" >
+        <receiver android:name=".StartAtBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-	</application>
+    </application>
 
 </manifest>

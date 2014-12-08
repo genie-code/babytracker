@@ -8,68 +8,70 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 
 public class SplashScreen extends Activity {
-	
-	// Namjesti konstante za preference.
-	public static final String PREFS_NAME = "BabyTrackerPrefs";
-	public static final String FIRSTRUN = "PrvoPokretanje";
-	public static final String TRUDNOCA = "PracenjeTrudnoce";
-	
-	// Class variables set for SplashScreen
-	protected boolean _active = true;
+
+    // Namjesti konstante za preference.
+    public static final String PREFS_NAME = "BabyTrackerPrefs";
+    public static final String FIRSTRUN = "PrvoPokretanje";
+    public static final String TRUDNOCA = "PracenjeTrudnoce";
+
+    // Class variables set for SplashScreen
+    protected boolean _active = true;
     protected int _splashTime = 3000;
 
-	/** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @SuppressLint("NewApi")
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-    	
-	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.splash);
-	    
-	    // Thread for displaying the SplashScreen
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.splash);
+
+        // Thread for displaying the SplashScreen
         Thread splashThread = new Thread() {
             @Override
             public void run() {
                 try {
                     int waited = 0;
-                    while(_active && (waited < _splashTime)) {
+                    while (_active && (waited < _splashTime)) {
                         sleep(100);
-                        if(_active) {
+                        if (_active) {
                             waited += 100;
                         }
                     }
-                } catch(InterruptedException e) {
+                } catch (InterruptedException e) {
                     // do nothing
                 } finally {
-                	// Procitaj preference
+                    // Procitaj preference
                     SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-                    
+
                     // Provjeri da li se aplikacija pokrece prvi put i otvori formu shodno tome.
                     Boolean prvoPokretanje = settings.getBoolean(FIRSTRUN, true);
-                    if(prvoPokretanje) {
-                    	finish();
-                    	Intent podesavanja = new Intent(SplashScreen.this, SettingsActivity.class);
-                    	startActivityForResult(podesavanja, 0);
-                    	finish();
-                    	} else {
-                    		Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
-                    		if(pracenjeTrudnoce) {
-                    			Intent intent = new Intent(SplashScreen.this, PregTracker.class);
-                    			startActivityForResult(intent, 0);
-                    			finish();
-                    			} else {
-                    				Intent intent = new Intent(SplashScreen.this, BabyTracker.class);
-                    				startActivityForResult(intent, 0);
-                    				finish();
-                    			}
-                    	}
-                 }
+                    if (prvoPokretanje) {
+                        finish();
+                        Intent podesavanja = new Intent(SplashScreen.this, SettingsActivity.class);
+                        startActivityForResult(podesavanja, 0);
+                        finish();
+                    } else {
+                        Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
+                        if (pracenjeTrudnoce) {
+                            Intent intent = new Intent(SplashScreen.this, PregTracker.class);
+                            startActivityForResult(intent, 0);
+                            finish();
+                        } else {
+                            Intent intent = new Intent(SplashScreen.this, BabyTracker.class);
+                            startActivityForResult(intent, 0);
+                            finish();
+                        }
+                    }
+                }
             }
         };
         splashThread.start();
-	}
-	
-	@Override
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             _active = false;

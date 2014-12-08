@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="5dp"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/txtVrstaPracenja"
@@ -15,7 +15,7 @@
     <RadioGroup
         android:id="@+id/rgVrstaPracenja"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <RadioButton
             android:id="@+id/rbPracenjeTrudnoce"
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/expdate"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/txtDatumRodjenja"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:text="@string/birthdate"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <DatePicker
         android:id="@+id/dpDatumPocetkaPracenja"
@@ -57,7 +57,7 @@
         android:id="@+id/cbNotifikacija"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/notification"
-        android:checked="true"/>
+        android:checked="true"
+        android:text="@string/notification" />
 
 </LinearLayout>

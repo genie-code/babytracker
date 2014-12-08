@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="5dp"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/txtNaziv"
@@ -18,8 +18,8 @@
         android:id="@+id/txtVerzija"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="25dp"
         android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -35,44 +35,44 @@
         android:id="@+id/txtCopyright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="@string/copyright"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_gravity="center_horizontal"/>
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/txtAutor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/autor"
-        android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_gravity="center_horizontal"
-        android:autoLink="all" />
+        android:autoLink="all"
+        android:text="@string/autor"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/txtPrava"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:text="@string/all_rights_reserved"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_gravity="center_horizontal" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/txtInfoIzvor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="@string/info_preuzete_website"
         android:autoLink="all"
+        android:text="@string/info_preuzete_website"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/txtMhalkaMember"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autoLink="all"
         android:text="@string/mhalka_member"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:autoLink="all" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/txtMhalkaMoto"

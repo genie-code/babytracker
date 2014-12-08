@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="@drawable/bg_turquoise" >
-    
+    android:background="@drawable/bg_turquoise"
+    android:orientation="vertical">
+
     <ImageView
         android:id="@+id/imgSplash"
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:contentDescription="@string/app_name"
         android:padding="50dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/app_icon" >
+        android:src="@drawable/app_icon">
 
     </ImageView>
 
