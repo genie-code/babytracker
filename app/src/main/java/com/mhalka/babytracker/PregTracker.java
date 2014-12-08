@@ -1,12 +1,5 @@
 package com.mhalka.babytracker;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -27,6 +20,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class PregTracker extends Activity {
 	
 	// Namjesti konstante za preference.
@@ -42,7 +42,8 @@ public class PregTracker extends Activity {
 	private String DugmeNo;
 
     /** Called when the activity is first created. */
-	@SuppressLint("NewApi")
+	@SuppressWarnings("ConstantConditions")
+    @SuppressLint("NewApi")
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	
