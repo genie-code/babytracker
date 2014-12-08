@@ -41,8 +41,6 @@
                 android:paddingTop="5dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="0dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="0dp"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
                 
             <TextView

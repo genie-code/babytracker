@@ -27,10 +27,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 	
 	// Konstanta za notifikaciju.
 	public static final int NOTIFIKACIJA_ID = 0;
-	
-	// Setiraj varijable.
-	private NotificationManager mNotificationManager;
-	private String ScrollingText;
+
+    private String ScrollingText;
 	private String NotificationText;
 	
 	@Override
@@ -74,7 +72,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     	        int weeksexp = 40 + ((int) weeksBetween);
     	        
     	        // Namjesti varijablu za globalni broj sedmica trudnoce
-    	        int weeks = 0;
+    	        int weeks;
     	        if(weeksopt > 40) {
     	    		weeks = weeksexp;
     	    	} else {
@@ -95,7 +93,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     					// Zapisi u preference da je pokazana notifikacija za ovaj event
     					SharedPreferences.Editor editor = settings.edit();
     					editor.putBoolean(RODJENDAN, true);
-    					editor.commit();
+    					editor.apply();
     					// Pokreni notifikaciju
     					startNotifikaciju(context);
     				}
@@ -120,7 +118,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 	@SuppressLint("NewApi")
 	@SuppressWarnings("deprecation")
 	public void startNotifikaciju(Context context) {
-		mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
         		new Intent(context, SplashScreen.class), PendingIntent.FLAG_CANCEL_CURRENT);
 		

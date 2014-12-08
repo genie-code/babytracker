@@ -36,25 +36,11 @@ public class PregTracker extends Activity {
 	public static final String MJESEC = "MjesecPocetkaPracenja";
 	public static final String GODINA = "GodinaPocetkaPracenja";
 	public static final String SEDMICA = "TrenutnaSedmicaTrudnoce";
-	
-	// Setiraj varijable za elemente forme.
-	private LinearLayout PregLayout;
-	private TextView IntroPodaciPlod;
-	private TextView PodaciPlod;
-	private TextView actionBarTitle;
-	private TextView actionBarSubtitle;
-	private ImageView SlikaPlod;
-	private String VasaTrudnoca;
-	private String Sedmica;
-	private String PunaSedmica;
-	private String PuniDan;
-	private String NerealnaVrijednost;
-	private String PrekoTermina;
-	private String NovoPracenje;
+
+    private String NovoPracenje;
 	private String DugmeYes;
 	private String DugmeNo;
-	private AlarmManager am;
-	
+
     /** Called when the activity is first created. */
 	@SuppressLint("NewApi")
     @Override
@@ -67,16 +53,16 @@ public class PregTracker extends Activity {
         AppRater.appLaunched(this);
         
         // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
-        PregLayout = (LinearLayout) findViewById(R.id.llPregTracker);
-        IntroPodaciPlod = (TextView) findViewById(R.id.txtIntroPodaciPlod);
-        PodaciPlod = (TextView) findViewById(R.id.txtPodaciPlod);
-        SlikaPlod = (ImageView) findViewById(R.id.ivSlikaPlod);
-        VasaTrudnoca = this.getString(R.string.vasa_trudnoca);
-        Sedmica = this.getString(R.string.sedmica);
-        PunaSedmica = this.getString(R.string.pune_sedmice);
-        PuniDan = this.getString(R.string.puni_dani);
-        NerealnaVrijednost = this.getString(R.string.nerealna_vrijednost);
-        PrekoTermina = this.getString(R.string.preko_termina);
+        LinearLayout pregLayout = (LinearLayout) findViewById(R.id.llPregTracker);
+        TextView introPodaciPlod = (TextView) findViewById(R.id.txtIntroPodaciPlod);
+        TextView podaciPlod = (TextView) findViewById(R.id.txtPodaciPlod);
+        ImageView slikaPlod = (ImageView) findViewById(R.id.ivSlikaPlod);
+        String vasaTrudnoca = this.getString(R.string.vasa_trudnoca);
+        String sedmica = this.getString(R.string.sedmica);
+        String punaSedmica = this.getString(R.string.pune_sedmice);
+        String puniDan = this.getString(R.string.puni_dani);
+        String nerealnaVrijednost = this.getString(R.string.nerealna_vrijednost);
+        String prekoTermina = this.getString(R.string.preko_termina);
         NovoPracenje = this.getString(R.string.namjesti_novo_pracenje);
         DugmeYes = this.getString(R.string.dugme_yes);
         DugmeNo = this.getString(R.string.dugme_no);
@@ -122,7 +108,7 @@ public class PregTracker extends Activity {
         	daysBetween++;
         }
         // Namjesti varijablu za optimalan broj dana starosti ploda
-        int daysopt = 0;
+        int daysopt;
         if (((int) daysBetween % 7) != 0) {
         	daysopt = 7 - ((int) daysBetween % 7);
         } else {
@@ -138,7 +124,7 @@ public class PregTracker extends Activity {
         	daysBetween++;
         }
         // Namjesti varijablu za produzeni broj dana starosti ploda
-        int daysexp = 0;
+        int daysexp;
         if ((int) daysBetween < 8) {
         	daysexp = ((int) daysBetween - 1);
         } else if ((int) daysBetween == 8) {
@@ -148,7 +134,7 @@ public class PregTracker extends Activity {
         }
         
         // Namjesti varijablu za globalni broj sedmica trudnoce
-        int weeks = 0;
+        int weeks;
         if(weeksopt > 40) {
     		weeks = weeksexp;
     	} else {
@@ -159,7 +145,7 @@ public class PregTracker extends Activity {
         int exactweeks = weeks - 1;
         
         // Namjesti varijablu za globalni broj dana
-        int days = 0;
+        int days;
         if(pregdaysopt > 280) {
         	days = daysexp;
         } else {
@@ -169,10 +155,10 @@ public class PregTracker extends Activity {
         // Provjeri da izracunata vrijednost nije negativna.
         if(weeks < 1) {
         	
-        	PregLayout.setVisibility(View.INVISIBLE);
+        	pregLayout.setVisibility(View.INVISIBLE);
         	
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-        	alertbox.setMessage(NerealnaVrijednost);
+        	alertbox.setMessage(nerealnaVrijednost);
         	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
         		public void onClick(DialogInterface arg0, int arg1) {
         			Intent podesavanja = new Intent(PregTracker.this, SettingsActivity.class);
@@ -187,10 +173,10 @@ public class PregTracker extends Activity {
          *  odabira nove vrste pracenja ili zatvaranja aplikacije. */
         else if(weeks > 42) {
         	
-        	PregLayout.setVisibility(View.INVISIBLE);
+        	pregLayout.setVisibility(View.INVISIBLE);
         	
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-        	alertbox.setMessage(PrekoTermina);
+        	alertbox.setMessage(prekoTermina);
         	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
         		public void onClick(DialogInterface arg0, int arg1) {
         			// Izbaci drugi dijalog sa mogucnoscu odabira nove vrste pracenja.
@@ -223,20 +209,20 @@ public class PregTracker extends Activity {
         		// Zapisi trenutnu vrijednost u preference radi koristenja kasnije
         		SharedPreferences.Editor editor = settings.edit();
         		editor.putInt(SEDMICA, weeks);
-        		editor.commit();
+        		editor.apply();
         		
         		// Namjesti vrijeme za alarm i okidanje notifikacije
         		Calendar calendar = Calendar.getInstance();
         		calendar.set(Calendar.HOUR_OF_DAY, 10);
-        		calendar.set(Calendar.MINUTE, 00);
-        		calendar.set(Calendar.SECOND, 00);
-        		
-        		am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        		calendar.set(Calendar.MINUTE, 0);
+        		calendar.set(Calendar.SECOND, 0);
+
+                AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         		Intent intent = new Intent(this, AlarmReceiver.class);
         		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
         				intent, PendingIntent.FLAG_CANCEL_CURRENT);
         		am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-        				(24 * 60 * 60 * 1000), pendingIntent);
+                        (24 * 60 * 60 * 1000), pendingIntent);
         	}
         	
         	// Namjesti ActionBar
@@ -246,14 +232,14 @@ public class PregTracker extends Activity {
             actionBar.setDisplayShowCustomEnabled(true);
             
             LayoutInflater inflater = LayoutInflater.from(this);
-            View actionBarView = inflater.inflate(R.layout.actionbar, PregLayout, false);
+            View actionBarView = inflater.inflate(R.layout.actionbar, pregLayout, false);
+
+            TextView actionBarTitle = (TextView) actionBarView.findViewById(R.id.abTitle);
+            TextView actionBarSubtitle = (TextView) actionBarView.findViewById(R.id.abSubtitle);
             
-            actionBarTitle = (TextView) actionBarView.findViewById(R.id.abTitle);
-            actionBarSubtitle = (TextView) actionBarView.findViewById(R.id.abSubtitle);
-            
-            actionBarTitle.setText(VasaTrudnoca + " " + weeks + "." + " " + Sedmica);
-            actionBarSubtitle.setText("[ " + PunaSedmica + " " + exactweeks
-            		+ " i " + PuniDan + " " + days + " ]");
+            actionBarTitle.setText(vasaTrudnoca + " " + weeks + "." + " " + sedmica);
+            actionBarSubtitle.setText("[ " + punaSedmica + " " + exactweeks
+                    + " i " + puniDan + " " + days + " ]");
         	
         	actionBar.setCustomView(actionBarView);
         	
@@ -277,7 +263,7 @@ public class PregTracker extends Activity {
         	int resIdSlike = slike[weeks - 1];
         	
         	// Populariziraj ImageView sa odgovarajucom slikom.
-        	SlikaPlod.setImageResource(resIdSlike);
+        	slikaPlod.setImageResource(resIdSlike);
         	
         	// Setiraj array sa vrijednostima za podatke o trudnoci.
         	int podaci[] = { R.raw.sedmica01, R.raw.sedmica02, R.raw.sedmica03, R.raw.sedmica04,
@@ -300,7 +286,7 @@ public class PregTracker extends Activity {
         	InputStream inputStream = this.getResources().openRawResource(resIdPodaci);
         	InputStreamReader inputreader = new InputStreamReader(inputStream);
         	BufferedReader buffreader = new BufferedReader(inputreader);
-        	String line = null;
+        	String line;
         	int numLines = 2;
         	int lineCtr = 0;
         	StringBuilder introtext = new StringBuilder();
@@ -316,7 +302,7 @@ public class PregTracker extends Activity {
         	} catch (IOException e) {
         			return;
         		}
-        	IntroPodaciPlod.setText(introtext.toString());
+        	introPodaciPlod.setText(introtext.toString());
         	
         	StringBuilder text = new StringBuilder();
         	try {
@@ -330,7 +316,7 @@ public class PregTracker extends Activity {
         	} catch (IOException e) {
         			return;
         		}
-        	PodaciPlod.setText(text.toString());
+        	podaciPlod.setText(text.toString());
         }
     }
 	

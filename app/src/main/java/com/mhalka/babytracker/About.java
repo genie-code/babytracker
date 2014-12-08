@@ -10,39 +10,37 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 public class About extends Activity {
-	
-	private TextView VerzijaAplikacije;
-	private String Verzija;
-	private String VerzijaNepoznata;
-	private String VerzijaString;
 
-	/** Called when the activity is first created. */
+    /** Called when the activity is first created. */
 	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
     	
     	super.onCreate(savedInstanceState);
 	    setContentView(R.layout.about);
-	    
-	    VerzijaAplikacije = (TextView) findViewById(R.id.txtVerzija);
-	    Verzija = this.getString(R.string.verzija);
-	    VerzijaNepoznata = this.getString(R.string.verzija_nepoznata);
-	    
-	    try {
+
+        TextView verzijaAplikacije = (TextView) findViewById(R.id.txtVerzija);
+        String verzija = this.getString(R.string.verzija);
+        String verzijaNepoznata = this.getString(R.string.verzija_nepoznata);
+
+        String verzijaString;
+        try {
 	    	PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-	    	VerzijaString = Verzija + " "+ String.valueOf(pInfo.versionName);
+	    	verzijaString = verzija + " "+ String.valueOf(pInfo.versionName);
 	    } catch (NameNotFoundException e) {
 	    		e.printStackTrace();
-	    		VerzijaString = VerzijaNepoznata;
+	    		verzijaString = verzijaNepoznata;
 	    }
 	    
-	    VerzijaAplikacije.setText(VerzijaString);
+	    verzijaAplikacije.setText(verzijaString);
 	    
 	    // Namjesti ActionBar
     	ActionBar actionBar = getActionBar();
-    	actionBar.setDisplayShowHomeEnabled(false);
-    	actionBar.setDisplayHomeAsUpEnabled(true);
-    	actionBar.setTitle(R.string.meni_about);
+        if (actionBar != null) {
+            actionBar.setDisplayShowHomeEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.meni_about);
+        }
 	}
 	
 	@Override

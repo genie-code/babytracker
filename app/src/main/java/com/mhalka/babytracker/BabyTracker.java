@@ -36,21 +36,7 @@ public class BabyTracker extends Activity {
 	public static final String MJESEC = "MjesecPocetkaPracenja";
 	public static final String GODINA = "GodinaPocetkaPracenja";
 	public static final String MJESECI = "TrenutnaStarostBebe";
-	
-	// Setiraj varijable za elemente forme.
-	private LinearLayout BebaLayout;
-	private TextView IntroPodaciBeba;
-	private TextView PodaciBeba;
-	private TextView actionBarTitle;
-	private TextView actionBarSubtitle;
-	private ImageView SlikaBeba;
-	private String VasaBeba;
-	private String Mjesec;
-	private String NerealnaVrijednost;
-	private String NapunjenaGodina;
-	private String PrekoGodine;
-	private AlarmManager am;
-	
+
     /** Called when the activity is first created. */
 	@SuppressLint("NewApi")
     @Override
@@ -63,15 +49,15 @@ public class BabyTracker extends Activity {
         AppRater.appLaunched(this);
         
         // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
-        BebaLayout = (LinearLayout) findViewById(R.id.llBabyTracker);
-        PodaciBeba = (TextView) findViewById(R.id.txtPodaciBeba);
-        IntroPodaciBeba = (TextView) findViewById(R.id.txtIntroPodaciBeba);
-        SlikaBeba = (ImageView) findViewById(R.id.ivSlikaBeba);
-        VasaBeba = this.getString(R.string.vasa_beba);
-        Mjesec = this.getString(R.string.mjesec);
-        NerealnaVrijednost = this.getString(R.string.nerealna_vrijednost);
-        NapunjenaGodina = this.getString(R.string.napunjena_godina);
-        PrekoGodine = this.getString(R.string.vise_od_godine);
+        LinearLayout bebaLayout = (LinearLayout) findViewById(R.id.llBabyTracker);
+        TextView podaciBeba = (TextView) findViewById(R.id.txtPodaciBeba);
+        TextView introPodaciBeba = (TextView) findViewById(R.id.txtIntroPodaciBeba);
+        ImageView slikaBeba = (ImageView) findViewById(R.id.ivSlikaBeba);
+        String vasaBeba = this.getString(R.string.vasa_beba);
+        String mjesec = this.getString(R.string.mjesec);
+        String nerealnaVrijednost = this.getString(R.string.nerealna_vrijednost);
+        String napunjenaGodina = this.getString(R.string.napunjena_godina);
+        String prekoGodine = this.getString(R.string.vise_od_godine);
         
         // Procitaj preference
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -102,10 +88,10 @@ public class BabyTracker extends Activity {
         		((pocetak.get(Calendar.MONTH)) == (danas.get(Calendar.MONTH))) &&
         		((pocetak.get(Calendar.DAY_OF_MONTH)) == (danas.get(Calendar.DAY_OF_MONTH)))) {
         	
-        	BebaLayout.setVisibility(View.INVISIBLE);
+        	bebaLayout.setVisibility(View.INVISIBLE);
         	
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-        	alertbox.setMessage(NapunjenaGodina);
+        	alertbox.setMessage(napunjenaGodina);
         	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
         		public void onClick(DialogInterface arg0, int arg1) {
         			finish();
@@ -117,10 +103,10 @@ public class BabyTracker extends Activity {
         // Provjeri da izracunata vrijednost nije negativna.
         else if(months < 1) {
         	
-        	BebaLayout.setVisibility(View.INVISIBLE);
+        	bebaLayout.setVisibility(View.INVISIBLE);
         	
         	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-        	alertbox.setMessage(NerealnaVrijednost);
+        	alertbox.setMessage(nerealnaVrijednost);
         	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
         		public void onClick(DialogInterface arg0, int arg1) {
         			Intent podesavanja = new Intent(BabyTracker.this, SettingsActivity.class);
@@ -134,7 +120,7 @@ public class BabyTracker extends Activity {
         // Provjeri da li je izracunata vrijednost veca od 12 i shodno tome pokazi odgovarajuci alert.
         else if(months > 12) {
         	
-        	BebaLayout.setVisibility(View.INVISIBLE);
+        	bebaLayout.setVisibility(View.INVISIBLE);
         	
         	/** Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
         	 *  pokazi alert dijalog da je beba napunila godinu dana. */
@@ -142,7 +128,7 @@ public class BabyTracker extends Activity {
             		((pocetak.get(Calendar.MONTH)) == (danas.get(Calendar.MONTH))) &&
             		((pocetak.get(Calendar.DAY_OF_MONTH)) == (danas.get(Calendar.DAY_OF_MONTH)))) {
             	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-            	alertbox.setMessage(NapunjenaGodina);
+            	alertbox.setMessage(napunjenaGodina);
             	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
             		public void onClick(DialogInterface arg0, int arg1) {
             			finish();
@@ -154,7 +140,7 @@ public class BabyTracker extends Activity {
             	/** Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje i
             	 *  vrati korisnika na settings activity. */
             	AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-            	alertbox.setMessage(PrekoGodine);
+            	alertbox.setMessage(prekoGodine);
             	alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
             		public void onClick(DialogInterface arg0, int arg1) {
             			Intent podesavanja = new Intent(BabyTracker.this, SettingsActivity.class);
@@ -175,38 +161,40 @@ public class BabyTracker extends Activity {
         		// Zapisi trenutnu vrijednost u preference radi koristenja kasnije
         		SharedPreferences.Editor editor = settings.edit();
         		editor.putInt(MJESECI, months);
-        		editor.commit();
+        		editor.apply();
         		
         		// Namjesti vrijeme za alarm i okidanje notifikacije
         		Calendar calendar = Calendar.getInstance();
         		calendar.set(Calendar.HOUR_OF_DAY, 10);
-        		calendar.set(Calendar.MINUTE, 00);
-        		calendar.set(Calendar.SECOND, 00);
-        		
-        		am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        		calendar.set(Calendar.MINUTE, 0);
+        		calendar.set(Calendar.SECOND, 0);
+
+                AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         		Intent intent = new Intent(this, AlarmReceiver.class);
         		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
         				intent, PendingIntent.FLAG_CANCEL_CURRENT);
         		am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-        				(24 * 60 * 60 * 1000), pendingIntent);
+                        (24 * 60 * 60 * 1000), pendingIntent);
         	}
         	
         	// Namjesti ActionBar
         	ActionBar actionBar = getActionBar();
-    		actionBar.setDisplayShowHomeEnabled(true);
-    		actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayShowCustomEnabled(true);
-            
-            LayoutInflater inflater = LayoutInflater.from(this);
-            View actionBarView = inflater.inflate(R.layout.actionbar, BebaLayout, false);
-            
-            actionBarTitle = (TextView) actionBarView.findViewById(R.id.abTitle);
-            actionBarSubtitle = (TextView) actionBarView.findViewById(R.id.abSubtitle);
-            
-            actionBarTitle.setText(VasaBeba + " " + months + "." + " " + Mjesec);
-            actionBarSubtitle.setVisibility(View.GONE);
-    		
-    		actionBar.setCustomView(actionBarView);
+            if (actionBar != null) {
+                actionBar.setDisplayShowHomeEnabled(true);
+                actionBar.setDisplayShowTitleEnabled(false);
+                actionBar.setDisplayShowCustomEnabled(true);
+
+                LayoutInflater inflater = LayoutInflater.from(this);
+                View actionBarView = inflater.inflate(R.layout.actionbar, bebaLayout, false);
+
+                TextView actionBarTitle = (TextView) actionBarView.findViewById(R.id.abTitle);
+                TextView actionBarSubtitle = (TextView) actionBarView.findViewById(R.id.abSubtitle);
+
+                actionBarTitle.setText(vasaBeba + " " + months + "." + " " + mjesec);
+                actionBarSubtitle.setVisibility(View.GONE);
+
+                actionBar.setCustomView(actionBarView);
+            }
         	
         	// Setiraj array sa resource ID-jevima za slike.
         	int slike[] = { R.drawable.mjesec01, R.drawable.mjesec02, R.drawable.mjesec03,
@@ -218,7 +206,7 @@ public class BabyTracker extends Activity {
         	int resIdSlike = slike[months - 1];
         	
         	// Populariziraj ImageView sa odgovarajucom slikom.
-        	SlikaBeba.setImageResource(resIdSlike);
+        	slikaBeba.setImageResource(resIdSlike);
         	
         	// Setiraj array sa vrijednostima za podatke o razvoju.
         	int podaci[] = { R.raw.mjesec01, R.raw.mjesec02, R.raw.mjesec03, R.raw.mjesec04, R.raw.mjesec05,
@@ -233,7 +221,7 @@ public class BabyTracker extends Activity {
         	InputStream inputStream = this.getResources().openRawResource(resIdPodaci);
         	InputStreamReader inputreader = new InputStreamReader(inputStream);
         	BufferedReader buffreader = new BufferedReader(inputreader);
-        	String line = null;
+        	String line;
         	int numLines = 2;
         	int lineCtr = 0;
         	StringBuilder introtext = new StringBuilder();
@@ -249,7 +237,7 @@ public class BabyTracker extends Activity {
         	} catch (IOException e) {
         			return;
         		}
-        	IntroPodaciBeba.setText(introtext.toString());
+        	introPodaciBeba.setText(introtext.toString());
         	
         	StringBuilder text = new StringBuilder();
         	try {
@@ -263,7 +251,7 @@ public class BabyTracker extends Activity {
         	} catch (IOException e) {
         			return;
         		}
-        	PodaciBeba.setText(text.toString());
+        	podaciBeba.setText(text.toString());
         }
     }
     

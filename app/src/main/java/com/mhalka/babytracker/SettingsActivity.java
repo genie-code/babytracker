@@ -115,9 +115,11 @@ public class SettingsActivity extends Activity {
                 
         // Namjesti ActionBar
     	ActionBar actionBar = getActionBar();
-    	actionBar.setDisplayShowHomeEnabled(false);
-    	actionBar.setDisplayHomeAsUpEnabled(true);
-    	actionBar.setTitle(R.string.meni_podesavanja);
+        if (actionBar != null) {
+            actionBar.setDisplayShowHomeEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.meni_podesavanja);
+        }
     }
 	
 	@Override
@@ -159,7 +161,7 @@ public class SettingsActivity extends Activity {
         editor.putInt(GODINA, DatumPocetkaPracenja.getYear());
         
         // Zapisi preference.
-        editor.commit();
+        editor.apply();
         
         // Otvori novi Activity shodno odabiru vrste pracenja.
         Boolean pracenjeTrudnoce = settings.getBoolean(TRUDNOCA, true);
