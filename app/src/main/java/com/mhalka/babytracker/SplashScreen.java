@@ -10,13 +10,13 @@ import android.view.MotionEvent;
 public class SplashScreen extends Activity {
 
     // Namjesti konstante za preference.
-    public static final String PREFS_NAME = "BabyTrackerPrefs";
-    public static final String FIRSTRUN = "PrvoPokretanje";
-    public static final String TRUDNOCA = "PracenjeTrudnoce";
+    private static final String PREFS_NAME = "BabyTrackerPrefs";
+    private static final String FIRSTRUN = "PrvoPokretanje";
+    private static final String TRUDNOCA = "PracenjeTrudnoce";
 
     // Class variables set for SplashScreen
-    protected boolean _active = true;
-    protected int _splashTime = 3000;
+    private boolean _active = true;
+    private final int _splashTime = 3000;
 
     /**
      * Called when the activity is first created.

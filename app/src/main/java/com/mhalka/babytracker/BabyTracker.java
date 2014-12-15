@@ -30,12 +30,12 @@ import java.util.GregorianCalendar;
 public class BabyTracker extends Activity {
 
     // Namjesti konstante za preference.
-    public static final String PREFS_NAME = "BabyTrackerPrefs";
-    public static final String NOTIFIKACIJA = "Notifikacija";
-    public static final String DAN = "DanPocetkaPracenja";
-    public static final String MJESEC = "MjesecPocetkaPracenja";
-    public static final String GODINA = "GodinaPocetkaPracenja";
-    public static final String MJESECI = "TrenutnaStarostBebe";
+    private static final String PREFS_NAME = "BabyTrackerPrefs";
+    private static final String NOTIFIKACIJA = "Notifikacija";
+    private static final String DAN = "DanPocetkaPracenja";
+    private static final String MJESEC = "MjesecPocetkaPracenja";
+    private static final String GODINA = "GodinaPocetkaPracenja";
+    private static final String MJESECI = "TrenutnaStarostBebe";
 
     /**
      * Called when the activity is first created.

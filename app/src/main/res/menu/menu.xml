@@ -4,15 +4,15 @@
         android:id="@+id/podesavanja"
         android:icon="@android:drawable/ic_menu_preferences"
         android:showAsAction="never"
-        android:title="@string/meni_podesavanja"></item>
+        android:title="@string/meni_podesavanja" />
     <item
         android:id="@+id/rateapp"
         android:icon="@android:drawable/star_off"
         android:showAsAction="never"
-        android:title="@string/meni_rateapp"></item>
+        android:title="@string/meni_rateapp" />
     <item
         android:id="@+id/about"
         android:icon="@android:drawable/ic_menu_info_details"
         android:showAsAction="never"
-        android:title="@string/meni_about"></item>
+        android:title="@string/meni_about" />
 </menu>

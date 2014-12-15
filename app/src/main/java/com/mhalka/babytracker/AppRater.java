@@ -9,11 +9,11 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.widget.Toast;
 
-public class AppRater {
-    public static final String PREFS_NAME = "BabyTrackerPrefs";
-    public static final String DONT_SHOW_AGAIN = "DontShowAgain";
-    public static final String LAUNCH_COUNT = "LaunchCount";
-    public static final String FIRST_LAUNCH_DATE = "FirstLaunchDate";
+class AppRater {
+    private static final String PREFS_NAME = "BabyTrackerPrefs";
+    private static final String DONT_SHOW_AGAIN = "DontShowAgain";
+    private static final String LAUNCH_COUNT = "LaunchCount";
+    private static final String FIRST_LAUNCH_DATE = "FirstLaunchDate";
 
     private final static int DAYS_UNTIL_PROMPT = 10;
     private final static int LAUNCHES_UNTIL_PROMPT = 5;
@@ -48,7 +48,7 @@ public class AppRater {
         editor.apply();
     }
 
-    public static void showRateDialog(final Context mContext, final SharedPreferences.Editor editor) {
+    private static void showRateDialog(final Context mContext, final SharedPreferences.Editor editor) {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
         dialog.setTitle(mContext.getString(R.string.meni_rateapp));
         dialog.setMessage(mContext.getString(R.string.rateapp_dialog_msg));
@@ -88,9 +88,9 @@ public class AppRater {
     private static boolean tryStartActivity(Intent aIntent, Context mContext) {
         try {
             mContext.startActivity(aIntent);
-            return true;
-        } catch (ActivityNotFoundException e) {
             return false;
+        } catch (ActivityNotFoundException e) {
+            return true;
         }
     }
 
@@ -98,10 +98,10 @@ public class AppRater {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         // Probaj Google Play
         intent.setData(Uri.parse("market://details?id=com.mhalka.babytracker"));
-        if (!tryStartActivity(intent, mContext)) {
+        if (tryStartActivity(intent, mContext)) {
             // Izgleda da Google Play nije instaliran, probaj web browser
             intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.mhalka.babytracker"));
-            if (!tryStartActivity(intent, mContext)) {
+            if (tryStartActivity(intent, mContext)) {
                 // Ako nista od prethodnog ne upali informisi korisnika o tome
                 Toast.makeText(mContext, mContext.getString(R.string.no_google_play), Toast.LENGTH_SHORT).show();
             }

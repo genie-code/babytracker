@@ -15,18 +15,18 @@ import java.util.GregorianCalendar;
 public class AlarmReceiver extends BroadcastReceiver {
 
     // Namjesti konstante za preference.
-    public static final String PREFS_NAME = "BabyTrackerPrefs";
-    public static final String TRUDNOCA = "PracenjeTrudnoce";
-    public static final String NOTIFIKACIJA = "Notifikacija";
-    public static final String DAN = "DanPocetkaPracenja";
-    public static final String MJESEC = "MjesecPocetkaPracenja";
-    public static final String GODINA = "GodinaPocetkaPracenja";
-    public static final String SEDMICA = "TrenutnaSedmicaTrudnoce";
-    public static final String MJESECI = "TrenutnaStarostBebe";
-    public static final String RODJENDAN = "BebinPrviRodjendan";
+    private static final String PREFS_NAME = "BabyTrackerPrefs";
+    private static final String TRUDNOCA = "PracenjeTrudnoce";
+    private static final String NOTIFIKACIJA = "Notifikacija";
+    private static final String DAN = "DanPocetkaPracenja";
+    private static final String MJESEC = "MjesecPocetkaPracenja";
+    private static final String GODINA = "GodinaPocetkaPracenja";
+    private static final String SEDMICA = "TrenutnaSedmicaTrudnoce";
+    private static final String MJESECI = "TrenutnaStarostBebe";
+    private static final String RODJENDAN = "BebinPrviRodjendan";
 
     // Konstanta za notifikaciju.
-    public static final int NOTIFIKACIJA_ID = 0;
+    private static final int NOTIFIKACIJA_ID = 0;
 
     private String ScrollingText;
     private String NotificationText;
@@ -117,7 +117,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @SuppressLint("NewApi")
     @SuppressWarnings("deprecation")
-    public void startNotifikaciju(Context context) {
+    void startNotifikaciju(Context context) {
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
                 new Intent(context, SplashScreen.class), PendingIntent.FLAG_CANCEL_CURRENT);

@@ -20,13 +20,13 @@ import android.widget.TextView;
 public class SettingsActivity extends Activity {
 
     // Namjesti konstante za preference.
-    public static final String PREFS_NAME = "BabyTrackerPrefs";
-    public static final String FIRSTRUN = "PrvoPokretanje";
-    public static final String TRUDNOCA = "PracenjeTrudnoce";
-    public static final String NOTIFIKACIJA = "Notifikacija";
-    public static final String DAN = "DanPocetkaPracenja";
-    public static final String MJESEC = "MjesecPocetkaPracenja";
-    public static final String GODINA = "GodinaPocetkaPracenja";
+    private static final String PREFS_NAME = "BabyTrackerPrefs";
+    private static final String FIRSTRUN = "PrvoPokretanje";
+    private static final String TRUDNOCA = "PracenjeTrudnoce";
+    private static final String NOTIFIKACIJA = "Notifikacija";
+    private static final String DAN = "DanPocetkaPracenja";
+    private static final String MJESEC = "MjesecPocetkaPracenja";
+    private static final String GODINA = "GodinaPocetkaPracenja";
 
     // Setiraj varijable za elemente forme.
     private RadioButton PracenjeTrudnoce;

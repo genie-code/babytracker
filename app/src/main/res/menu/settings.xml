@@ -4,5 +4,5 @@
         android:id="@+id/spasi"
         android:icon="@drawable/ic_cab_done_mtrl_alpha"
         android:showAsAction="always|withText"
-        android:title="@string/save_changes"></item>
+        android:title="@string/save_changes" />
 </menu>
