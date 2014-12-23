@@ -37,6 +37,8 @@ public class BabyTracker extends Activity {
     private static final String GODINA = "GodinaPocetkaPracenja";
     private static final String MJESECI = "TrenutnaStarostBebe";
 
+    private String shareVrijeme;
+
     /**
      * Called when the activity is first created.
      */
@@ -182,7 +184,7 @@ public class BabyTracker extends Activity {
             // Namjesti ActionBar
             ActionBar actionBar = getActionBar();
             if (actionBar != null) {
-                actionBar.setDisplayShowHomeEnabled(true);
+                actionBar.setDisplayShowHomeEnabled(false);
                 actionBar.setDisplayShowTitleEnabled(false);
                 actionBar.setDisplayShowCustomEnabled(true);
 
@@ -196,6 +198,8 @@ public class BabyTracker extends Activity {
                 actionBarSubtitle.setVisibility(View.GONE);
 
                 actionBar.setCustomView(actionBarView);
+
+                shareVrijeme = actionBarTitle.getText().toString();
             }
 
             // Setiraj array sa resource ID-jevima za slike.
@@ -268,6 +272,9 @@ public class BabyTracker extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Opcije menija.
         switch (item.getItemId()) {
+            case R.id.share:
+                podijeliStanje();
+                return true;
             case R.id.podesavanja:
                 Intent podesavanja = new Intent(this, SettingsActivity.class);
                 startActivityForResult(podesavanja, 0);
@@ -283,5 +290,22 @@ public class BabyTracker extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void podijeliStanje() {
+        TextView introPodaciPlod = (TextView) findViewById(R.id.txtIntroPodaciPlod);
+        TextView podaciPlod = (TextView) findViewById(R.id.txtPodaciPlod);
+
+        Intent sharingIntent = new Intent();
+        sharingIntent.setAction(Intent.ACTION_SEND);
+        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareVrijeme);
+        String shareBody = introPodaciPlod.getText().toString().trim() + "\n\n" + podaciPlod.getText().toString().trim();
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+        /**
+         * Koristi text/html MIME kako bi se izbjegao pokusaj dijeljenja na Facebook-u
+         * zbog bug-a opisanog ovdje: http://stackoverflow.com/questions/7545254/android-and-facebook-share-intent
+         */
+        sharingIntent.setType("text/html");
+        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share)));
     }
 }

@@ -8,9 +8,11 @@
     <string name="birthdate">Datum rođenja bebe</string>
     <string name="notification">Uključi notifikaciju</string>
     <string name="save_changes">Sačuvaj</string>
+    <string name="meni_share">Podijeli</string>
     <string name="meni_podesavanja">Podešavanja</string>
     <string name="meni_rateapp">Ocijeni aplikaciju</string>
     <string name="meni_about">O programu</string>
+    <string name="share">Podijeli putem&#8230;</string>
     <string name="verzija">Verzija</string>
     <string name="verzija_nepoznata">Nepoznata verzija!</string>
     <string name="opis_aplikacije">Aplikacija za praćenje razvoja bebe od začeća, pa do navršene jedne godine života.</string>

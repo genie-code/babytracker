@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/share"
+        android:icon="@drawable/ic_menu_share_holo_dark"
+        android:showAsAction="ifRoom"
+        android:title="@string/meni_share" />
+    <item
         android:id="@+id/podesavanja"
         android:icon="@android:drawable/ic_menu_preferences"
         android:showAsAction="never"

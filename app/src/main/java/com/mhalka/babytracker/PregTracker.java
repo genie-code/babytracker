@@ -37,6 +37,7 @@ public class PregTracker extends Activity {
     private static final String GODINA = "GodinaPocetkaPracenja";
     private static final String SEDMICA = "TrenutnaSedmicaTrudnoce";
 
+    private String shareVrijeme;
     private String NovoPracenje;
     private String DugmeYes;
     private String DugmeNo;
@@ -230,21 +231,25 @@ public class PregTracker extends Activity {
 
             // Namjesti ActionBar
             ActionBar actionBar = getActionBar();
-            actionBar.setDisplayShowHomeEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayShowCustomEnabled(true);
+            if (actionBar != null) {
+                actionBar.setDisplayShowHomeEnabled(false);
+                actionBar.setDisplayShowTitleEnabled(false);
+                actionBar.setDisplayShowCustomEnabled(true);
 
-            LayoutInflater inflater = LayoutInflater.from(this);
-            View actionBarView = inflater.inflate(R.layout.actionbar, pregLayout, false);
+                LayoutInflater inflater = LayoutInflater.from(this);
+                View actionBarView = inflater.inflate(R.layout.actionbar, pregLayout, false);
 
-            TextView actionBarTitle = (TextView) actionBarView.findViewById(R.id.abTitle);
-            TextView actionBarSubtitle = (TextView) actionBarView.findViewById(R.id.abSubtitle);
+                TextView actionBarTitle = (TextView) actionBarView.findViewById(R.id.abTitle);
+                TextView actionBarSubtitle = (TextView) actionBarView.findViewById(R.id.abSubtitle);
 
-            actionBarTitle.setText(vasaTrudnoca + " " + weeks + "." + " " + sedmica);
-            actionBarSubtitle.setText("[ " + punaSedmica + " " + exactweeks
-                    + " i " + puniDan + " " + days + " ]");
+                actionBarTitle.setText(vasaTrudnoca + " " + weeks + "." + " " + sedmica);
+                actionBarSubtitle.setText("[ " + punaSedmica + " " + exactweeks
+                        + " i " + puniDan + " " + days + " ]");
 
-            actionBar.setCustomView(actionBarView);
+                actionBar.setCustomView(actionBarView);
+
+                shareVrijeme = actionBarTitle.getText().toString();
+            }
 
             // Setiraj array sa resource ID-jevima za slike.
             int slike[] = {R.drawable.sedmica01, R.drawable.sedmica02, R.drawable.sedmica03,
@@ -334,6 +339,9 @@ public class PregTracker extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Opcije menija.
         switch (item.getItemId()) {
+            case R.id.share:
+                podijeliStanje();
+                return true;
             case R.id.podesavanja:
                 Intent podesavanja = new Intent(this, SettingsActivity.class);
                 startActivityForResult(podesavanja, 0);
@@ -349,5 +357,22 @@ public class PregTracker extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void podijeliStanje() {
+        TextView introPodaciPlod = (TextView) findViewById(R.id.txtIntroPodaciPlod);
+        TextView podaciPlod = (TextView) findViewById(R.id.txtPodaciPlod);
+
+        Intent sharingIntent = new Intent();
+        sharingIntent.setAction(Intent.ACTION_SEND);
+        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareVrijeme);
+        String shareBody = introPodaciPlod.getText().toString().trim() + "\n\n" + podaciPlod.getText().toString().trim();
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+        /**
+         * Koristi text/html MIME kako bi se izbjegao pokusaj dijeljenja na Facebook-u
+         * zbog bug-a opisanog ovdje: http://stackoverflow.com/questions/7545254/android-and-facebook-share-intent
+         */
+        sharingIntent.setType("text/html");
+        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share)));
     }
 }
