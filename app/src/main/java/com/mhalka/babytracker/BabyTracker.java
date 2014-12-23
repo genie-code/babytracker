@@ -293,13 +293,13 @@ public class BabyTracker extends Activity {
     }
 
     private void podijeliStanje() {
-        TextView introPodaciPlod = (TextView) findViewById(R.id.txtIntroPodaciPlod);
-        TextView podaciPlod = (TextView) findViewById(R.id.txtPodaciPlod);
+        TextView introPodaciBeba = (TextView) findViewById(R.id.txtIntroPodaciBeba);
+        TextView podaciBeba = (TextView) findViewById(R.id.txtPodaciBeba);
 
         Intent sharingIntent = new Intent();
         sharingIntent.setAction(Intent.ACTION_SEND);
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareVrijeme);
-        String shareBody = introPodaciPlod.getText().toString().trim() + "\n\n" + podaciPlod.getText().toString().trim();
+        String shareBody = introPodaciBeba.getText().toString().trim() + "\n\n" + podaciBeba.getText().toString().trim();
         sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
         /**
          * Koristi text/html MIME kako bi se izbjegao pokusaj dijeljenja na Facebook-u
