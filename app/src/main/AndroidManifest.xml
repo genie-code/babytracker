@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mhalka.babytracker"
     android:installLocation="auto"
-    android:versionCode="32"
+    android:versionCode="33"
     android:versionName="1.9.6">
 
     <supports-screens
@@ -20,7 +20,7 @@
         android:theme="@style/Theme.ColoredActionBar">
         <activity
             android:name=".SplashScreen"
-            android:screenOrientation="portrait"
+            android:screenOrientation="sensorPortrait"
             android:theme="@style/Theme.NoBackground">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,16 +29,16 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="sensorPortrait"/>
         <activity
             android:name=".PregTracker"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="sensorPortrait"/>
         <activity
             android:name=".BabyTracker"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="sensorPortrait"/>
         <activity
             android:name=".About"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="sensorPortrait"/>
 
         <receiver android:name=".AlarmReceiver" />
         <receiver android:name=".StartAtBootReceiver">
