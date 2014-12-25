@@ -10,7 +10,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,8 +26,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class BabyTracker extends Activity {
 
@@ -296,16 +300,42 @@ public class BabyTracker extends Activity {
         TextView introPodaciBeba = (TextView) findViewById(R.id.txtIntroPodaciBeba);
         TextView podaciBeba = (TextView) findViewById(R.id.txtPodaciBeba);
 
-        Intent sharingIntent = new Intent();
-        sharingIntent.setAction(Intent.ACTION_SEND);
-        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareVrijeme);
-        String shareBody = introPodaciBeba.getText().toString().trim() + "\n\n" + podaciBeba.getText().toString().trim();
-        sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-        /**
-         * Koristi text/html MIME kako bi se izbjegao pokusaj dijeljenja na Facebook-u
-         * zbog bug-a opisanog ovdje: http://stackoverflow.com/questions/7545254/android-and-facebook-share-intent
+        // Dobavi raspolozive share intente
+        List<Intent> targets = new ArrayList<Intent>();
+        Intent template = new Intent(Intent.ACTION_SEND);
+        template.setType("text/plain");
+        List<ResolveInfo> candidates = this.getPackageManager().
+                queryIntentActivities(template, 0);
+
+        /** Od svih raspolozivih share opcija ostavi samo nekoliko:
+         *
+         * Ukloni Facebook zbog nemogucnosti dijeljenja obicnog teksta (problem opisan
+         * na: http://stackoverflow.com/questions/7545254/android-and-facebook-share-intent)
+         *
+         * Ostale rasplozive share intente filtiraj i ostavi samo mail klijente, G+
+         * i poznatije IM aplikacije.
          */
-        sharingIntent.setType("text/html");
-        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share)));
+        for (ResolveInfo candidate : candidates) {
+            String packageName = candidate.activityInfo.packageName;
+            if (((!packageName.equals("com.facebook.katana")) &&
+                    (candidate.activityInfo.name.toLowerCase().contains("mail"))) ||
+                    (packageName.equals("com.google.android.apps.plus")) ||
+                    (packageName.equals("com.google.android.talk")) ||
+                    (packageName.equals("com.facebook.orca")) ||
+                    (packageName.equals("com.viber.voip")) ||
+                    (packageName.equals("com.whatsapp")) ||
+                    (packageName.equals("com.skype.raider"))) {
+                Intent target = new Intent(Intent.ACTION_SEND);
+                target.setType("text/plain");
+                target.putExtra(Intent.EXTRA_SUBJECT, shareVrijeme);
+                String shareBody = introPodaciBeba.getText().toString().trim() + "\n\n" + podaciBeba.getText().toString().trim();
+                target.putExtra(Intent.EXTRA_TEXT, shareBody);
+                target.setPackage(packageName);
+                targets.add(target);
+            }
+        }
+        Intent chooser = Intent.createChooser(targets.remove(0), getString(R.string.share));
+        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targets.toArray(new Parcelable[targets.size()]));
+        startActivity(chooser);
     }
 }
