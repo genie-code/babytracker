@@ -66,20 +66,4 @@
         android:text="@string/info_preuzete_website"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/txtMhalkaMember"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autoLink="all"
-        android:text="@string/mhalka_member"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/txtMhalkaMoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/mhalka_moto"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
 </LinearLayout>
