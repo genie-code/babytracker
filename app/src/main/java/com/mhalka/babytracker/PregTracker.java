@@ -2,7 +2,6 @@ package com.mhalka.babytracker;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -17,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,7 +31,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class PregTracker extends Activity {
+public class PregTracker extends SwipeActivity {
 
     // Namjesti konstante za preference.
     private static final String PREFS_NAME = "BabyTrackerPrefs";
@@ -404,5 +404,21 @@ public class PregTracker extends Activity {
         Intent chooser = Intent.createChooser(targets.remove(0), getString(R.string.share));
         chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targets.toArray(new Parcelable[targets.size()]));
         startActivity(chooser);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev){
+        super.dispatchTouchEvent(ev);
+        return gestureDetector.onTouchEvent(ev);
+    }
+
+    @Override
+    protected void previous() {
+        System.out.println("Detektovan prosli!");
+    }
+
+    @Override
+    protected void next() {
+        System.out.println("Detektovan naredni!");
     }
 }
