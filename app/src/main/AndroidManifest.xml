@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mhalka.babytracker"
     android:installLocation="auto"
-    android:versionCode="37"
-    android:versionName="1.9.9">
+    android:versionCode="38"
+    android:versionName="1.10.0">
 
     <supports-screens
         android:smallScreens="false"
@@ -17,7 +18,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ColoredActionBar">
+        android:theme="@style/Theme.ColoredActionBar"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".SplashScreen"
             android:screenOrientation="sensorPortrait"
