@@ -1,13 +1,15 @@
 package com.mhalka.babytracker;
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -115,7 +117,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
     }
 
-    @SuppressLint("NewApi")
     @SuppressWarnings("deprecation")
     void startNotifikaciju(Context context) {
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -123,23 +124,58 @@ public class AlarmReceiver extends BroadcastReceiver {
                 new Intent(context, SplashScreen.class), PendingIntent.FLAG_CANCEL_CURRENT);
 
         Notification notification;
+        NotificationCompat.Builder builder;
+        String id = context.getPackageName();
+        String title = context.getString(R.string.app_name);
 
-        Notification.Builder builder = new Notification.Builder(context);
-        builder.setContentIntent(contentIntent)
-                .setSmallIcon(R.drawable.ic_launcher_bw)
-                .setTicker(ScrollingText)
-                .setWhen(System.currentTimeMillis())
-                .setAutoCancel(true)
-                .setOnlyAlertOnce(true)
-                .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setContentTitle(context.getText(R.string.app_name))
-                .setContentText(NotificationText);
-        if (android.os.Build.VERSION.SDK_INT >= 16) {
-            notification = builder.build();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            assert mNotificationManager != null;
+            NotificationChannel mChannel = mNotificationManager.getNotificationChannel(id);
+            if (mChannel == null) {
+                mChannel = new NotificationChannel(id, title, importance);
+                mChannel.enableVibration(true);
+                mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                mNotificationManager.createNotificationChannel(mChannel);
+            }
+            builder = new NotificationCompat.Builder(context, id);
+            builder.setContentIntent(contentIntent)
+                    .setSmallIcon(R.drawable.ic_launcher_bw)
+                    .setTicker(ScrollingText)
+                    .setWhen(System.currentTimeMillis())
+                    .setAutoCancel(true)
+                    .setOnlyAlertOnce(true)
+                    .setDefaults(Notification.DEFAULT_VIBRATE)
+                    .setContentTitle(context.getText(R.string.app_name))
+                    .setContentText(NotificationText);
         } else {
-            notification = builder.getNotification();
+            builder = new NotificationCompat.Builder(context, id);
+            if (android.os.Build.VERSION.SDK_INT >= 16) {
+                builder.setContentIntent(contentIntent)
+                        .setSmallIcon(R.drawable.ic_launcher_bw)
+                        .setTicker(ScrollingText)
+                        .setWhen(System.currentTimeMillis())
+                        .setAutoCancel(true)
+                        .setOnlyAlertOnce(true)
+                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                        .setContentTitle(context.getText(R.string.app_name))
+                        .setContentText(NotificationText)
+                        .setPriority(Notification.PRIORITY_HIGH);
+            } else {
+                builder.setContentIntent(contentIntent)
+                        .setSmallIcon(R.drawable.ic_launcher_bw)
+                        .setTicker(ScrollingText)
+                        .setWhen(System.currentTimeMillis())
+                        .setAutoCancel(true)
+                        .setOnlyAlertOnce(true)
+                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                        .setContentTitle(context.getText(R.string.app_name))
+                        .setContentText(NotificationText);
+            }
         }
 
+        notification = builder.build();
+        assert mNotificationManager != null;
         mNotificationManager.notify(NOTIFIKACIJA_ID, notification);
     }
 }

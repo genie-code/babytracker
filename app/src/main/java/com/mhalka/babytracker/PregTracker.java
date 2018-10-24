@@ -230,7 +230,7 @@ public class PregTracker extends Activity {
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
                         intent, PendingIntent.FLAG_CANCEL_CURRENT);
                 am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                        (24 * 60 * 60 * 1000), pendingIntent);
+                        24 * 60 * 60 * 1000, pendingIntent);
             }
 
             // Namjesti ActionBar

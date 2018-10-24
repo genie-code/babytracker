@@ -1,5 +1,6 @@
 package com.mhalka.babytracker;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -10,6 +11,7 @@ import java.util.Calendar;
 
 public class StartAtBootReceiver extends BroadcastReceiver {
 
+    @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override
     public void onReceive(Context context, Intent intent) {
         // Namjesti vrijeme za alarm i okidanje notifikacije
@@ -23,7 +25,7 @@ public class StartAtBootReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
                 receiver, PendingIntent.FLAG_CANCEL_CURRENT);
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                (24 * 60 * 60 * 1000), pendingIntent);
+                24 * 60 * 60 * 1000, pendingIntent);
     }
 
 }
