@@ -21,9 +21,8 @@
         android:theme="@style/Theme.ColoredActionBar"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".SplashScreen"
-            android:screenOrientation="sensorPortrait"
-            android:theme="@style/Theme.NoBackground">
+            android:name=".LoadActivity"
+            android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

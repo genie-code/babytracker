@@ -121,7 +121,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     void startNotifikaciju(Context context) {
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context, SplashScreen.class), PendingIntent.FLAG_CANCEL_CURRENT);
+                new Intent(context, LoadActivity.class), PendingIntent.FLAG_CANCEL_CURRENT);
 
         Notification notification;
         NotificationCompat.Builder builder;
