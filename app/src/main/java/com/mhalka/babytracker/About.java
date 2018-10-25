@@ -21,7 +21,7 @@ public class About extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
 
-        TextView verzijaAplikacije = (TextView) findViewById(R.id.txtVerzija);
+        TextView verzijaAplikacije = findViewById(R.id.txtVerzija);
         String verzija = this.getString(R.string.verzija);
         String verzijaNepoznata = this.getString(R.string.verzija_nepoznata);
 

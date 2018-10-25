@@ -6,13 +6,17 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,13 +44,14 @@ public class BabyTracker extends Activity {
     private static final String MJESEC = "MjesecPocetkaPracenja";
     private static final String GODINA = "GodinaPocetkaPracenja";
     private static final String MJESECI = "TrenutnaStarostBebe";
+    private static final String BATTERY_OPTIMIZATIONS = "BatteryOptimizations";
 
     private String shareVrijeme;
 
     /**
      * Called when the activity is first created.
      */
-    @SuppressLint("NewApi")
+    @SuppressLint({"NewApi", "SetTextI18n"})
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -57,10 +62,10 @@ public class BabyTracker extends Activity {
         AppRater.appLaunched(this);
 
         // Povezi prethodno setirane varijable za elemente forme sa njihovim vrijednostima.
-        LinearLayout bebaLayout = (LinearLayout) findViewById(R.id.llBabyTracker);
-        TextView podaciBeba = (TextView) findViewById(R.id.txtPodaciBeba);
-        TextView introPodaciBeba = (TextView) findViewById(R.id.txtIntroPodaciBeba);
-        ImageView slikaBeba = (ImageView) findViewById(R.id.ivSlikaBeba);
+        LinearLayout bebaLayout = findViewById(R.id.llBabyTracker);
+        TextView podaciBeba = findViewById(R.id.txtPodaciBeba);
+        TextView introPodaciBeba = findViewById(R.id.txtIntroPodaciBeba);
+        ImageView slikaBeba = findViewById(R.id.ivSlikaBeba);
         String vasaBeba = this.getString(R.string.vasa_beba);
         String mjesec = this.getString(R.string.mjesec);
         String nerealnaVrijednost = this.getString(R.string.nerealna_vrijednost);
@@ -68,7 +73,7 @@ public class BabyTracker extends Activity {
         String prekoGodine = this.getString(R.string.vise_od_godine);
 
         // Procitaj preference
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        final SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         Boolean NotifikacijaUkljucena = settings.getBoolean(NOTIFIKACIJA, true);
 
         // Dobavi datum pocetka pracenja i danasnji datum.
@@ -85,13 +90,13 @@ public class BabyTracker extends Activity {
 
         int months = (int) monthsBetween;
 
-        /** Ponovo dobavi datum pocetka pracenja i danasnji datum, jer, iz nekog razloga, donji if
-         *  statement ne moze da koristi prethodno dobavljene vrijednosti. */
+        /* Ponovo dobavi datum pocetka pracenja i danasnji datum, jer, iz nekog razloga, donji if
+           statement ne moze da koristi prethodno dobavljene vrijednosti. */
         Calendar pocetak = new GregorianCalendar(settings.getInt(GODINA, 1920), settings.getInt(MJESEC, 0), settings.getInt(DAN, 1));
         Calendar danas = Calendar.getInstance();
 
-        /** Provjeri da li je izracunata vrijednost 12 i da li datum rodjenja (mjesec i dan) odgovaraju
-         * danasnjem datumu i shodno tome pokazi alert dijalog da je beba napunila godinu dana. */
+        /* Provjeri da li je izracunata vrijednost 12 i da li datum rodjenja (mjesec i dan) odgovaraju
+          danasnjem datumu i shodno tome pokazi alert dijalog da je beba napunila godinu dana. */
         if ((months == 12) && ((pocetak.get(Calendar.YEAR)) < (danas.get(Calendar.YEAR))) &&
                 ((pocetak.get(Calendar.MONTH)) == (danas.get(Calendar.MONTH))) &&
                 ((pocetak.get(Calendar.DAY_OF_MONTH)) == (danas.get(Calendar.DAY_OF_MONTH)))) {
@@ -130,8 +135,8 @@ public class BabyTracker extends Activity {
 
             bebaLayout.setVisibility(View.INVISIBLE);
 
-            /** Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
-             *  pokazi alert dijalog da je beba napunila godinu dana. */
+            /* Provjeri da li datum rodjenja (mjesec i dan) odgovaraju danasnjem datumu i shodno tome
+               pokazi alert dijalog da je beba napunila godinu dana. */
             if (((pocetak.get(Calendar.YEAR)) < (danas.get(Calendar.YEAR))) &&
                     ((pocetak.get(Calendar.MONTH)) == (danas.get(Calendar.MONTH))) &&
                     ((pocetak.get(Calendar.DAY_OF_MONTH)) == (danas.get(Calendar.DAY_OF_MONTH)))) {
@@ -145,8 +150,8 @@ public class BabyTracker extends Activity {
                 alertbox.show();
             } else {
 
-                /** Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje i
-                 *  vrati korisnika na settings activity. */
+                /* Ako izracunata vrijednost premasuje dozvoljenu granicu izbaci upozorenje i
+                   vrati korisnika na settings activity. */
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
                 alertbox.setMessage(prekoGodine);
                 alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
@@ -195,8 +200,8 @@ public class BabyTracker extends Activity {
                 LayoutInflater inflater = LayoutInflater.from(this);
                 View actionBarView = inflater.inflate(R.layout.actionbar, bebaLayout, false);
 
-                TextView actionBarTitle = (TextView) actionBarView.findViewById(R.id.abTitle);
-                TextView actionBarSubtitle = (TextView) actionBarView.findViewById(R.id.abSubtitle);
+                TextView actionBarTitle = actionBarView.findViewById(R.id.abTitle);
+                TextView actionBarSubtitle = actionBarView.findViewById(R.id.abSubtitle);
 
                 actionBarTitle.setText(vasaBeba + " " + months + "." + " " + mjesec);
                 actionBarSubtitle.setVisibility(View.GONE);
@@ -226,8 +231,8 @@ public class BabyTracker extends Activity {
             // Setiraj resource ID shodno izracunatom mjesecu u kojem se beba trenutno nalazi.
             int resIdPodaci = podaci[months - 1];
 
-            /** Dobavi odgovarajuci text file, parsiraj ga i sa njegovim sadrzajem populariziraj
-             *  TextView u kojem treba da se nalaze podaci. */
+            /* Dobavi odgovarajuci text file, parsiraj ga i sa njegovim sadrzajem populariziraj
+               TextView u kojem treba da se nalaze podaci. */
             InputStream inputStream = this.getResources().openRawResource(resIdPodaci);
             InputStreamReader inputreader = new InputStreamReader(inputStream);
             BufferedReader buffreader = new BufferedReader(inputreader);
@@ -263,6 +268,40 @@ public class BabyTracker extends Activity {
             }
             podaciBeba.setText(text.toString());
         }
+
+        // Provjeri da li aplikacija podlijeze optimizaciji baterije
+        Boolean batteryOptimizations = settings.getBoolean(BATTERY_OPTIMIZATIONS, false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !batteryOptimizations) {
+            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+
+            String packageName = getPackageName();
+
+            if(!pm.isIgnoringBatteryOptimizations(packageName)) {
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.optimizacija_baterije)
+                        .setMessage(R.string.optimizacija_baterije_poruka)
+                        .setCancelable(false)
+                        .setNegativeButton(R.string.cancel, null)
+                        .setNegativeButton(R.string.ask_no_more, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                settings.edit().putBoolean(BATTERY_OPTIMIZATIONS, true).apply();
+                            }
+                        })
+                        .setPositiveButton(R.string.open_settings, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                try {
+                                    Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                                    startActivity(intent);
+                                } catch (ActivityNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                        .show();
+            }
+        }
     }
 
     @Override
@@ -297,23 +336,23 @@ public class BabyTracker extends Activity {
     }
 
     private void podijeliStanje() {
-        TextView introPodaciBeba = (TextView) findViewById(R.id.txtIntroPodaciBeba);
-        TextView podaciBeba = (TextView) findViewById(R.id.txtPodaciBeba);
+        TextView introPodaciBeba = findViewById(R.id.txtIntroPodaciBeba);
+        TextView podaciBeba = findViewById(R.id.txtPodaciBeba);
 
         // Dobavi raspolozive share intente
-        List<Intent> targets = new ArrayList<Intent>();
+        List<Intent> targets = new ArrayList<>();
         Intent template = new Intent(Intent.ACTION_SEND);
         template.setType("text/plain");
         List<ResolveInfo> candidates = this.getPackageManager().
                 queryIntentActivities(template, 0);
 
-        /** Od svih raspolozivih share opcija ostavi samo nekoliko:
-         *
-         * Ukloni Facebook zbog nemogucnosti dijeljenja obicnog teksta (problem opisan
-         * na: http://stackoverflow.com/questions/7545254/android-and-facebook-share-intent)
-         *
-         * Ostale rasplozive share intente filtiraj i ostavi samo mail klijente, G+
-         * i poznatije IM aplikacije.
+        /* Od svih raspolozivih share opcija ostavi samo nekoliko:
+
+          Ukloni Facebook zbog nemogucnosti dijeljenja obicnog teksta (problem opisan
+          na: http://stackoverflow.com/questions/7545254/android-and-facebook-share-intent)
+
+          Ostale rasplozive share intente filtiraj i ostavi samo mail klijente, G+
+          i poznatije IM aplikacije.
          */
         for (ResolveInfo candidate : candidates) {
             String packageName = candidate.activityInfo.packageName;
@@ -335,7 +374,7 @@ public class BabyTracker extends Activity {
             }
         }
         Intent chooser = Intent.createChooser(targets.remove(0), getString(R.string.share));
-        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targets.toArray(new Parcelable[targets.size()]));
+        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targets.toArray(new Parcelable[0]));
         startActivity(chooser);
     }
 }

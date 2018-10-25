@@ -18,7 +18,7 @@ class AppRater {
     private final static int DAYS_UNTIL_PROMPT = 10;
     private final static int LAUNCHES_UNTIL_PROMPT = 5;
 
-    public static void appLaunched(Context mContext) {
+    static void appLaunched(Context mContext) {
         SharedPreferences prefs = mContext.getSharedPreferences(PREFS_NAME, 0);
         if (prefs.getBoolean(DONT_SHOW_AGAIN, false)) {
             return;
@@ -94,7 +94,7 @@ class AppRater {
         }
     }
 
-    public static void rateApp(Context mContext) {
+    static void rateApp(Context mContext) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         // Probaj Google Play
         intent.setData(Uri.parse("market://details?id=com.mhalka.babytracker"));

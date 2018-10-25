@@ -3,9 +3,16 @@ package com.mhalka.babytracker;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,6 +34,7 @@ public class SettingsActivity extends Activity {
     private static final String DAN = "DanPocetkaPracenja";
     private static final String MJESEC = "MjesecPocetkaPracenja";
     private static final String GODINA = "GodinaPocetkaPracenja";
+    private static final String BATTERY_OPTIMIZATIONS = "BatteryOptimizations";
 
     // Setiraj varijable za elemente forme.
     private RadioButton PracenjeTrudnoce;
@@ -47,16 +55,16 @@ public class SettingsActivity extends Activity {
         setContentView(R.layout.settings);
 
         // Povezi prethodno setirane varijable za elemente forme sa ID-jevima u XML file-u.
-        PracenjeTrudnoce = (RadioButton) findViewById(R.id.rbPracenjeTrudnoce);
-        PracenjeRazvoja = (RadioButton) findViewById(R.id.rbPracenjeRazvoja);
-        TerminPoroda = (TextView) findViewById(R.id.txtTerminPoroda);
-        DatumRodjenja = (TextView) findViewById(R.id.txtDatumRodjenja);
-        DatumPocetkaPracenja = (DatePicker) findViewById(R.id.dpDatumPocetkaPracenja);
-        Notifikacija = (CheckBox) findViewById(R.id.cbNotifikacija);
+        PracenjeTrudnoce = findViewById(R.id.rbPracenjeTrudnoce);
+        PracenjeRazvoja = findViewById(R.id.rbPracenjeRazvoja);
+        TerminPoroda = findViewById(R.id.txtTerminPoroda);
+        DatumRodjenja = findViewById(R.id.txtDatumRodjenja);
+        DatumPocetkaPracenja = findViewById(R.id.dpDatumPocetkaPracenja);
+        Notifikacija = findViewById(R.id.cbNotifikacija);
 
 
         // Procitaj preference
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        final SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 
         // Provjeri da li postoje ranije unesene preference i populariziraj formu sa
         // postojecim vrijednostima.
@@ -121,6 +129,40 @@ public class SettingsActivity extends Activity {
             actionBar.setDisplayShowHomeEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(R.string.meni_podesavanja);
+        }
+
+        // Provjeri da li aplikacija podlijeze optimizaciji baterije
+        Boolean batteryOptimizations = settings.getBoolean(BATTERY_OPTIMIZATIONS, false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !batteryOptimizations) {
+            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+
+            String packageName = getPackageName();
+
+            if(!pm.isIgnoringBatteryOptimizations(packageName)) {
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.optimizacija_baterije)
+                        .setMessage(R.string.optimizacija_baterije_poruka)
+                        .setCancelable(false)
+                        .setNegativeButton(R.string.cancel, null)
+                        .setNegativeButton(R.string.ask_no_more, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                settings.edit().putBoolean(BATTERY_OPTIMIZATIONS, true).apply();
+                            }
+                        })
+                        .setPositiveButton(R.string.open_settings, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                try {
+                                    Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                                    startActivity(intent);
+                                } catch (ActivityNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                        .show();
+            }
         }
     }
 

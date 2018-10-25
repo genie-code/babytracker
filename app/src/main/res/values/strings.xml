@@ -45,4 +45,9 @@ Pellentesque vitae quam neque, aliquam cursus diam. Aliquam blandit orci nec vel
     <string name="rateapp_dialog_rate">Ocijeni</string>
     <string name="rateapp_dialog_remindlater">Kasnije</string>
     <string name="rateapp_dialog_dontshowagain">Ne, hvala</string>
+    <string name="cancel">Odustani</string>
+    <string name="ask_no_more">Ne pitaj više</string>
+    <string name="open_settings">Otvori postavke</string>
+    <string name="optimizacija_baterije">Optimizacija baterije</string>
+    <string name="optimizacija_baterije_poruka">Kako bi notifikacije radile ispravno potrebno je dodati aplikaciju na listu onih za koje se ne primjenjuju optimizacije za potrošnju baterije.</string>
 </resources>
